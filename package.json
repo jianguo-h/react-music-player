@@ -17,6 +17,14 @@
   },
   "homepage": "https://github.com/snow-imprint/react-music-player#readme",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "file-loader": "^1.1.6",
+    "url-loader": "^0.6.2",
     "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   }
 }
