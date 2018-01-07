@@ -1,0 +1,19 @@
+{
+  "name": "react-music-player",
+  "version": "1.0.0",
+  "description": "a React.js project",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snow-imprint/react-music-player.git"
+  },
+  "author": "jianguo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snow-imprint/react-music-player/issues"
+  },
+  "homepage": "https://github.com/snow-imprint/react-music-player#readme"
+}
