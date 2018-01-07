@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/snow-imprint/react-music-player/issues"
   },
-  "homepage": "https://github.com/snow-imprint/react-music-player#readme"
+  "homepage": "https://github.com/snow-imprint/react-music-player#readme",
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
 }
