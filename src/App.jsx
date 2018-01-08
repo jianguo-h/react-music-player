@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import ReactHeader from './pages/header';
 
 class App extends Component {
   render() {
     return (
-      <div>hello react!!!!</div>
+      <div>
+        <ReactHeader></ReactHeader>
+        hello react!!!!
+      </div>
     );
   }
 }
