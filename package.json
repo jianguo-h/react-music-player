@@ -4,7 +4,7 @@
   "description": "a React.js project",
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "set NODE_ENV=development&&node build/dev-server.js"
   },
   "repository": {
     "type": "git",
@@ -16,22 +16,33 @@
     "url": "https://github.com/snow-imprint/react-music-player/issues"
   },
   "homepage": "https://github.com/snow-imprint/react-music-player#readme",
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
   "devDependencies": {
     "autoprefixer": "^7.2.4",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.8",
+    "eventsource-polyfill": "^0.9.6",
     "file-loader": "^1.1.6",
+    "html-webpack-plugin": "^2.30.1",
+    "koa": "^2.4.1",
+    "koa-webpack-middleware": "^1.0.7",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
+    "opn": "^5.1.0",
     "postcss-loader": "^2.0.10",
+    "react-hot-loader": "^3.1.3",
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1"
-  },
-  "dependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
   }
 }
