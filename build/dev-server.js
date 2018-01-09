@@ -2,6 +2,7 @@ const Koa = require('koa');
 const opn = require('opn');
 const webpack = require('webpack');
 const config = require('../config');
+const router = require('../koa/router');
 const webpackDevConfig = require('./webpack.dev.config');
 const { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
 
@@ -22,6 +23,9 @@ const devMiddlewareInstance = devMiddleware(compiler, {
 });
 
 const hotMiddlewareInstance = hotMiddleware(compiler);
+
+// config koa router
+router(app);
 
 // use middleware
 app.use(devMiddlewareInstance);
