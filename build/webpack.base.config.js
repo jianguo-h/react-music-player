@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: {
     app: './src/main.js',
-    vendor: ['react', 'react-dom']
+    vendor: ['react', 'react-dom', 'axios']
   },
   output: {
     filename: 'js/[name].bundle.[chunkHash:8].js',
