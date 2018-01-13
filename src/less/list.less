@@ -1,0 +1,31 @@
+@import (reference) './mixins/index.less';
+
+#content {
+  .list {
+    ul {
+      padding: 0 0.2778rem;
+      li {
+        display: flex;
+        .fontSize(28);
+        padding: 0.5556rem 0.2778rem;
+        border-bottom: 1px solid #ddd;
+        align-items: center;
+        &.active {
+          color: #2ca2f9;
+        }
+        .filename {
+          flex: 1;
+        }
+      }
+    }
+  } 
+  .noSongData {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    p {
+      .fontSize(32);
+    }
+  }
+}
