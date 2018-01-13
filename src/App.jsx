@@ -8,7 +8,6 @@ class App extends Component {
       <div>
         <ReactHeader></ReactHeader>
         <List></List>
-        hello react!!!!
       </div>
     );
   }
