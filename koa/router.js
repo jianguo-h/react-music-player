@@ -6,7 +6,7 @@ const router = new Router();
 module.exports = app => {
   const paths = ['new', 'recommend', 'local'];
   for(const path of paths) {
-    router.get('/api/' + path, async (ctx, next) => {
+    router.post('/api/' + path, async (ctx, next) => {
       ctx.response.status = 200;
       ctx.response.body = {
         // path: route,
