@@ -36,7 +36,40 @@ class Header extends Component {
   }
   // 根据关键字搜索(模糊查询)
   query() {
+    const keyword = this.state.keyword;
+    if(keyword.trim() === '') return;
 
+    this.setState({
+      resultCount: 0,
+      searchTip: '正在搜索...'
+    });
+    window.api.search(keyword).then(res => {
+      console.log('>>> [res] 根据关键字搜索', res);
+      if(res.status === 200 && res.statusText === 'OK') {
+        const { RecordDatas, RecordCount } = res.data.data[0];
+        this.setState({
+          resultList: RecordDatas,
+          resultCount: RecordCount
+        });
+        if(RecordDatas.length <= 0) {
+          this.setState({
+            resultCount: 0,
+            searchTip: '暂无结果...'
+          });
+        }
+      }
+      else {
+        this.setState({
+          searchTip: '搜索出错, 请稍后重试'
+        });
+      }
+    }).catch(err => {
+      console.log('>>> [err] 根据关键字搜索', err);
+      this.setState({
+        resultCount: 0,
+        searchTip: '网络出现错误或服务不可用'
+      });
+    })
   }
   // 点击搜索事件, keyword为关键字
   search(keyword) {
