@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import DropList from '../components/drop-list';
 import '../less/header.less';
 
@@ -63,7 +64,7 @@ class Header extends Component {
           <ul>
             {
               tabs.map((tab, index)  => {
-                return <li key = { index }>{ tab.name }</li>;
+                return <li key = { index }><NavLink to = { tab.path } activeClassName = 'active'>{ tab.name }</NavLink></li>;
               })
             }
           </ul>

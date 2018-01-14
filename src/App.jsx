@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import ReactHeader from './pages/header';
-import List from './pages/list';
+import routes from './routes';
 
 class App extends Component {
   render() {
     return (
       <div>
         <ReactHeader></ReactHeader>
-        <List></List>
+        { routes }
       </div>
     );
   }

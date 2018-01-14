@@ -5,10 +5,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: {
     app: './src/main.js',
-    vendor: ['react', 'react-dom', 'axios', 'antd-mobile']
+    vendor: ['react', 'react-dom', 'react-router-dom', 'axios', 'antd-mobile']
   },
   output: {
-    filename: 'js/[name].bundle.[chunkHash:8].js',
+    filename: 'js/[name].bundle.[hash].js',
     path: path.resolve(__dirname, '../dist')
   },
   module: {
@@ -56,7 +56,6 @@ module.exports = {
     // 提取公共的js
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest'],
-      filename: 'js/[name].bundle.[hash].js',
       allChunks: true,
       minChunks: Infinity
     })
