@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import App from './App';
 import adapt from './js/adapt';
 import { Toast } from 'antd-mobile';
+import { HashRouter as Router } from 'react-router-dom';
 import './less/app.less';
 
 // hot module
@@ -17,6 +18,8 @@ window.api = api;
 window.Toast = Toast;
 
 render(
-  <App />,
+  <Router>
+    <App />
+  </Router>,
   document.getElementById('app')
 );

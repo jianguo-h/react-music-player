@@ -10,7 +10,8 @@ class List extends Component {
     }
   }
   componentWillMount() {
-    this.getStaticList('new');
+    const path = this.props.match.path.slice(1);
+    this.getStaticList(path);
   }
   // 渲染静态数据(song.json中的)列表数据
   getStaticList(path) {

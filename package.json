@@ -20,7 +20,8 @@
     "antd-mobile": "^2.1.3",
     "axios": "^0.17.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.4",
