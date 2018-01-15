@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: {
     app: './src/main.js',
-    vendor: ['react', 'react-dom', 'react-router-dom', 'axios', 'antd-mobile']
+    vendor: ['react', 'react-dom', 'react-router-dom', 'redux', 'react-redux', 'axios', 'antd-mobile', 'lodash']
   },
   output: {
     filename: 'js/[name].bundle.[hash].js',

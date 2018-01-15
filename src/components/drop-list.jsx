@@ -5,7 +5,8 @@ class DropList extends Component {
   static propTypes = {
     resultCount: PropTypes.number,
     searchTip: PropTypes.string,
-    resultList: PropTypes.array
+    resultList: PropTypes.array,
+    search: PropTypes.func.isRequired
   }
   static defaultProps = {
     resultCount: 0,
