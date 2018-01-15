@@ -46,7 +46,7 @@ class List extends Component {
                   play: this.play.bind(this, index),
                   song
                 }
-                return <ListItem { ...listItemProps } key={index} />;
+                return <ListItem { ...listItemProps } key = { index } />;
               })
             }
           </ul>
