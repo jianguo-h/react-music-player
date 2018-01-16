@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import PlayOperate from '../components/play-operate';
 import {
   setShowDetail, setAudio, 
   setIsPlayed, playSong } from '../store/actions';
@@ -73,9 +74,12 @@ class Player extends Component {
               <p className = "singer-name">{ curPlaySong.SingerName }</p>
             </div>
           </div>
+          <div className = "footer-right">
+            <PlayOperate></PlayOperate>
+          </div>
         </div>
         <div className = "audio">
-          <audio src = {audioSrc }
+          <audio src = { audioSrc }
             loop = { loop }
             ref = { el => this.audio = el } 
             onCanPlay = { this.canplay } 

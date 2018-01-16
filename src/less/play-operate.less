@@ -1,0 +1,48 @@
+@import (reference) './mixins/index.less';
+
+.play-operate {
+  & > span {
+    display: inline-block;
+    width: 0.6944rem;
+    height: 0.6944rem;
+    .bgImgContain;
+  }
+  .prev {
+    .bgImg("icon-prev");
+  }
+  .play {
+    margin: 0 0.3333rem;
+    .bgImg("icon-play");
+  }
+  .pause {
+    .bgImg("icon-pause");
+  }
+  .next {
+    .bgImg("icon-next");
+  }
+}
+.play-detail {
+  flex: 1;
+  text-align: center;
+  padding: 0.2778rem 0;
+  & > span {
+    width: 0.9167rem;
+    height: 0.9167rem;
+    vertical-align: middle;
+  }
+  .prev {
+    .bgImg("play-prev");
+  }
+  .play {
+    margin: 0 0.5556rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    .bgImg("play-play");
+  }
+  .pause {
+    .bgImg("play-pause");
+  }
+  .next {
+    .bgImg("play-next");
+  }	
+}
