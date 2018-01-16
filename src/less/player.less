@@ -1,0 +1,75 @@
+@import (reference) './mixins/index.less';
+
+#player {
+  &.fade { animation: fade .5s; }
+  .footer-play {
+    background-color: rgba(0, 0, 0, .8);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.2778rem;
+    display: flex;
+    align-items: center;
+    .footer-left {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      .footer-singer {
+        width: 1.4444rem;
+        height: 1.4444rem;
+        border-radius: 100%;
+        overflow: hidden;
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .rotate {
+        animation-name: rotate;
+        animation-duration: 6s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+      .paused {
+        animation-play-state: paused;
+      }
+      .footer-playerInfo {
+        flex: 1;
+        color: #fff;
+        margin: 0 0.2778rem;
+        .fontSize(30);
+        p {
+          width: 4.4444rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis; 
+        }
+        .singer-name {
+          color: #888;
+          margin-top: 0.1389rem;
+          .fontSize(26);
+        }
+      }
+    }	
+  }
+  // 淡入 animation
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  // 旋转 animation
+  @keyframes rotate {
+    form {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
