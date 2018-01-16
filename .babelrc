@@ -12,6 +12,7 @@
 		"transform-runtime",
 		"transform-react-jsx",
 		"react-hot-loader/babel",
+		"transform-decorators-legacy",
 		[
 			"import",
 			{
