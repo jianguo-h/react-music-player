@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactHeader from './pages/header';
 import Player from './pages/player';
+import PlayDetail from './pages/play-detail';
 import routes from './routes';
 
 class App extends Component {
@@ -10,6 +11,7 @@ class App extends Component {
         <ReactHeader></ReactHeader>
         { routes }
         <Player></Player>
+        <PlayDetail></PlayDetail>
       </div>
     );
   }
