@@ -1,0 +1,196 @@
+@import (reference) './mixins/index.less';
+
+#playDetail, .playDetail-mark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+#playDetail {
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  background-size: cover;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform-origin: 0 100%;
+  transform: translateX(100%) rotateZ(90deg);
+  transition: all .5s;
+  &.slideIn {
+    transform: translateX(0) rotateZ(0deg);
+  }
+  
+  .playDetail-top {
+    position: relative;
+    padding: 0.4167rem 0;
+    .fontSize(30);
+    .goback {
+      top: 50%;
+      left: 0.2778rem;
+      width: 0.5556rem;
+      height: 0.5556rem;
+      position: absolute;
+      transform: translate3d(0, -50%, 0);
+      .bgImgContain;
+      .bgImg("icon-goback");
+    }
+    .playDetail-title {
+      color: #fff;
+      text-align: center;
+      padding: 0 0.9722rem;
+    }
+  }
+  .playDetail-center {
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    margin: 2rem 0;
+    flex: 1;
+    .lrc-box {
+      height: 100%;
+      transition: all .5s;
+      p {
+        padding: 0.1389rem 0;
+        text-align: center;
+        .fontSize(28);
+        &.current {
+          color: #d1c90e;
+        }
+      }
+    }
+  }
+  .playDetail-bottom {
+    position: relative;
+    .lrc-switch {
+      position: absolute;
+      left: 0.8333rem;
+      top: -0.8333rem;
+    }
+    .lrcColor-box {
+      position: absolute;
+      right: 0.8333rem;
+      top: -0.8333rem;
+      .cur-lrcColor, .color-list li {
+        width: 0.8333rem;
+        height: 0.8333rem;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .color-list {
+        position: fixed;
+        bottom: 4.1667rem;
+        right: 0.5556rem;
+        padding: 0.2778rem;
+        background-color: #000;
+        li {
+          margin-bottom: 0.2778rem;
+          &:last-of-type {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .time-wrap {
+      color: #dcdcdc;
+      display: flex;
+      align-items: center;
+      padding: 0 0.4167rem;
+      margin: 0.2778rem 0;
+      .progress-wrap {
+        flex: 1;
+        height: 0.0833rem;
+        position: relative;
+        margin: 0 0.2778rem;
+        background-color: #6c6b70;
+        .progress-bar {	
+          width: 100%;
+          height: 100%;
+          position: relative;
+          z-index: 1;
+        }
+        .progress {
+          left: 0;
+          top: 0;
+          height: 100%;
+          position: absolute;
+          background-color: #3195fd;
+        }
+        .progress-dot {
+          top: 50%;
+          position: absolute;
+          width: 0.3333rem;
+          height: 0.3333rem;
+          border-radius: 100%;
+          background-color: #3195fd;
+          transform: translate3d(0, -50%, 0);
+        }
+      }
+    }
+    .play-operateBox {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.2778rem;
+      .listen-mode {
+        width: 0.8333rem;
+        height: 0.75rem;
+        margin-left: 0.8333rem;
+        .bgImgContain;
+        .mode-tip {
+          left: 50%;
+          bottom: 18%;
+          .fontSize(22);
+          color: #d1c90e;
+          position: fixed;
+          transform: translate3d(-50%, 0, 0);
+        }
+      }
+      .order-play {
+        .bgImg("order-play");
+      }
+      .loop-play {
+        .bgImg("loop-play");
+      }
+      .random-play {
+        .bgImg("random-play");
+      }
+      .list-detail {
+        margin-right: 0.8333rem;
+        .icon-list {
+          width: 0.8333rem;
+          height: 0.8333rem;
+          .bgImgContain;
+          .bgImg("icon-list");
+        }
+        .active-list {
+          .bgImg("active-list");
+        }
+        .play-list {
+          color: #fff;
+          position: fixed;
+          right: 0.8333rem;
+          bottom: 1.9444rem;
+          width: 6.6667rem;
+          border-radius: 4px;
+          max-height: 10.0rem;
+          overflow-y: scroll;
+          background-color: rgba(0, 0, 0, .9);
+          li {
+            padding: 0.1944rem 0.2778rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            &.active {
+              color: #2ca2f9;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.playDetail-mark {
+  background-color: rgba(0, 0, 0, .6);
+}
