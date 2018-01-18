@@ -6,7 +6,7 @@ class ListItem extends Component {
     song: PropTypes.object,
     index: PropTypes.number,
     active: PropTypes.bool,
-    play: PropTypes.func.isRequired,
+    play: PropTypes.func.isRequired
   }
   static defaultProps = {
     song: {},

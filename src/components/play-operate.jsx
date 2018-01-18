@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { togglePlayStatus, playSong } from '../store/actions';
+// import { togglePlayStatus, playSong } from '../store/actions';
 import '../less/play-operate.less';
 
-@connect(
+/* @connect(
   state => ({
     paused: state.paused,
     showDetail: state.showDetail,
@@ -13,8 +14,20 @@ import '../less/play-operate.less';
     togglePlayStatus() { dispatch(togglePlayStatus()) },
     playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); }
   })
-)
+) */
 class PlayOperate extends Component {
+  static propTypes = {
+    paused: PropTypes.bool,
+    showDetail: PropTypes.bool,
+    curPlaySong: PropTypes.object,
+    playSong: PropTypes.func.isRequired,
+    togglePlayStatus: PropTypes.func.isRequired
+  }
+  static defaultProps = {
+    paused: false,
+    showDetail: false,
+    curPlaySong: {}
+  }
   changePlay(operate) {
     let newCurPlayIndex = this.props.curPlaySong.index;
     operate === "next" ? newCurPlayIndex++ : newCurPlayIndex--;

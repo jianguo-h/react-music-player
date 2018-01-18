@@ -20,6 +20,7 @@ const tabs = [
 class Header extends Component {
   constructor() {
     super();
+    this.timer = null;
     this.state = {
       keyword: '',                // 搜索的关键字
       resultCount: 0,             // 得到的结果数量
@@ -32,7 +33,11 @@ class Header extends Component {
     this.setState({
       keyword: evt.target.value
     });
-    this.query();
+    // 函数节流，防止多次触发
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.query();
+    }, 800);
   }
   // 根据关键字搜索(模糊查询)
   query() {
