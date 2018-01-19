@@ -3,7 +3,11 @@ import React, { Component } from 'react';
 import _cloneDeep from 'lodash/cloneDeep';
 // import { List, Switch } from 'antd-mobile';
 import PlayOperate from '../components/play-operate';
-import { setShowDetail, setModeType, setLrcSwitch, setLrcColor, setLock, playSong } from '../store/actions'
+import { 
+  /* setShowDetail, */ setModeType, 
+  setLrcSwitch, setLrcColor, 
+  setLock, playSong, 
+  togglePlayStatus } from '../store/actions'
 import '../less/play-detail.less';
 
 const lrcColorList = [                 // 歌词颜色列表数组
@@ -39,7 +43,7 @@ const lrcColorList = [                 // 歌词颜色列表数组
     curPlaySong: state.curPlaySong,
     songList: state.songList,
     audio: state.audio,
-    showDetail: state.showDetail,
+    // showDetail: state.showDetail,
     isPlayed: state.isPlayed,
     paused: state.paused,
     curPlayImgSrc: state.curPlayImgSrc,
@@ -49,7 +53,8 @@ const lrcColorList = [                 // 歌词颜色列表数组
     lrcSwitch: state.lrcSwitch
   }),
   dispatch => ({
-    setShowDetail(showDetail) { dispatch(setShowDetail(showDetail)); },
+    togglePlayStatus() { dispatch(togglePlayStatus()) },
+    // setShowDetail(showDetail) { dispatch(setShowDetail(showDetail)); },
     setModeType(modeType) { dispatch(setModeType(modeType)); },
     setLrcSwitch(lrcSwitch) { dispatch(setLrcSwitch(lrcSwitch)); },
     setLrcColor(lrcColor) { dispatch(setLrcColor(lrcColor)); },
@@ -91,17 +96,9 @@ class PlayDetail extends Component {
     this.init();
   }
   componentWillReceiveProps(nextProps) {
-    if(this.props.isPlayed !== nextProps.isPlayed && nextProps.isPlayed) {
-      console.log('playDetail', nextProps);
-      console.log('playDetail', nextProps.audio);
-      console.log('playDetail', this.props.audio);
+    if(nextProps.isPlayed) {
+      this.initPlay(nextProps);
     }
-    /*const oldIsPlayed = this.props.isPlayed;
-    const newIsPlayed = nextProps.isPlayed;
-    // console.log('>>>>>>>>> oldIsPlayed newIsPlayed', oldIsPlayed, newIsPlayed);
-    if(newIsPlayed) {
-      this.initPlay();
-    }*/
   }
   // 根据localStorage中的数据初始化播放信息
   init() {
@@ -142,9 +139,9 @@ class PlayDetail extends Component {
     });
   }
   // 初始化播放信息
-  initPlay() {
-    const endTime = parseInt(this.props.audio.duration);
-    this.props.audio.currentTime = 0;
+  initPlay(props) {
+    const endTime = parseInt(props.audio.duration);
+    props.audio.currentTime = 0;
     this.setState({
       progress: 0,
       curPlayTime: 0,
@@ -155,12 +152,12 @@ class PlayDetail extends Component {
       this.clearTimer();
     }
     this.progressGo();
-    this.lrcRoll();
+    // this.lrcRoll();
   }
   // 时间进度条前进
   progressGo() {
     this.setState(prevState => ({
-      curPlayTime: prevState.curPlayTime++,
+      curPlayTime: prevState.curPlayTime + 1,
       progress: prevState.progress + prevState.progressSpeed
     }));
     if(this.state.progress < 100) {
@@ -311,20 +308,26 @@ class PlayDetail extends Component {
     return `${minutes}:${seconds}`;
   }
   render() {
-    const { curPlaySong, curPlayImgSrc, curPlayLrcArr, modeType, showDetail } = this.props;
     const { 
-      endTime,
-      modeTip,
-      isShowList,
-      translateY, 
-      defaultColor, 
-      activeColor, 
-      curLrcIndex, 
-      curPlayTime, 
-      progress, 
-      showModeTip, 
-      currentImgSrc, 
-      isShowColorList } = this.state;
+      curPlaySong, curPlayImgSrc, 
+      curPlayLrcArr, modeType, 
+      showDetail, paused } = this.props;
+    const { 
+      endTime, modeTip,
+      isShowList, translateY, 
+      defaultColor, activeColor, 
+      curLrcIndex, curPlayTime, 
+      progress, showModeTip, 
+      currentImgSrc, isShowColorList } = this.state;
+
+    // 传递给 PlayOperate 组件的props
+    const playOperateProps = {
+      paused,
+      showDetail,
+      curPlaySong,
+      togglePlayStatus: this.props.togglePlayStatus,
+      playSong: this.props.playSong
+    }
     return (
       <div id = 'playDetail' className = { showDetail ? 'slideIn' : '' } style = {{ backgroundImage: 'url(' + curPlayImgSrc + ')' }}>
         <div className = "playDetail-mark"></div>
@@ -375,7 +378,7 @@ class PlayDetail extends Component {
             <div className = { 'listen-mode order-play ' + modeType + '-play' } onClick = { this.switchMode }>
               { showModeTip ? <div className = "mode-tip">{ modeTip }</div> : null }
             </div>
-            <PlayOperate></PlayOperate>
+            <PlayOperate { ...playOperateProps }></PlayOperate>
             <div className = "list-detail">
               <div className = { isShowList ? 'icon-list active-list' : 'icon-list' }></div>
               {

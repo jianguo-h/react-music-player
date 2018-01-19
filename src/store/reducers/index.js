@@ -22,12 +22,12 @@ export const searchCount = (state = 0, action) => {
   return state;
 }
 
-export const showDetail = (state = false, action) => {
+/* export const showDetail = (state = false, action) => {
   if(action.type === 'setShowDetail') {
     return action.showDetail;
   }
   return state;
-}
+} */
 
 export const audio = (state = null, action) => {
   if(action.type === 'setAudio') {

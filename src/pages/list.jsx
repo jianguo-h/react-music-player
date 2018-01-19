@@ -26,10 +26,19 @@ class List extends Component {
     this.state = {
       songList: []            // 存储歌曲列表的数组
     }
+    this.page = 1;            // 加载的页数
+    this.totalPage = 0;       // 总页数
+    this.allLoaded = false;   // 数据是否全部加载完毕
+    this.allLoaded = false;   // 是否处于加载中
   }
   componentWillMount() {
     const path = this.props.match.path.slice(1);
-    this.getStaticList(path);
+    if(path !== 'search') {
+      this.getStaticList(path);
+    }
+    else {
+      this.getSearchList();
+    }
   }
   // 渲染静态数据(song.json中的)列表数据
   getStaticList(path) {
@@ -49,9 +58,40 @@ class List extends Component {
       console.log('>>> [err] 渲染列表数据', err);
     });
   }
+  // 获取根据关键字搜索后得到的歌曲列表
+  getSearchList() {
+    const page = this.page;
+    const keyword = this.$route.query.keyword;
+    this.isLoading = true;
+    window.Toast.loading('加载中...', 0);
+    window.api.getSongInfo(keyword, page).then(res => {
+      console.log('>>> [res] 获取歌曲列表', res);
+      const data = _cloneDeep(res.data.data);
+      if(res.status === 200 && res.statusText === 'OK') {
+        const searchCount = data.total;
+        this.totalPage = Math.ceil(searchCount / 20);
+        const searchSongList = data.lists.map(song => {
+          return {
+            SingerName: song.SingerName,
+            SongName: song.SongName,
+            FileName: song.FileName
+          };
+        });
+        window.Toast.hide();
+        this.isLoading = false;
+        this.setState(prevState => ({
+          songList: prevState.songList.concat[searchSongList]
+        }));
+        this.props.setSearchCount(searchCount);
+      }
+    }).catch(err => {
+      window.Toast.hide();
+      console.log('>>> [err] 获取歌曲列表', err);
+      window.Toast.fail('网络出现错误或服务暂时不可用');
+    });
+  }
   // 播放歌曲
   play(curPlayIndex) {
-    console.log('>>> curPlayIndex', curPlayIndex);
     const view = this.props.match.path.slice(1);
     const songList = _cloneDeep(this.state.songList);
 

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import PlayOperate from '../components/play-operate';
 import {
-  setShowDetail, setAudio, 
+  /* setShowDetail ,*/ setAudio, 
   setIsPlayed, playSong,
   togglePlayStatus } from '../store/actions';
 import '../less/player.less';
@@ -13,7 +13,7 @@ import '../less/player.less';
     loop: state.loop,
     canPlayed: state.canPlayed,
     isPlayed: state.isPlayed,
-    showDetail: state.showDetail,
+    // showDetail: state.showDetail,
     curPlaySong: state.curPlaySong,
     curPlayImgSrc: state.curPlayImgSrc,
     paused: state.paused,
@@ -22,7 +22,7 @@ import '../less/player.less';
   }),
   dispatch => ({
     togglePlayStatus() { dispatch(togglePlayStatus()) },
-    setShowDetail(showDetail) { dispatch(setShowDetail(showDetail)); },
+    // setShowDetail(showDetail) { dispatch(setShowDetail(showDetail)); },
     setAudio(audio) { dispatch(setAudio(audio)); },
     setIsPlayed(isPlayed) { dispatch(setIsPlayed(isPlayed)); },
     playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); },
@@ -31,8 +31,14 @@ import '../less/player.less';
 class Player extends Component {
   constructor() {
     super();
-    this.canplay = this.canplay.bind(this);
-    this.ended = this.ended.bind(this);
+    this.state = {
+      showDetail: false
+    };
+  }
+  setShowDetail(showDetail) {
+    this.setState({
+      showDetail
+    });
   }
   canplay() {
     const { lock } = this.props;
@@ -55,17 +61,21 @@ class Player extends Component {
     const nextPlayIndex = curPlaySong.index + 1;
     this.props.playSong(nextPlayIndex);
   }
+  componentWillReceiveProps(nextprops) {
+    console.log(nextprops);
+  }
   render() {
+    console.log('render start');
     const { 
       canPlayed, audioSrc, 
       loop, curPlayImgSrc, 
-      showDetail, isPlayed, 
+      /* showDetail ,*/ isPlayed, 
       paused, curPlaySong } = this.props;
     
     // 传递给 PlayOperate 组件的props
     const playOperateProps = {
       paused,
-      showDetail,
+      showDetail: this.state.showDetail,
       curPlaySong,
       togglePlayStatus: this.props.togglePlayStatus,
       playSong: this.props.playSong
@@ -75,8 +85,8 @@ class Player extends Component {
     footerSingerClass = paused ? footerSingerClass + ' paused' : footerSingerClass;
     return canPlayed ? (
       <div id = "player" className = 'fade'>
-        <div className = "footer-play" style = {{ visibility: !showDetail ? 'visible' : 'hidden' }}>
-          <div className = "footer-left" onClick = { this.props.setShowDetail.bind(this, true) }>
+        <div className = "footer-play" style = {{ visibility: !this.state.showDetail ? 'visible' : 'hidden' }}>
+          <div className = "footer-left" onClick = { this.setShowDetail.bind(this, true) }>
             <div className = { footerSingerClass }>
               <img src = { curPlayImgSrc } alt = '歌手图片' />
             </div>
@@ -93,13 +103,13 @@ class Player extends Component {
           <audio src = { audioSrc }
             loop = { loop }
             ref = { el => this.audio = el } 
-            onCanPlay = { this.canplay } 
-            onEnded = { this.ended }>
+            onCanPlay = { this.canplay.bind(this) } 
+            onEnded = { this.ended.bind(this) }>
           </audio>
         </div>
       </div>
     ) : null;
   }
-}
+};
 
 export default Player;

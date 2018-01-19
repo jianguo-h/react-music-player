@@ -24,12 +24,12 @@ export function setSearchCount(searchCount) {
   };
 }
 
-export function setShowDetail(showDetail) {
+/* export function setShowDetail(showDetail) {
   return {
     type: 'setShowDetail',
     showDetail
   };
-}
+} */
 
 export function setAudio(audio) {
   return {
@@ -222,6 +222,5 @@ export function playSong(curPlayIndex) {
       Toast.fail('网络出现错误或服务暂时不可用');
       throw new Error(err);
     }
-    console.log('>>>>>>>>>>>>>>>>>>>>>> cur state', getState());
   }
 }
