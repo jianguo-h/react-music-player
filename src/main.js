@@ -13,7 +13,7 @@ import './less/app.less';
 if(module.hot) {
   module.hot.accept();
 }
-console.log('>>> initialState', store.getState());
+
 // some config
 adapt();
 window.api = api;

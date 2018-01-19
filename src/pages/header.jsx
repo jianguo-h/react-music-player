@@ -28,6 +28,9 @@ class Header extends Component {
       searchTip: '正在搜索...',    // 搜索时的提示信息
     }
   }
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
   // 监听输入框的input事件
   input(evt) {
     this.setState({
@@ -78,7 +81,15 @@ class Header extends Component {
   }
   // 点击搜索事件, keyword为关键字
   search(keyword) {
-    console.log('>>> keyword', keyword);
+    console.log('>>>>> keyword', keyword); return;
+    if(!keyword) {
+      window.alert("请输入搜索内容");
+      return;
+    };
+    // this.$router.push('/search?keyword=' + keyword);
+    this.setState({
+      keyword: ''
+    });
   }
   render() {
     const keyword = this.state.keyword.trim();

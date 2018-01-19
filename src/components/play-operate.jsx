@@ -1,20 +1,7 @@
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
-// import { togglePlayStatus, playSong } from '../store/actions';
 import '../less/play-operate.less';
 
-/* @connect(
-  state => ({
-    paused: state.paused,
-    showDetail: state.showDetail,
-    curPlaySong: state.curPlaySong
-  }),
-  dispatch => ({
-    togglePlayStatus() { dispatch(togglePlayStatus()) },
-    playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); }
-  })
-) */
 class PlayOperate extends Component {
   static propTypes = {
     paused: PropTypes.bool,

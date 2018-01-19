@@ -24,7 +24,7 @@ class DropList extends Component {
     }
     return (
       <div className = "search-list">
-        { resultCount > 0 ? <ul>{list}</ul> : tipDom }
+        { resultCount > 0 ? <ul>{ list }</ul> : tipDom }
       </div>
     );
   }
