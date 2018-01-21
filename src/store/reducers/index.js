@@ -22,13 +22,6 @@ export const searchCount = (state = 0, action) => {
   return state;
 }
 
-/* export const showDetail = (state = false, action) => {
-  if(action.type === 'setShowDetail') {
-    return action.showDetail;
-  }
-  return state;
-} */
-
 export const audio = (state = null, action) => {
   if(action.type === 'setAudio') {
     return action.audio;
@@ -67,11 +60,45 @@ export const paused  = (state = false, action) => {
   return state;
 }
 
+/* const defaultCurPlaySong = {
+  el: null,
+  src: '',
+  index: -1,
+  FileName: '',
+  SongName: '',
+  SingerName: '',
+  SingerImg: '/singer-default.jpg',
+  paused: false,
+  modeType: 'order',
+  lrcArr: [],
+  lrcIndex: 0,
+  lrcColor: {
+    defaultColor: "#b2f5b5",
+    activeColor: "#d1c90e"
+  },
+  loop: false,
+}
+export const curPlaySong = (state = defaultCurPlaySong, action) => {
+  switch (action.type) {
+    case 'setSongInfo':
+      return {
+        ...state,
+        ...action.songInfo
+      }
+    case 'setPaused': 
+      return {
+        ...state,
+        action.
+      }
+    default: 
+      return state;
+  }
+} */
 const defaultCurPlaySong = {
   index: -1,
   FileName: '',
   SongName: '',
-  SingerName: ''
+  SingerName: '',
 }
 export const curPlaySong = (state = defaultCurPlaySong, action) => {
   if(action.type === 'setCurPlaySong') {
@@ -134,6 +161,7 @@ export const modeType = (state = 'order', action) => {
   return state;
 }
 
+// 当前歌词高亮行
 export const curLrcIndex = (state = 0, action) => {
   if(action.type === 'setCurLrcIndex') {
     return action.curLrcIndex;

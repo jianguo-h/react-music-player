@@ -24,13 +24,6 @@ export function setSearchCount(searchCount) {
   };
 }
 
-/* export function setShowDetail(showDetail) {
-  return {
-    type: 'setShowDetail',
-    showDetail
-  };
-} */
-
 export function setAudio(audio) {
   return {
     type: 'setAudio',
@@ -180,10 +173,19 @@ export function playSong(curPlayIndex) {
     try {
       const songName = curPlaySong.FileName;
       const infoRes = await api.getSongInfo(songName);
+      console.log('>>> [res] 获取歌曲的一些信息', infoRes);
       if(infoRes.status === 200 && infoRes.statusText === 'OK') {
-        const hash = infoRes.data.data.lists[0].FileHash;
+        let rightSong = '';
+        for(const song of infoRes.data.data.lists) {
+          if(song.FileName === songName) {
+            rightSong = _cloneDeep(song);
+            break;
+          }
+        }
+        const hash = rightSong.FileHash;
         try {
           const playRes = await api.play(hash);
+          console.log('>>> [res] 根据hash值获取歌曲的播放信息', playRes);
           if(playRes.status === 200 && playRes.statusText === 'OK') {
             const data = _cloneDeep(playRes.data.data);
             Toast.hide();
