@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
+import PlayDetail from './play-detail';
 import React, { Component } from 'react';
 import PlayOperate from '../components/play-operate';
 import {
-  /* setShowDetail ,*/ setAudio, 
-  setIsPlayed, playSong,
-  togglePlayStatus } from '../store/actions';
+  setAudio, setIsPlayed, 
+  playSong, togglePlayStatus } from '../store/actions';
 import '../less/player.less';
 
 @connect(
@@ -13,7 +13,6 @@ import '../less/player.less';
     loop: state.loop,
     canPlayed: state.canPlayed,
     isPlayed: state.isPlayed,
-    // showDetail: state.showDetail,
     curPlaySong: state.curPlaySong,
     curPlayImgSrc: state.curPlayImgSrc,
     paused: state.paused,
@@ -22,7 +21,6 @@ import '../less/player.less';
   }),
   dispatch => ({
     togglePlayStatus() { dispatch(togglePlayStatus()) },
-    // setShowDetail(showDetail) { dispatch(setShowDetail(showDetail)); },
     setAudio(audio) { dispatch(setAudio(audio)); },
     setIsPlayed(isPlayed) { dispatch(setIsPlayed(isPlayed)); },
     playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); },
@@ -39,6 +37,10 @@ class Player extends Component {
     this.setState({
       showDetail
     });
+  }
+  setCurrentTime(time) {
+    this.audio.currentTime = time;
+    console.log(this.audio.currentTime);
   }
   canplay() {
     const { lock } = this.props;
@@ -61,16 +63,11 @@ class Player extends Component {
     const nextPlayIndex = curPlaySong.index + 1;
     this.props.playSong(nextPlayIndex);
   }
-  componentWillReceiveProps(nextprops) {
-    console.log(nextprops);
-  }
   render() {
-    console.log('render start');
     const { 
       canPlayed, audioSrc, 
       loop, curPlayImgSrc, 
-      /* showDetail ,*/ isPlayed, 
-      paused, curPlaySong } = this.props;
+      isPlayed, paused, curPlaySong } = this.props;
     
     // 传递给 PlayOperate 组件的props
     const playOperateProps = {
@@ -80,6 +77,13 @@ class Player extends Component {
       togglePlayStatus: this.props.togglePlayStatus,
       playSong: this.props.playSong
     }
+
+    const playDetailProps = {
+      showDetail: this.state.showDetail,
+      setShowDetail: this.setShowDetail.bind(this),
+      setCurrentTime: this.setCurrentTime.bind(this)
+    }
+    
     let footerSingerClass = 'footer-singer';
     footerSingerClass = isPlayed ? footerSingerClass + ' rotate' : footerSingerClass;
     footerSingerClass = paused ? footerSingerClass + ' paused' : footerSingerClass;
@@ -99,6 +103,8 @@ class Player extends Component {
             <PlayOperate { ...playOperateProps }></PlayOperate>
           </div>
         </div>
+        { /* 播放详情组件 */ }
+        <PlayDetail { ...playDetailProps }></PlayDetail>
         <div className = "audio">
           <audio src = { audioSrc }
             loop = { loop }
