@@ -40,7 +40,7 @@ class TimeWrap extends Component {
       <div className = "time-wrap">
         <div className = "start-time">{ this.formatTime(curPlayTime) }</div>
         <div className = "progress-wrap">
-          <div className = "progress-bar" onClick = { updateProgress } ref = { progressBarRef }></div>
+          <div className = "progress-bar" onClick = { updateProgress.bind(this) } ref = { progressBarRef }></div>
           <div className = "progress" style = {{ width: progress + '%' }}></div>
           <div className = "progress-dot" style = {{ marginLeft: progress + '%' }}></div>
         </div>
