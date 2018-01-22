@@ -99,17 +99,10 @@ export function setModeType(modeType) {
   };
 }
 
-export function setCurLrcIndex(curLrcIndex) {
+export function setLrcConfig(lrcConfig) {
   return {
-    type: 'setCurLrcIndex',
-    curLrcIndex
-  };
-}
-
-export function setLrcColor(lrcColor) {
-  return {
-    type: 'setLrcColor',
-    lrcColor
+    type: 'setLrcConfig',
+    lrcConfig
   };
 }
 
@@ -156,7 +149,9 @@ export function playSong(curPlayIndex) {
     dispatch(setCurPlayImgSrc('/singer-default.jpg'));
     dispatch(togglePlayStatus());
     dispatch(setLock(false));
-    dispatch(setCurLrcIndex(0));
+    dispatch(setLrcConfig({
+      activeLrcIndex: 0
+    }));
     
     const state = getState();
     const songList = _cloneDeep(state.songList);
