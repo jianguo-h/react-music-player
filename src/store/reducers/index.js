@@ -95,10 +95,10 @@ export const curPlaySong = (state = defaultCurPlaySong, action) => {
   }
 } */
 const defaultCurPlaySong = {
-  index: -1,
-  FileName: '',
-  SongName: '',
-  SingerName: '',
+  index: -1,            // 当前播放歌曲的索引
+  FileName: '',         // 当前播放歌曲的全名
+  SongName: '',         // 当前播放歌曲的歌曲名
+  SingerName: '',       // 当前播放歌曲的歌手名
 }
 export const curPlaySong = (state = defaultCurPlaySong, action) => {
   if(action.type === 'setCurPlaySong') {
@@ -161,23 +161,17 @@ export const modeType = (state = 'order', action) => {
   return state;
 }
 
-// 当前歌词高亮行
-export const curLrcIndex = (state = 0, action) => {
-  if(action.type === 'setCurLrcIndex') {
-    return action.curLrcIndex;
-  }
-  return state;
+// 歌词的默认配置
+const defaultLrcConfig = {
+  activeColor: '#d1c90e',                     // 高亮行的歌词颜色
+  defaultColor: '#b2f5b5',                    // 其他行的歌词颜色
+  activeLrcIndex: 0,                          // 高亮行歌词的索引
 }
-
-const defaultLrcColor = {
-  defaultColor: "#b2f5b5",
-  activeColor: "#d1c90e"
-}
-export const lrcColor = (state = defaultLrcColor, action) => {
-  if(action.type === 'setLrcColor') {
+export const lrcConfig = (state = defaultLrcConfig, action) => {
+  if(action.type === 'setLrcConfig') {
     return {
       ...state,
-      ...action.lrcColor
+      ...action.lrcConfig
     };
   }
   return state;
