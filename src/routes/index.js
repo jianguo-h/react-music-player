@@ -7,7 +7,7 @@ const router = [
   {
     path: '/',
     exact: true,
-    render: props => <Redirect to='/new' />
+    render: props => <Redirect to = '/new' />
   },
   {
     path: '/new',
@@ -19,6 +19,10 @@ const router = [
   },
   {
     path: '/local',
+    component: List
+  },
+  {
+    path: '/search/:keyword',
     component: List
   }
 ];
