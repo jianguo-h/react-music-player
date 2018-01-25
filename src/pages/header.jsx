@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import DropList from '../components/drop-list';
 import '../less/header.less';
 
@@ -17,6 +17,7 @@ const tabs = [
     name: "本地"
   }
 ];
+@withRouter
 class Header extends Component {
   constructor() {
     super();
@@ -81,12 +82,11 @@ class Header extends Component {
   }
   // 点击搜索事件, keyword为关键字
   search(keyword) {
-    console.log('>>>>> keyword', keyword); return;
     if(!keyword) {
       window.alert("请输入搜索内容");
       return;
     };
-    // this.$router.push('/search?keyword=' + keyword);
+    this.props.history.push('/search/' + keyword);
     this.setState({
       keyword: ''
     });

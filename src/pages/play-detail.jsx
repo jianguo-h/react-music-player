@@ -81,12 +81,12 @@ class PlayDetail extends Component {
     this.endTime = 0;                 // 歌曲结束时间(秒为单位)
     this.progressSpeed = 0;           // 进度条前进的速度
     this.modeSwitch = false,          // 防止连续点击
+    this.mode = 1;                    // 初始化播放模式的数字
     this.state = {
       isShowList: false,              // 是否显示歌曲列表
       curPlayTime: 0,                 // 当前播放时间(秒为单位)
       progress: 0,                    // 当前歌曲播放进度     
       translateY: 0,                  // 歌词滚动的距离
-      mode: 1,                        // 初始化播放模式的数字
       modeTip: '顺序播放',            // 播放模式提示
       showModeTip: false,             // 是否显示提示
       currentImgSrc: "",              // 当前颜色的背景图
@@ -147,9 +147,9 @@ class PlayDetail extends Component {
       defaultColor: currentColorObj.defaultColor,
       activeColor: currentColorObj.activeColor
     });
-
+    
+    this.mode = mode;
     this.setState({
-      mode,
       currentImgSrc: currentColorObj.currentImgSrc
     });
   }
@@ -259,43 +259,48 @@ class PlayDetail extends Component {
   }
   // 切换播放模式
   switchMode() {
-    const { mode, showModeTip, modeTip } = this.state;
+    const { showModeTip } = this.state;
     if(this.modeSwitch) return;
 
-    let modeType = "";
+    let modeType = 'order';
+    let modeTip = '顺序播放';
     let loop = false;
     this.mode++;
     this.modeSwitch = true;
-    this.showModeTip = true;
+    this.setState({
+      showModeTip: true
+    });
     if(this.mode % 3 === 1) {
-      this.modeTip = "顺序播放";
+      modeTip = "顺序播放";
       modeType = "order";
     }
     else if (this.mode % 3 === 2) {
-      this.modeTip = "循环播放";
+      modeTip = "循环播放";
       modeType = "loop";
       loop = true;
     }
     else {
-      this.modeTip = "随机播放";
+      modeTip = "随机播放";
       modeType = "random";
     }
-    this.$store.commit("setLoop", loop);
-    this.$store.commit("setModeType", modeType);
+    this.props.setLoop(loop);
+    this.props.setModeType(modeType);
     window.localStorage.modeType = modeType;
     setTimeout(() => {
       this.modeSwitch = false;
-      this.showModeTip = false;
+      this.setState({
+        showModeTip: false
+      });
     }, 3000);
   }
   // 歌曲结束时根据播放模式来处理
   dealMode() {
     this.props.setLock(false);
-    if(this.modeType === "random") {
-      const randomIndex = Math.floor(Math.random() * this.listTotal);
+    if(this.props.modeType === "random") {
+      const randomIndex = Math.floor(Math.random() * this.songList.length);
       this.props.playSong(randomIndex)
     }
-    else if(this.modeType === "loop") {
+    else if(this.props.modeType === "loop") {
       this.initPlay();
     }
   }
@@ -306,8 +311,6 @@ class PlayDetail extends Component {
   }
   // 点击列表时播放歌曲
   playSong(curPlayIndex) {
-    // console.log('curPlayIndex', curPlayIndex);
-    return;
     this.props.playSong(curPlayIndex);
     this.setState({
       isShowList: false
