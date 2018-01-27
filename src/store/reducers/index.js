@@ -15,9 +15,9 @@ export const songList = (state = [], action) => {
   return state;
 }
 
-export const searchCount = (state = 0, action) => {
-  if(action.type === 'setSearchCount') {
-    return action.searchCount;
+export const searchListCount = (state = 0, action) => {
+  if(action.type === 'setSearchListCount') {
+    return action.searchListCount;
   }
   return state;
 }

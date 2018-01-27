@@ -4,7 +4,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import ListItem from '../components/list-item';
 import { 
   setView, setSongList, 
-  setSearchCount, playSong } from '../store/actions';
+  setSearchListCount, playSong } from '../store/actions';
 import '../less/list.less';
 
 @connect(
@@ -16,7 +16,7 @@ import '../less/list.less';
   dispatch => ({
     setView(view) { dispatch(setView(view)); },
     setSongList(songList) { dispatch(setSongList(songList)); },
-    setSearchCount(searchCount) { dispatch(setSearchCount(searchCount)); },
+    setSearchListCount(searchListCount) { dispatch(setSearchListCount(searchListCount)); },
     playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); }
   })
 )
@@ -26,25 +26,39 @@ class List extends Component {
     this.state = {
       songList: []            // 存储歌曲列表的数组
     }
+    this.path = '';
     this.page = 1;            // 加载的页数
     this.totalPage = 0;       // 总页数
     this.allLoaded = false;   // 数据是否全部加载完毕
     this.allLoaded = false;   // 是否处于加载中
   }
   componentWillMount() {
-    const path = this.props.match.path.split('/')[1];
-    const keyword = this.props.match.params.keyword;
-    if(path !== 'search') {
-      this.getStaticList(path);
+    this.path = this.props.match.path.split('/')[1];
+    
+    if(this.path !== 'search') {
+      this.getStaticList();
     }
     else {
-      this.getSearchList(keyword);
+      this.getSearchList();
+    }
+  }
+  componentDidMount() {
+    let timer = null;
+
+    document.onscroll = null;
+    document.onscroll = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if(this.path === 'search') {
+          this.scrollLoad();
+        }
+      }, 100);
     }
   }
   // 渲染静态数据(song.json中的)列表数据
-  getStaticList(path) {
+  getStaticList() {
     window.Toast.loading('加载中...', 0);
-    window.api.getList(path).then(res => {
+    window.api.getList(this.path).then(res => {
       console.log('>>> [res] 渲染列表数据', res);
       const songList = _cloneDeep(res.data.data);
       setTimeout(() => {
@@ -60,17 +74,19 @@ class List extends Component {
     });
   }
   // 获取根据关键字搜索后得到的歌曲列表
-  getSearchList(keyword) {
-    const page = this.page;
+  getSearchList() {
     this.isLoading = true;
+    const page = this.page;
+    const keyword = this.props.match.params.keyword;
     window.Toast.loading('加载中...', 0);
+
     window.api.getSongInfo(keyword, page).then(res => {
       window.Toast.hide();
       console.log('>>> [res] 搜索后得到的歌曲列表', res);
       const data = _cloneDeep(res.data.data);
-      /*if(res.status === 200 && res.statusText === 'OK') {
-        const searchCount = data.total;
-        this.totalPage = Math.ceil(searchCount / 20);
+      if(res.status === 200 && res.statusText === 'OK') {
+        const searchListCount = data.total;
+        this.totalPage = Math.ceil(searchListCount / 20);
         const searchSongList = data.lists.map(song => {
           return {
             SingerName: song.SingerName,
@@ -80,10 +96,10 @@ class List extends Component {
         });
         this.isLoading = false;
         this.setState(prevState => ({
-          songList: prevState.songList.concat[searchSongList]
+          songList: [...prevState.songList, ...searchSongList]
         }));
-        this.props.setSearchCount(searchCount);
-      }*/
+        this.props.setSearchListCount(searchListCount);
+      }
     }).catch(err => {
       window.Toast.hide();
       console.log('>>> [err] 搜索后得到的歌曲列表', err);
@@ -92,15 +108,39 @@ class List extends Component {
   }
   // 播放歌曲
   play(curPlayIndex) {
-    const view = this.props.match.path.slice(1);
     const songList = _cloneDeep(this.state.songList);
 
-    this.props.setView(view);
+    this.props.setView(this.path);
     this.props.setSongList(songList);
     this.props.playSong(curPlayIndex);
   }
+  // 滑动加载
+  scrollLoad() {
+    if(this.isLoading || this.allLoaded) {
+      return;
+    }
+    const docEl = document.documentElement;
+    /* 
+     scrollTop 元素滚动的高度
+     scrollHeight 元素的实际高度(包括滚动的高度)
+     clientHeight 元素在窗口可见的高度(不包括滚动的高度)
+    */
+    const { scrollTop, scrollHeight, clientHeight } = docEl;
+    const offsetHeight = scrollHeight - scrollTop - clientHeight;
+
+    if(offsetHeight <= 100) {
+      if(this.page < this.totalPage) {
+        this.page++;
+        this.getSearchList();
+      }
+      else {
+        this.allLoaded = true;
+        document.onscroll = null;       // 注销事件
+        window.Toast.info('已加载全部数据！');
+      }
+    }
+  }
   render() {
-    const path = this.props.match.path.slice(1);
     const { view, isPlayed, curPlaySong } = this.props;
     return (
       <div id = "content">
@@ -112,7 +152,7 @@ class List extends Component {
                   play: this.play.bind(this, index),
                   song,
                   index,
-                  active: view === path && index === curPlaySong.index && isPlayed
+                  active: view === this.path && index === curPlaySong.index && isPlayed
                 }
                 return <ListItem { ...listItemProps } key = { index } />;
               })
