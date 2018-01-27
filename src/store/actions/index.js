@@ -17,10 +17,10 @@ export function setSongList(songList) {
   };
 }
 
-export function setSearchCount(searchCount) {
+export function setSearchListCount(searchListCount) {
   return {
-    type: 'setSearchCount',
-    searchCount
+    type: 'setSearchListCount',
+    searchListCount
   };
 }
 

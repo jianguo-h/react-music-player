@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import DropList from '../components/drop-list';
@@ -17,7 +18,9 @@ const tabs = [
     name: "本地"
   }
 ];
-@withRouter
+@connect(state => ({
+  searchListCount: state.searchListCount
+}))
 class Header extends Component {
   constructor() {
     super();
@@ -91,7 +94,12 @@ class Header extends Component {
       keyword: ''
     });
   }
+  // 后退
+  goback() {
+    this.props.history.go(-1);
+  }
   render() {
+    const path = this.props.location.pathname.split('/')[1];
     const keyword = this.state.keyword.trim();
     const dropListProps = {
       resultCount: this.state.resultCount,
@@ -109,18 +117,29 @@ class Header extends Component {
           </div>
           <div className = "search" onClick = { this.search.bind(this, keyword) }></div>
         </div>
-        <div className = "header-tab">
-          <ul>
-            {
-              tabs.map((tab, index)  => {
-                return <li key = { index }><NavLink to = { tab.path } activeClassName = 'active'>{ tab.name }</NavLink></li>;
-              })
-            }
-          </ul>
-        </div>
+        {
+          path !== 'search' ?
+          (
+            <div className = "header-tab">
+              <ul>
+                {
+                  tabs.map((tab, index)  => {
+                    return <li key = { index }><NavLink to = { tab.path } activeClassName = 'active'>{ tab.name }</NavLink></li>;
+                  })
+                }
+              </ul>
+            </div>
+          ) : 
+          (
+            <div className = "header-search-result">
+              <div className = "goback" onClick = { this.goback.bind(this) }></div>
+              <div className = "searchCount">共有<em>{ this.props.searchListCount }</em>条结果</div>
+            </div>
+          )
+        }
       </header>
     );
   }
 }
 
-export default Header;
+export default withRouter(Header);
