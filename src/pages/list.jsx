@@ -26,7 +26,7 @@ class List extends Component {
     this.state = {
       songList: []            // 存储歌曲列表的数组
     }
-    this.path = '';
+    this.path = '';           // 当前路由的路径
     this.page = 1;            // 加载的页数
     this.totalPage = 0;       // 总页数
     this.allLoaded = false;   // 数据是否全部加载完毕
