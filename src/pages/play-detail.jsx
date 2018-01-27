@@ -190,20 +190,22 @@ class PlayDetail extends Component {
   // 歌词滚动
   lrcRoll(nextProps) {
     const curPlayLrcArr = _cloneDeep(nextProps.curPlayLrcArr);
+    const lrcLen = curPlayLrcArr.length;
     const currentTime = Number(nextProps.audio.currentTime.toFixed(2));
     for(let [index, curPlayLrc] of curPlayLrcArr.entries()) {
       if(Number(curPlayLrc.startTime) >= currentTime) {
         if(index === 0) {
           index = 1;
         }
-        else if(index === curPlayLrcArr.length - 1) {
-          index = curPlayLrcArr.length - 1;
+        else if(index === lrcLen - 1) {
+          index = lrcLen - 1;
         }
         this.translateLrc(index - 1);
         break;
       }
-      else {
-        this.translateLrc(curPlayLrcArr.length - 1);
+      // 为了处理点击进度条时直接点击在最后面时的情况
+      else if(currentTime >= Number(curPlayLrcArr[lrcLen - 1].startTime)) {
+        this.translateLrc(lrcLen - 1);
       }
     }
     if(currentTime < this.endTime) {
@@ -227,7 +229,7 @@ class PlayDetail extends Component {
     const childHeight = this.lrcBox.firstChild.offsetHeight;
     const curShowNum = Math.floor(lrcBoxHeight / childHeight);
     const nextTranslateY = childHeight * (newCurLrcIndex - curShowNum + 1);
-    // console.log(prevTranslateY, nextTranslateY);
+    console.log('>>> nextTranslateY', nextTranslateY);
     if(newCurLrcIndex >= curShowNum - 1) {
       this.setState({
         translateY: childHeight * (newCurLrcIndex - curShowNum + 1)
