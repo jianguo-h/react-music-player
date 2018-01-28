@@ -1,0 +1,38 @@
+@import (reference) './mixins/index.less';
+
+#suspend-lyric {
+  &.fadeIn {
+    opacity: 1;
+    visibility: visible;
+  }
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s;
+  touch-action: none;
+  position: fixed;
+  top: 0;
+  left: 10%;
+  width: 80%;
+  z-index: 99;
+  color: #fff;
+  border-radius: 4px;
+  padding: 0.2778rem;
+  background-color: rgba(0, 0, 0, .5);
+  .fontSize(30);
+  .close {
+    width: 0.4167rem;
+    height: 0.4167rem;
+    position: absolute;
+    right: 0.2778rem;
+    top: 0.2778rem;
+    .bgImg("close");
+    .bgImgContain;
+  }
+  & > p {
+    height: 1rem;
+    line-height: 1rem;
+    &:last-child {
+      text-align: right;
+    }
+  }
+}

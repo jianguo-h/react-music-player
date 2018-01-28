@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import _cloneDeep from 'lodash/cloneDeep';
 import PropTypes from 'prop-types';
-// import { List, Switch } from 'antd-mobile';
+import { List, Switch } from 'antd-mobile';
 import PlayOperate from '../components/play-operate';
 import LrcScroll from '../components/lrc-scroll';
 import TimeWrap from '../components/time-wrap';
@@ -126,6 +126,7 @@ class PlayDetail extends Component {
     else {
       currentColorObj = _cloneDeep(lrcColorList[0]);
     }
+    console.log('init', lrcSwitch);
     if(!modeType) {
       modeType = "order";
     }
@@ -229,7 +230,6 @@ class PlayDetail extends Component {
     const childHeight = this.lrcBox.firstChild.offsetHeight;
     const curShowNum = Math.floor(lrcBoxHeight / childHeight);
     const nextTranslateY = childHeight * (newCurLrcIndex - curShowNum + 1);
-    console.log('>>> nextTranslateY', nextTranslateY);
     if(newCurLrcIndex >= curShowNum - 1) {
       this.setState({
         translateY: childHeight * (newCurLrcIndex - curShowNum + 1)
@@ -336,7 +336,8 @@ class PlayDetail extends Component {
   // 悬浮歌词开关
   toggleLrcSwitch(lrcSwitch) {
     lrcSwitch = !lrcSwitch;
-    this.props.setLrcSwitch(lrcSwitch)
+    this.props.setLrcSwitch(lrcSwitch);
+    window.localStorage.lrcSwitch = lrcSwitch;
   }
   // 是否显示歌曲列表
   toggleShowList() {
@@ -355,7 +356,7 @@ class PlayDetail extends Component {
       curPlaySong, curPlayImgSrc, 
       curPlayLrcArr, modeType, 
       showDetail, paused, 
-      lrcConfig, songList } = this.props;
+      lrcConfig, songList, lrcSwitch } = this.props;
     const { 
       modeTip, isShowList, translateY, 
       curPlayTime, progress, showModeTip, 
@@ -408,7 +409,8 @@ class PlayDetail extends Component {
         </div>
         <div className = "playDetail-bottom">
           <div className = "lrc-switch">
-
+            { /* 歌词开关组件 */ }
+            <Switch color = '#2ca2f9' checked = { lrcSwitch } onClick = { this.toggleLrcSwitch.bind(this, lrcSwitch) }></Switch>
           </div>
           <div className = "lrcColor-box">
             <div className = "cur-lrcColor" style = {{ backgroundImage: 'url('+ currentImgSrc +')' }} onClick = { this.toggleShowColorList.bind(this) }></div>
