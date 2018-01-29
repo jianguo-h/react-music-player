@@ -34,15 +34,10 @@ class SuspendLyric extends Component {
       nextLrc: {}         // 第二行的歌词
     }
   }
-  /*componentDidMount() {
-    this.getBoundary();
-  }*/
   componentWillReceiveProps(nextProps) {
-    if(nextProps.lrcSwitch && nextProps.canPlayed) {
+    if(nextProps.curPlayLrcArr.length > 0) {
       this.getBoundary();
-      if(this.props.lrcConfig.activeLrcIndex !== nextProps.lrcConfig.activeLrcIndex) {
-        this.setSuspendLrc(nextProps);
-      }
+      this.setSuspendLrc(nextProps);
     }
   }
   getBoundary() {
@@ -59,8 +54,8 @@ class SuspendLyric extends Component {
   }
   // 设置上下两行歌词
   setSuspendLrc(props) {
-    let firstLrc = null;
-    let nextLrc = null;
+    let firstLrc = {};
+    let nextLrc = {};
     const { curPlayLrcArr, lrcConfig } = props;
     const activeLrcIndex = lrcConfig.activeLrcIndex;
     if(activeLrcIndex === 0) {
