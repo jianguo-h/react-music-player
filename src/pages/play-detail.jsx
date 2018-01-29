@@ -11,7 +11,8 @@ import LrcColor from '../components/lrc-color';
 import { 
   setModeType, setLrcSwitch, 
   setLrcConfig, setLock, 
-  playSong, togglePlayStatus} from '../store/actions'
+  playSong, togglePlayStatus,
+  setLoop } from '../store/actions'
 import '../less/play-detail.less';
 
 const lrcColorList = [                 // 歌词颜色列表数组
@@ -62,7 +63,8 @@ const lrcColorList = [                 // 歌词颜色列表数组
     setLrcSwitch(lrcSwitch) { dispatch(setLrcSwitch(lrcSwitch)); },
     setLrcConfig(lrcConfig) { dispatch(setLrcConfig(lrcConfig)); },
     setLock(lock) { dispatch(setLock(lock)); },
-    playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); }
+    playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); },
+    setLoop(loop) { dispatch(setLoop(loop)); }
   })
 )
 class PlayDetail extends Component {
@@ -276,7 +278,7 @@ class PlayDetail extends Component {
       modeTip = "顺序播放";
       modeType = "order";
     }
-    else if (this.mode % 3 === 2) {
+    else if(this.mode % 3 === 2) {
       modeTip = "循环播放";
       modeType = "loop";
       loop = true;
@@ -285,6 +287,9 @@ class PlayDetail extends Component {
       modeTip = "随机播放";
       modeType = "random";
     }
+    this.setState({
+      modeTip
+    });
     this.props.setLoop(loop);
     this.props.setModeType(modeType);
     window.localStorage.modeType = modeType;
@@ -299,11 +304,11 @@ class PlayDetail extends Component {
   dealMode() {
     this.props.setLock(false);
     if(this.props.modeType === "random") {
-      const randomIndex = Math.floor(Math.random() * this.songList.length);
+      const randomIndex = Math.floor(Math.random() * this.props.songList.length);
       this.props.playSong(randomIndex)
     }
     else if(this.props.modeType === "loop") {
-      this.initPlay();
+      this.initPlay(this.props);
     }
   }
   // 清除定时器
