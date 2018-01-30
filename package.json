@@ -4,7 +4,8 @@
   "description": "a React.js project",
   "main": "src/main.js",
   "scripts": {
-    "dev": "set NODE_ENV=development&&node build/dev-server.js"
+    "dev": "set NODE_ENV=development&&node build/dev-server.js",
+    "build": "set NODE_ENV=production&&node build/build.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.8",
+    "cssnano": "^3.10.0",
     "eslint": "^4.16.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-loader": "^1.9.0",
@@ -49,6 +51,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "eventsource-polyfill": "^0.9.6",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",
     "http-proxy-middleware": "^0.17.4",
@@ -60,10 +63,12 @@
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "opn": "^5.1.0",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
     "postcss-loader": "^2.0.10",
     "prop-types": "^15.6.0",
     "react-hot-loader": "^4.0.0-beta.18",
     "redux-thunk": "^2.2.0",
+    "rimraf": "^2.6.2",
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
