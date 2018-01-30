@@ -3,7 +3,7 @@ import PlayDetail from './play-detail';
 import React, { Component } from 'react';
 import PlayOperate from '../components/play-operate';
 import {
-  setAudio, setIsPlayed, 
+  setAudio, setIsPlayed,
   playSong, togglePlayStatus } from '../store/actions';
 import '../less/player.less';
 
@@ -23,7 +23,7 @@ import '../less/player.less';
     togglePlayStatus() { dispatch(togglePlayStatus()) },
     setAudio(audio) { dispatch(setAudio(audio)); },
     setIsPlayed(isPlayed) { dispatch(setIsPlayed(isPlayed)); },
-    playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); },
+    playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); }
   })
 )
 class Player extends Component {
@@ -64,11 +64,11 @@ class Player extends Component {
     this.props.playSong(nextPlayIndex);
   }
   render() {
-    const { 
-      canPlayed, audioSrc, 
-      loop, curPlayImgSrc, 
+    const {
+      canPlayed, audioSrc,
+      loop, curPlayImgSrc,
       isPlayed, paused, curPlaySong } = this.props;
-    
+
     // 传递给 PlayOperate 组件的props
     const playOperateProps = {
       paused,
@@ -83,7 +83,7 @@ class Player extends Component {
       setShowDetail: this.setShowDetail.bind(this),
       setCurrentTime: this.setCurrentTime.bind(this)
     }
-    
+
     let footerSingerClass = 'footer-singer';
     footerSingerClass = isPlayed ? footerSingerClass + ' rotate' : footerSingerClass;
     footerSingerClass = paused ? footerSingerClass + ' paused' : footerSingerClass;
@@ -108,8 +108,8 @@ class Player extends Component {
         <div className = "audio">
           <audio src = { audioSrc }
             loop = { loop }
-            ref = { el => this.audio = el } 
-            onCanPlay = { this.canplay.bind(this) } 
+            ref = { el => this.audio = el }
+            onCanPlay = { this.canplay.bind(this) }
             onEnded = { this.ended.bind(this) }>
           </audio>
         </div>

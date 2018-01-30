@@ -13,6 +13,15 @@ module.exports = {
   },
   module: {
     rules: [
+      /* {
+        enforce: "pre",
+        test: /\.(js|jsx)$/,
+        exclude: [
+          path.resolve(__dirname, "../node_modules"),
+          path.resolve(__dirname, "../dist")
+        ],
+        use: ["eslint-loader"]
+      }, */
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

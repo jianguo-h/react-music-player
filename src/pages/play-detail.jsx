@@ -8,9 +8,9 @@ import LrcScroll from '../components/lrc-scroll';
 import TimeWrap from '../components/time-wrap';
 import DetailList from '../components/detail-list';
 import LrcColor from '../components/lrc-color';
-import { 
-  setModeType, setLrcSwitch, 
-  setLrcConfig, setLock, 
+import {
+  setModeType, setLrcSwitch,
+  setLrcConfig, setLock,
   playSong, togglePlayStatus,
   setLoop } from '../store/actions'
 import '../less/play-detail.less';
@@ -82,17 +82,17 @@ class PlayDetail extends Component {
     this.rollTimer = null;            // 控制歌词滚动的定时器
     this.endTime = 0;                 // 歌曲结束时间(秒为单位)
     this.progressSpeed = 0;           // 进度条前进的速度
-    this.modeSwitch = false,          // 防止连续点击
+    this.modeSwitch = false;          // 防止连续点击
     this.mode = 1;                    // 初始化播放模式的数字
     this.state = {
       isShowList: false,              // 是否显示歌曲列表
       curPlayTime: 0,                 // 当前播放时间(秒为单位)
-      progress: 0,                    // 当前歌曲播放进度     
+      progress: 0,                    // 当前歌曲播放进度
       translateY: 0,                  // 歌词滚动的距离
       modeTip: '顺序播放',            // 播放模式提示
       showModeTip: false,             // 是否显示提示
       currentImgSrc: "",              // 当前颜色的背景图
-      isShowColorList: false,         // 是否显示颜色列表
+      isShowColorList: false          // 是否显示颜色列表
     }
   }
   componentWillMount() {
@@ -150,7 +150,7 @@ class PlayDetail extends Component {
       defaultColor: currentColorObj.defaultColor,
       activeColor: currentColorObj.activeColor
     });
-    
+
     this.mode = mode;
     this.setState({
       currentImgSrc: currentColorObj.currentImgSrc
@@ -161,14 +161,14 @@ class PlayDetail extends Component {
     this.endTime = parseInt(nextProps.audio.duration);
     this.progressSpeed = Number((100 / this.endTime).toFixed(2));
     this.props.setCurrentTime.bind(this, 0);
-     this.setState({
+    this.setState({
       progress: 0,
       curPlayTime: 0
     });
     if(this.progressTimer) {
       this.clearTimer();
     }
-    this.progressGo(); 
+    this.progressGo();
     this.lrcRoll(nextProps);
   }
   // 时间进度条前进
@@ -226,7 +226,7 @@ class PlayDetail extends Component {
       activeLrcIndex: newCurLrcIndex
     });
     if(!this.props.showDetail) return;
-    
+
     const prevTranslateY = this.state.translateY;
     const lrcBoxHeight = this.lrcBox.offsetHeight;
     const childHeight = this.lrcBox.firstChild.offsetHeight;
@@ -236,7 +236,7 @@ class PlayDetail extends Component {
       this.setState({
         translateY: childHeight * (newCurLrcIndex - curShowNum + 1)
       });
-    }                              
+    }
     else {
       this.setState({
         translateY: 0
@@ -336,7 +336,7 @@ class PlayDetail extends Component {
     });
 
     // 存入localStorage中
-    window.localStorage.currentColorObj = JSON.stringify(currentItem); 
+    window.localStorage.currentColorObj = JSON.stringify(currentItem);
   }
   // 悬浮歌词开关
   toggleLrcSwitch(lrcSwitch) {
@@ -357,16 +357,16 @@ class PlayDetail extends Component {
     }));
   }
   render() {
-    const { 
-      curPlaySong, curPlayImgSrc, 
-      curPlayLrcArr, modeType, 
-      showDetail, paused, 
+    const {
+      curPlaySong, curPlayImgSrc,
+      curPlayLrcArr, modeType,
+      showDetail, paused,
       lrcConfig, songList, lrcSwitch } = this.props;
-    const { 
-      modeTip, isShowList, translateY, 
-      curPlayTime, progress, showModeTip, 
+    const {
+      modeTip, isShowList, translateY,
+      curPlayTime, progress, showModeTip,
       currentImgSrc, isShowColorList } = this.state;
-    
+
     // 传递给 PlayOperate 组件的props
     const playOperateProps = {
       paused,
@@ -418,7 +418,7 @@ class PlayDetail extends Component {
             <Switch color = '#2ca2f9' checked = { lrcSwitch } onClick = { this.toggleLrcSwitch.bind(this, lrcSwitch) }></Switch>
           </div>
           <div className = "lrcColor-box">
-            <div className = "cur-lrcColor" style = {{ backgroundImage: 'url('+ currentImgSrc +')' }} onClick = { this.toggleShowColorList.bind(this) }></div>
+            <div className = "cur-lrcColor" style = {{ backgroundImage: 'url(' + currentImgSrc + ')' }} onClick = { this.toggleShowColorList.bind(this) }></div>
             { /* 歌词颜色列表组件 */}
             { isShowColorList ? <LrcColor { ...LrcColorProps } /> : null }
           </div>

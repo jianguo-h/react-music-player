@@ -13,8 +13,8 @@ class DetailList extends Component {
       index: -1,
       FileName: '',
       SongName: '',
-      SingerName: '',
-    },
+      SingerName: ''
+    }
   }
   render() {
     const { songList, curPlaySong, playSong } = this.props;

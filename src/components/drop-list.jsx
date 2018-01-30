@@ -15,7 +15,7 @@ class DropList extends Component {
   }
   render() {
     const { resultCount, searchTip, resultList, search } = this.props;
-    let tipDom = <p>{ searchTip }</p>;
+    const tipDom = <p>{ searchTip }</p>;
     let list = [];
     if(resultCount > 0) {
       list = resultList.map((item, index) => {
