@@ -15,7 +15,7 @@ class TimeWrap extends Component {
     endTime: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string
-    ]),
+    ])
   }
   static defaultProps = {
     curPlayTime: 0,
@@ -27,12 +27,12 @@ class TimeWrap extends Component {
     let minutes = parseInt(time / 60);
     let seconds = parseInt(time % 60);
     if(minutes < 10) {
-      minutes = `0${minutes}`;
+      minutes = '0' + minutes;
     }
     if(seconds < 10) {
-      seconds = `0${seconds}`;
+      seconds = '0' + seconds;
     }
-    return `${minutes}:${seconds}`;
+    return minutes + ':' + seconds;
   }
   render() {
     const { curPlayTime, progress, endTime, updateProgress, progressBarRef } = this.props;

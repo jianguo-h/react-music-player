@@ -143,7 +143,7 @@ class SuspendLyric extends Component {
   }
   render() {
     const { canPlayed, lrcConfig, lrcSwitch } = this.props;
-    
+
     const { firstLrc, nextLrc } = this.state;
     const firstLrcStyle = {
       color: firstLrc.index === lrcConfig.activeLrcIndex ? lrcConfig.activeColor : lrcConfig.defaultColor
@@ -152,12 +152,12 @@ class SuspendLyric extends Component {
       color: nextLrc.index === lrcConfig.activeLrcIndex ? lrcConfig.activeColor : lrcConfig.defaultColor
     };
     return (
-      <div 
+      <div
         className = { canPlayed && lrcSwitch ? 'fadeIn' : '' }
-        id = 'suspend-lyric' 
+        id = 'suspend-lyric'
         ref = { el => this.suspendLyric = el }
-        onTouchStart = { evt => { this.touchstart(evt) }} 
-        onTouchMove = { evt => { this.touchmove(evt) }} 
+        onTouchStart = { evt => { this.touchstart(evt) }}
+        onTouchMove = { evt => { this.touchmove(evt) }}
         onTouchEnd = { evt => { this.touchend(evt) }}
       >
         <span className = 'close' onClick = { this.close.bind(this) }></span>

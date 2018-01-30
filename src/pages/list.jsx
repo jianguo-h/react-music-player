@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import _cloneDeep from 'lodash/cloneDeep';
 import ListItem from '../components/list-item';
-import { 
-  setView, setSongList, 
+import {
+  setView, setSongList,
   setSearchListCount, playSong } from '../store/actions';
 import '../less/list.less';
 
@@ -34,7 +34,7 @@ class List extends Component {
   }
   componentWillMount() {
     this.path = this.props.match.path.split('/')[1];
-    
+
     if(this.path !== 'search') {
       this.getStaticList();
     }
@@ -120,7 +120,7 @@ class List extends Component {
       return;
     }
     const docEl = document.documentElement;
-    /* 
+    /*
      scrollTop 元素滚动的高度
      scrollHeight 元素的实际高度(包括滚动的高度)
      clientHeight 元素在窗口可见的高度(不包括滚动的高度)

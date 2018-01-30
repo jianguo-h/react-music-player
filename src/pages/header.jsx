@@ -29,7 +29,7 @@ class Header extends Component {
       keyword: '',                // 搜索的关键字
       resultCount: 0,             // 得到的结果数量
       resultList: [],             // 搜索得到的结果列表
-      searchTip: '正在搜索...',    // 搜索时的提示信息
+      searchTip: '正在搜索...'     // 搜索时的提示信息
     }
   }
   componentWillUnmount() {
