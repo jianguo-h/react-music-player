@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import App from './App';
 import adapt from './js/adapt';
 import { Toast } from 'antd-mobile';
-import { AppContainer } from 'react-hot-loader';
 import { HashRouter as Router } from 'react-router-dom';
 import './less/app.less';
 
