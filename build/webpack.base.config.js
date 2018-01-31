@@ -33,7 +33,8 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 1024 * 10
+              limit: 1024 * 8,
+              name: 'images/[name].[hash].[ext]'
             }
           }
         ]
@@ -44,7 +45,8 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 1024 * 10
+              limit: 1024 * 8,
+              name: 'images/[name].[hash].[ext]'
             }
           }
         ]
