@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import React, { Component } from 'react';
 import _cloneDeep from 'lodash/cloneDeep';
 import PropTypes from 'prop-types';
@@ -58,13 +59,15 @@ const lrcColorList = [                 // 歌词颜色列表数组
     lrcSwitch: state.lrcSwitch
   }),
   dispatch => ({
-    togglePlayStatus() { dispatch(togglePlayStatus()) },
-    setModeType(modeType) { dispatch(setModeType(modeType)); },
-    setLrcSwitch(lrcSwitch) { dispatch(setLrcSwitch(lrcSwitch)); },
-    setLrcConfig(lrcConfig) { dispatch(setLrcConfig(lrcConfig)); },
-    setLock(lock) { dispatch(setLock(lock)); },
-    playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); },
-    setLoop(loop) { dispatch(setLoop(loop)); }
+    ...bindActionCreators({
+      togglePlayStatus,
+      setModeType,
+      setLrcSwitch,
+      setLrcConfig,
+      setLock,
+      playSong,
+      setLoop
+    }, dispatch)
   })
 )
 class PlayDetail extends Component {

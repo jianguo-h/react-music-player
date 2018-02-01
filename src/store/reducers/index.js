@@ -1,6 +1,7 @@
+// reducers
 import _cloneDeep from 'lodash/cloneDeep';
 
-// reducers
+// 当前播放歌曲所属的路由
 export const view = (state = '', action) => {
   if(action.type === 'setView') {
     return action.view;
@@ -8,6 +9,7 @@ export const view = (state = '', action) => {
   return state;
 }
 
+// 当前播放歌曲所属的歌词列表
 export const songList = (state = [], action) => {
   if(action.type === 'setSongList') {
     return action.songList;
@@ -15,6 +17,7 @@ export const songList = (state = [], action) => {
   return state;
 }
 
+// 搜索框搜索后得到的歌曲数量
 export const searchListCount = (state = 0, action) => {
   if(action.type === 'setSearchListCount') {
     return action.searchListCount;
@@ -22,6 +25,7 @@ export const searchListCount = (state = 0, action) => {
   return state;
 }
 
+// audio的dom节点
 export const audio = (state = null, action) => {
   if(action.type === 'setAudio') {
     return action.audio;
@@ -29,6 +33,7 @@ export const audio = (state = null, action) => {
   return state;
 }
 
+// audioSrc播放来源
 export const audioSrc = (state = null, action) => {
   if(action.type === 'setAudioSrc') {
     return action.audioSrc;
@@ -36,6 +41,7 @@ export const audioSrc = (state = null, action) => {
   return state;
 }
 
+// 是否有音乐在播放
 export const isPlayed = (state = false, action) => {
   if(action.type === 'setIsPlayed') {
     return action.isPlayed;
@@ -43,6 +49,7 @@ export const isPlayed = (state = false, action) => {
   return state;
 }
 
+// 是否可以播放音乐
 export const canPlayed = (state = false, action) => {
   if(action.type === 'setCanPlayed') {
     return action.canPlayed;
@@ -50,6 +57,7 @@ export const canPlayed = (state = false, action) => {
   return state;
 }
 
+// 音频是否为暂停状态
 export const paused  = (state = false, action) => {
   if(action.type === 'setPaused') {
     if(action.paused !== undefined) {
@@ -110,6 +118,7 @@ export const curPlaySong = (state = defaultCurPlaySong, action) => {
   return state;
 }
 
+// 歌手图片来源, 默认值
 export const curPlayImgSrc = (state = '/singer-default.jpg', action) => {
   if(action.type === 'setCurPlayImgSrc') {
     return action.curPlayImgSrc;
@@ -117,6 +126,7 @@ export const curPlayImgSrc = (state = '/singer-default.jpg', action) => {
   return state;
 }
 
+// 歌词数组
 export const curPlayLrcArr = (state = [], action) => {
   if(action.type === 'setCurPlayLrcArr') {
     const lyrics = _cloneDeep(action.lyrics)
@@ -140,6 +150,7 @@ export const curPlayLrcArr = (state = [], action) => {
   return state;
 }
 
+// 事件开关, 防止canplay事件多次执行
 export const lock = (state = false, action) => {
   if(action.type === 'setLock') {
     return action.lock;
@@ -147,6 +158,7 @@ export const lock = (state = false, action) => {
   return state;
 }
 
+// 歌曲是否循环播放
 export const loop = (state = false, action) => {
   if(action.type === 'setLoop') {
     return action.loop;
@@ -154,6 +166,7 @@ export const loop = (state = false, action) => {
   return state;
 }
 
+// 播放模式
 export const modeType = (state = 'order', action) => {
   if(action.type === 'setModeType') {
     return action.modeType;
@@ -177,6 +190,7 @@ export const lrcConfig = (state = defaultLrcConfig, action) => {
   return state;
 }
 
+// 是否显示悬浮歌词
 export const lrcSwitch = (state = false, action) => {
   if(action.type === 'setLrcSwitch') {
     return action.lrcSwitch;

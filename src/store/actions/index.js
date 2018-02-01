@@ -1,8 +1,8 @@
+// action creators function
 import api from '../../api';
 import { Toast } from 'antd-mobile';
 import _cloneDeep from 'lodash/cloneDeep';
 
-// action creators function
 export function setView(view) {
   return {
     type: 'setView',

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import _cloneDeep from 'lodash/cloneDeep';
+import { bindActionCreators } from 'redux';
 import ListItem from '../components/list-item';
 import {
   setView, setSongList,
@@ -14,10 +15,12 @@ import '../less/list.less';
     isPlayed: state.isPlayed
   }),
   dispatch => ({
-    setView(view) { dispatch(setView(view)); },
-    setSongList(songList) { dispatch(setSongList(songList)); },
-    setSearchListCount(searchListCount) { dispatch(setSearchListCount(searchListCount)); },
-    playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); }
+    ...bindActionCreators({
+      setView,
+      setSongList,
+      setSearchListCount,
+      playSong
+    }, dispatch)
   })
 )
 class List extends Component {
