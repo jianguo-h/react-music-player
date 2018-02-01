@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { setLrcSwitch } from '../store/actions';
 import '../less/suspend-lyric.less';
 
@@ -11,7 +12,9 @@ import '../less/suspend-lyric.less';
     lrcSwitch: state.lrcSwitch
   }),
   dispatch => ({
-    setLrcSwitch(lrcSwitch) { dispatch(setLrcSwitch(lrcSwitch)) }
+    ...bindActionCreators({
+      setLrcSwitch
+    }, dispatch)
   })
 )
 class SuspendLyric extends Component {

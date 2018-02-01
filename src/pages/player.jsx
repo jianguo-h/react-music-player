@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import PlayDetail from './play-detail';
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import PlayOperate from '../components/play-operate';
 import {
   setAudio, setIsPlayed,
@@ -20,10 +21,12 @@ import '../less/player.less';
     modeType: state.modeType
   }),
   dispatch => ({
-    togglePlayStatus() { dispatch(togglePlayStatus()) },
-    setAudio(audio) { dispatch(setAudio(audio)); },
-    setIsPlayed(isPlayed) { dispatch(setIsPlayed(isPlayed)); },
-    playSong(curPlayIndex) { dispatch(playSong(curPlayIndex)); }
+    ...bindActionCreators({
+      togglePlayStatus,
+      setAudio,
+      setIsPlayed,
+      playSong
+    }, dispatch)
   })
 )
 class Player extends Component {
