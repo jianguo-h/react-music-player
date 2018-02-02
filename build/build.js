@@ -3,7 +3,13 @@ const ora = require('ora');
 const path = require("path");
 const rimraf = require("rimraf");
 const webpack = require("webpack");
+const config = require('../config');
 const webpackProdConfig = require("./webpack.prod.config");
+
+// 当环境变量不存在时设置为打包环境
+if(!process.env.NODE_ENV) {
+  process.env.NODE_ENV = config.prod.env;
+}
 
 const spinner = ora('building for production...')
 spinner.start();

@@ -28,24 +28,12 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 1024 * 8,
-              name: 'images/[name].[hash].[ext]'
-            }
-          }
-        ]
-      },
-      {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
         use: [
           {
             loader: 'url-loader',
             options: {
-              limit: 1024 * 8,
+              limit: 1024 * 3,
               name: 'images/[name].[hash].[ext]'
             }
           }

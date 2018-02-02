@@ -34,6 +34,6 @@ module.exports = {
   },
   prod: {
     env: "production",
-    publicPath: "./"
+    publicPath: "/"
   }
 }

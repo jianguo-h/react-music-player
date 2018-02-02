@@ -33,7 +33,7 @@ router(app);
 proxy(app);
 
 // config static file
-static(app);
+static(app, '../src/static/img');
 
 // use middleware
 app.use(devMiddlewareInstance);
