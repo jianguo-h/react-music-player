@@ -146,7 +146,7 @@ export function playSong(curPlayIndex) {
     dispatch(setIsPlayed(false));
     dispatch(setAudioSrc(''));
     dispatch(setCurPlayLrcArr([]));
-    dispatch(setCurPlayImgSrc('/singer-default.jpg'));
+    dispatch(setCurPlayImgSrc('/images/singer-default.jpg'));
     dispatch(togglePlayStatus());
     dispatch(setLock(false));
     dispatch(setLrcConfig({

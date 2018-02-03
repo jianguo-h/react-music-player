@@ -20,27 +20,27 @@ const lrcColorList = [                 // 歌词颜色列表数组
   {
     defaultColor: "#b2f5b5",
     activeColor: "#d1c90e",
-    currentImgSrc: "/current-type1.png"
+    currentImgSrc: "/images/current-type1.png"
   },
   {
     defaultColor: "#c1f3dc",
     activeColor: "#33a3f5",
-    currentImgSrc: "/current-type2.png"
+    currentImgSrc: "/images/current-type2.png"
   },
   {
     defaultColor: "#a0f533",
     activeColor: "#f32d2d",
-    currentImgSrc: "/current-type3.png"
+    currentImgSrc: "/images/current-type3.png"
   },
   {
     defaultColor: "#eff366",
     activeColor: "#21d10e",
-    currentImgSrc: "/current-type4.png"
+    currentImgSrc: "/images/current-type4.png"
   },
   {
     defaultColor: "#efe8b2",
     activeColor: "#d200d2",
-    currentImgSrc: "/current-type5.png"
+    currentImgSrc: "/images/current-type5.png"
   }
 ]
 @connect(
