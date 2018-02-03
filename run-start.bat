@@ -1,0 +1,2 @@
+cls
+npm run start
