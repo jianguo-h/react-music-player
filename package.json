@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "set NODE_ENV=development&&node build/dev-server.js",
-    "build": "set NODE_ENV=production&&node build/build.js"
+    "build": "set NODE_ENV=production&&node build/build.js",
+    "start": "node koa/index.js"
   },
   "repository": {
     "type": "git",
@@ -58,6 +59,7 @@
     "koa": "^2.4.1",
     "koa-connect": "^2.0.0",
     "koa-router": "^7.3.0",
+    "koa-send": "^4.1.2",
     "koa-static": "^4.0.2",
     "koa-webpack-middleware": "^1.0.7",
     "less": "^2.7.3",
