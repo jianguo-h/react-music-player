@@ -119,7 +119,7 @@ export const curPlaySong = (state = defaultCurPlaySong, action) => {
 }
 
 // 歌手图片来源, 默认值
-export const curPlayImgSrc = (state = '/singer-default.jpg', action) => {
+export const curPlayImgSrc = (state = '/images/singer-default.jpg', action) => {
   if(action.type === 'setCurPlayImgSrc') {
     return action.curPlayImgSrc;
   }
