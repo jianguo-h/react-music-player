@@ -131,7 +131,6 @@ class PlayDetail extends Component {
     else {
       currentColorObj = _cloneDeep(lrcColorList[0]);
     }
-    console.log('init', lrcSwitch);
     if(!modeType) {
       modeType = "order";
     }
@@ -421,7 +420,7 @@ class PlayDetail extends Component {
             <Switch color = '#2ca2f9' checked = { lrcSwitch } onClick = { this.toggleLrcSwitch.bind(this, lrcSwitch) }></Switch>
           </div>
           <div className = "lrcColor-box">
-            <div className = "cur-lrcColor" style = {{ backgroundImage: 'url(' + currentImgSrc + ')' }} onClick = { this.toggleShowColorList.bind(this) }></div>
+            <div className = "cur-lrcColor" style = {{ backgroundImage: 'url(' + require('../static' + currentImgSrc) + ')' }} onClick = { this.toggleShowColorList.bind(this) }></div>
             { /* 歌词颜色列表组件 */}
             { isShowColorList ? <LrcColor { ...LrcColorProps } /> : null }
           </div>

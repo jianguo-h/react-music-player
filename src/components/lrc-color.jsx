@@ -16,7 +16,7 @@ class LrcColor extends Component {
         {
           lrcColorList.map((currentObj, index) => {
             return (
-              <li key = { index } style = {{ backgroundImage: 'url(' + currentObj.currentImgSrc + ')' }} onClick = { changeLrcColor.bind(this, index) }>
+              <li key = { index } style = {{ backgroundImage: 'url(' + require('../static' + currentObj.currentImgSrc) + ')' }} onClick = { changeLrcColor.bind(this, index) }>
               </li>
             );
           })

@@ -21,7 +21,15 @@ export default () => {
   const scale = 1 / dpr;
   const docEl = document.documentElement;
   let metaEl = document.querySelector("meta[name='viewport']");
-
+  let iconLink = document.querySelector('link[rel="shortcut icon"]');
+  
+  // add title icon
+  if(!iconLink) {
+    iconLink = document.createElement("link");
+    iconLink.setAttribute("rel", "shortcut icon");
+    iconLink.setAttribute("href", require('../static/images/music-ico.png'));
+    document.querySelector("head").appendChild(iconLink);
+  }
   if(!metaEl) {
     metaEl = document.createElement("meta");
     metaEl.setAttribute("name", "viewport");
