@@ -9,7 +9,7 @@
 
 react + react-router-dom + redux + react-redux + axios + antd-mobile + es6 + less
 
-## 将要实现的功能
+## 已实现的功能
 
 * 搜索功能，包括搜索歌曲和歌手
 * 歌曲的播放，暂停功能
@@ -27,9 +27,49 @@ react + react-router-dom + redux + react-redux + axios + antd-mobile + es6 + les
 npm i（cnpm i）
 
 # serve with hot reload at localhost:8080
-npm run dev
+npm run dev（或者直接双击run-dev.bat文件）
 
+# build for production with minification
+npm run build（或者直接双击run-build.bat文件）
+
+# also you can
+或者执行完第一步后，也可以在控制台下直接运行npm run start命令（或者直接双击run-start.bat文件）
+该命令会直接运行koa目录下的index.js文件，加载已打包好的dist目录下的文件
+```
+
+## 部分效果图
+
+### 首页和播放页
+<img src = "https://github.com/snow-imprint/vue-music-player/blob/master/screenshot/index.gif" /><img src = "https://github.com/snow-imprint/vue-music-player/blob/master/screenshot/whole.gif" />
+
+
+### 播放详情和搜索功能
+<img src = "https://github.com/snow-imprint/vue-music-player/blob/master/screenshot/play-detail.gif" /><img src = "https://github.com/snow-imprint/vue-music-player/blob/master/screenshot/search.gif" />
+
+## 目录
+
+```
+.
+├── build                                       // webpack配置文件
+├── config                                      // webpack的一些配置
+├── dist                                        // 已打包好的目录
+├── koa                                         // koa的一些配置
+├── src                                         // 源码
+│   ├── api                                     // 接口管理
+│   ├── components                              // 功能性组件
+│   ├── js                                      // 其他js
+│   ├── less                                    // 样式文件less
+│   ├── pages                                   // 页面级性组件
+│   ├── routes                                  // react路由配置
+│   ├── store                                   // redux配置
+│   ├── App.jsx                                 // 根组件文件
+│   ├── main.js                                 // 入口文件
+│   ├── static                                  // 静态资源
+        ├── img                                 // 图片
+        ├── data                                // json数据
+├── index.html                                  // 入口html文件
+.
 ```
 
 ## 其他说明
-由于接口调用的是酷狗官方的接口，需要跨域，所以项目中使用了代理，配置在config目录和build目录下的dev-server.js中，注意*请不要频繁访问请求，很有可能被酷狗封死接口*
+由于接口调用的是酷狗官方的接口，需要跨域，所以项目中使用了代理，配置在config目录和build目录下的dev-server.js中，注意**请不要频繁访问请求，很有可能被酷狗封死接口**
