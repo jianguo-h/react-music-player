@@ -1,8 +1,9 @@
 const webpack = require('webpack');
 const config = require('../config');
 const webpackMerge = require('webpack-merge');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpackBaseConfig = require('./webpack.base.config');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const webpackProdConfig = webpackMerge(webpackBaseConfig, {
@@ -15,28 +16,21 @@ const webpackProdConfig = webpackMerge(webpackBaseConfig, {
     rules: [
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'less-loader']
-        })
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader']
-        })
-      }
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+      },
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
+    /*new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(config.prod.env)
-    }),
+    }),*/
     // 提取less和css
-    new ExtractTextPlugin({
-      filename: 'css/app.bundle.[hash].css',
-      allChunks: true
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].[hash].css'
     }),
     // 压缩css
     new OptimizeCssAssetsPlugin({
@@ -49,19 +43,17 @@ const webpackProdConfig = webpackMerge(webpackBaseConfig, {
       },
       canPrint: true
     }),
-    // 压缩混淆js(https://webpack.js.org/plugins/uglifyjs-webpack-plugin/#src/components/Sidebar/Sidebar.jsx)
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
+    // 压缩混淆js
+    new UglifyJsPlugin({
+      uglifyOptions: {
         warnings: false,
-        drop_console: true,   // 去除日志
-        drop_debugger: true   // 去除debugger
+        compress: {
+          drop_console: true,   // 去除日志
+          drop_debugger: true   // 去除debugger
+        },
       },
-      output: {
-        comments: false
-      },
-      except: ['$super', '$', 'exports', 'require'],
-      sourceMap: true
-    })
+      parallel: true
+    }),
     // 拷贝静态文件
     /*new CopyWebpackPlugin([
       {
