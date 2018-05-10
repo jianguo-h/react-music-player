@@ -52,7 +52,6 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
     "eventsource-polyfill": "^0.9.6",
-    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "http-proxy-middleware": "^0.18.0",
@@ -64,6 +63,7 @@
     "koa-webpack-middleware": "^1.0.7",
     "less": "^3.0.2",
     "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.4.0",
     "opn": "^5.3.0",
     "optimize-css-assets-webpack-plugin": "^4.0.1",
     "ora": "^2.0.0",
@@ -73,6 +73,7 @@
     "redux-thunk": "^2.2.0",
     "rimraf": "^2.6.2",
     "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "url-loader": "^1.0.1",
     "webpack": "^4.8.1",
     "webpack-merge": "^4.1.2"
