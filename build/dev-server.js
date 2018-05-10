@@ -47,9 +47,7 @@ const readyPromise = new Promise((resolve, reject) => {
 devMiddlewareInstance.waitUntilValid(() => {
   console.log('dev server start at ' + url);
   if(process.env.NODE_ENV === config.dev.env) {
-    opn(url, {
-      app: 'chrome'
-    });
+    opn(url);
   }
   _resolve();
 });
