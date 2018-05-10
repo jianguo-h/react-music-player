@@ -11,6 +11,7 @@ Object.keys(webpackBaseConfig.entry).forEach(entryName => {
 
 const webpackDevConfig = webpackMerge(webpackBaseConfig, {
   devtool: 'cheap-module-eval-source-map',
+  mode: config.dev.env,
   output: {
     publicPath: config.dev.publicPath
   },
@@ -27,12 +28,12 @@ const webpackDevConfig = webpackMerge(webpackBaseConfig, {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
+    /*new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(config.dev.env)
-    }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
+    }),*/
+    // new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    // new webpack.NoEmitOnErrorsPlugin()
   ]
 });
 

@@ -5,10 +5,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: {
     app: './src/main.js',
-    vendor: ['react', 'react-dom', 'react-router-dom', 'redux', 'react-redux', 'axios', 'antd-mobile', 'lodash']
+    vendors: ['react', 'react-dom', 'react-router-dom', 'redux', 'react-redux', 'axios', 'antd-mobile', 'lodash']
   },
   output: {
-    filename: 'js/[name].bundle.[hash].js',
+    filename: 'js/[name].[hash].js',
+    chunkFilename: 'js/[name].[chunkhash].js',
     path: path.resolve(__dirname, '../dist')
   },
   module: {
@@ -53,10 +54,33 @@ module.exports = {
       inject: true
     }),
     // 提取公共的js
-    new webpack.optimize.CommonsChunkPlugin({
+    /*new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest'],
       allChunks: true,
       minChunks: Infinity
-    })
-  ]
+    })*/
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        },
+        commons: {
+          name: "commons",
+          chunks: "initial",
+          minChunks: 2
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'initial',
+          name: 'vendors',
+          priority: -10
+        }
+      }
+    },
+    runtimeChunk: 'single'
+  }
 }
