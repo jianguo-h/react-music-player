@@ -1,16 +1,14 @@
-const opn = require('opn');
 const Koa = require('koa');
 const path = require('path');
 const send = require('koa-send');
 const proxy = require('./proxy');
-const static = require('./static');
+const configStatic = require('./static');
 const router = require('./router');
 const config = require('../config');
+const detectionPort = require('./detection-port');
 
 const app = new Koa();
-const serverPort = 8088;
-const proxyTable = config.dev.proxyTable;
-const url = 'http://localhost:' + serverPort;
+const serverPort = config.prod.port;
 
 // config koa router
 router(app);
@@ -19,7 +17,7 @@ router(app);
 proxy(app);
 
 // config static file
-static(app, '../dist');
+configStatic(app, '../dist');
 
 // config dist directory start
 app.use(async ctx => {
@@ -36,13 +34,5 @@ app.use(async ctx => {
   }
 });
 
-// listen koa server port
-const startServer = port => {
-  app.listen(serverPort, () => {
-    console.log('server start at ' + url);
-    opn(url, {
-      app: 'chrome'
-    });
-  });
-}
-startServer();
+// 端口检测
+detectionPort(app, serverPort);
