@@ -1,4 +1,3 @@
-const fs = require("fs");
 const ora = require('ora');
 const path = require("path");
 const rimraf = require("rimraf");
@@ -18,22 +17,22 @@ const distPath = path.resolve(__dirname, "../dist");
 rimraf(distPath, err => {
   if(err) throw err;
 
-  webpack(webpackProdConfig, (err, stats) => {
+  webpack(webpackProdConfig, (error, stats) => {
     spinner.stop()
-    if(err) throw err;
-    
+    if(error) throw error;
+
     process.stdout.write(stats.toString({
-    	colors: true,
-    	modules: false,
-    	children: false,
-    	chunks: false,
-    	chunkModules: false
+      colors: true,
+      modules: false,
+      children: false,
+      chunks: false,
+      chunkModules: false
     }) + "\n\n");
 
     console.log("Build complete \n");
     console.log(
-      "Tip: built files are meant to be served over an HTTP server.\n" +
-      "Opening index.html over file:// won\'t work.\n'"
+      "Tip: built files are meant to be served over an HTTP server.\n"
+      + "Opening index.html over file:// won \\'t work.\n'"
     );
   });
 });

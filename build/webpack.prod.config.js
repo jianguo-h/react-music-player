@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const config = require('../config');
 const webpackMerge = require('webpack-merge');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');

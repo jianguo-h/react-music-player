@@ -12,11 +12,15 @@ class LrcColor extends Component {
   render() {
     const { lrcColorList, changeLrcColor } = this.props;
     return (
-      <div className = "color-list"> 
+      <div className = "color-list">
         {
           lrcColorList.map((currentObj, index) => {
             return (
-              <li key = { index } style = {{ backgroundImage: 'url(' + require('../static' + currentObj.currentImgSrc) + ')' }} onClick = { changeLrcColor.bind(this, index) }>
+              <li
+                key = { index }
+                style = {{ backgroundImage: 'url(' + require('../static' + currentObj.currentImgSrc) + ')' }}
+                onClick = { changeLrcColor.bind(this, index) }
+              >
               </li>
             );
           })

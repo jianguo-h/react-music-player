@@ -142,7 +142,7 @@ export function togglePlayStatus() {
 export function playSong(curPlayIndex) {
   return async (dispatch, getState) => {
     Toast.loading('加载中...', 0);
-    
+
     dispatch(setIsPlayed(false));
     dispatch(setAudioSrc(''));
     dispatch(setCurPlayLrcArr([]));
@@ -152,7 +152,7 @@ export function playSong(curPlayIndex) {
     dispatch(setLrcConfig({
       activeLrcIndex: 0
     }));
-    
+
     const state = getState();
     const songList = _cloneDeep(state.songList);
     if(curPlayIndex < 0) {
@@ -185,7 +185,7 @@ export function playSong(curPlayIndex) {
             const data = _cloneDeep(playRes.data.data);
             Toast.hide();
             if(!data.play_url) {
-              Toast.filf('暂无播放来源',);
+              Toast.filf('暂无播放来源');
               return;
             }
             const audioSrc = data.play_url;
