@@ -25,9 +25,12 @@ react + react-router-dom + redux + react-redux + axios + antd-mobile + es6 + les
 
 # install dependencies
 npm i（cnpm i）
+如果安装了yarn, 也可以yarn install
 
 # serve with hot reload at localhost:8080
-npm run dev（或者直接双击run-dev.bat文件）
+安装好依赖后, 启动项目, 这里分 2 步
+1). npm run start（或者直接双击app.bat文件）
+2). npm run dev（或者直接双击run-dev.bat文件）
 
 # build for production with minification
 npm run build（或者直接双击run-build.bat文件）
@@ -35,6 +38,7 @@ npm run build（或者直接双击run-build.bat文件）
 # also you can
 或者执行完第一步后，也可以在控制台下直接运行npm run start命令（或者直接双击run-start.bat文件）
 该命令会直接运行koa目录下的index.js文件，加载已打包好的dist目录下的文件
+启动成功后直接在浏览器中打开 http://localhost:8088 即可
 ```
 
 ## 部分效果图
