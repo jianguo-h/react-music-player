@@ -3,14 +3,14 @@ const opn = require('opn');
 const webpack = require('webpack');
 const config = require('../config');
 const proxy = require('../koa/proxy');
-const static = require('../koa/static');
-const router = require('../koa/router');
+const configStatic = require('../koa/static');
+const detectionPort = require('../koa/detection-port');
 const webpackDevConfig = require('./webpack.dev.config');
 const { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
 
 const app = new Koa();
-const port = config.dev.port;
-const url = 'http://localhost:' + port;
+const devPort = config.dev.port;
+const url = 'http://localhost:' + devPort;
 const compiler = webpack(webpackDevConfig);
 
 // 当环境变量不存在时设置为开发环境
@@ -26,21 +26,24 @@ const devMiddlewareInstance = devMiddleware(compiler, {
 
 const hotMiddlewareInstance = hotMiddleware(compiler);
 
-// config koa router
-router(app);
-
 // config koa proxy
-proxy(app);
+const extraProxys = {
+  '/api': {
+    target: 'http://localhost:' + config.prod.port,
+    changeOrigin: true
+  }
+};
+proxy(app, extraProxys);
 
 // config static file
-static(app, '../src/static');
+configStatic(app, '../src/static');
 
 // use middleware
 app.use(devMiddlewareInstance);
 app.use(hotMiddlewareInstance);
 
 let _resolve;
-const readyPromise = new Promise((resolve, reject) => {
+new Promise((resolve, reject) => {
   _resolve = resolve;
 });
 
@@ -52,4 +55,5 @@ devMiddlewareInstance.waitUntilValid(() => {
   _resolve();
 });
 
-app.listen(port);
+// 端口检测
+detectionPort(app, devPort);

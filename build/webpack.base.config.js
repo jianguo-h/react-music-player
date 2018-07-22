@@ -7,8 +7,8 @@ module.exports = {
     vendors: ['react', 'react-dom', 'react-router-dom', 'redux', 'react-redux', 'axios', 'antd-mobile', 'lodash']
   },
   output: {
-    filename: 'js/[name].[hash].js',
-    chunkFilename: 'js/[name].[chunkhash].js',
+    filename: 'static/js/[name].[hash].js',
+    chunkFilename: 'static/js/[name].[chunkhash].js',
     path: path.resolve(__dirname, '../dist')
   },
   module: {
@@ -34,7 +34,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 1024 * 3,
-              name: 'images/[name].[hash].[ext]'
+              name: 'static/images/[name].[hash].[ext]'
             }
           }
         ]
