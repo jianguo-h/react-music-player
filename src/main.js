@@ -18,6 +18,7 @@ if(module.hot) {
 adapt();
 window.api = api;
 window.Toast = Toast;
+window.errMsg = '请求出错';
 
 render(
   <Provider store = { store }>

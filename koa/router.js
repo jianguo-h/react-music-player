@@ -2,7 +2,7 @@ const songData = require('../src/static/data/song.json');
 const Router = require('koa-router');
 const router = new Router();
 
-// 配置 koa 的路由
+// config koa router
 module.exports = app => {
   const paths = ['new', 'recommend', 'local'];
   for(const path of paths) {
