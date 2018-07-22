@@ -1,31 +1,68 @@
 module.exports = {
-  root: true,
+  extends: ['airbnb-base', 'plugin:react/recommended'],
+  // root: true,
   parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaVersion: 2017,
+    ecmaFeatures: {
+      jsx: true,
+    }
   },
   env: {
     browser: true,
   },
-  extends: 'standard',
   plugins: [
-    'html'
+    'react'
   ],
   'rules': {
-    'semi': 0,
-    'quotes': 0,
-    'no-new': 0,
-    'no-var': 2,
-    'eol-last': 0,
-    'brace-style': 0,
-    'prefer-const': 2,
-    'comma-dangle': 2,      // 禁止结尾有多余的逗号
-    'no-unused-vars': 1,
-    'spaced-comment': 0,    // 要求或禁止在注释前有空白
-    'no-multi-spaces': 0,
-    'keyword-spacing': 0,
-    'indent': ['error', 2],
-    'no-useless-return': 0,
-    'space-before-function-paren': 0,
+    'semi': 0,                              // 要求或禁止使用分号代替 ASI
+    'quotes': 0,                            // 强制使用一致的反勾号、双引号或单引号
+    'no-new': 0,                            // 禁止使用 new 以避免产生副作用
+    'no-var': 2,                            // 要求使用 let 或 const 而不是 var
+    'eol-last': 0,                          // 要求或禁止文件末尾存在空行
+    'brace-style': 0,                       // 强制在代码块中使用一致的大括号风格
+    'prefer-const': 2,                      // 要求使用 const 声明那些声明后不再被修改的变量
+    'comma-dangle': 2,                      // 禁止结尾有多余的逗号
+    'no-unused-vars': 1,                    // 禁止出现未使用过的变量
+    'spaced-comment': 0,                    // 要求或禁止在注释前有空白
+    'no-multi-spaces': 0,                   // 禁止使用多个空格
+    'keyword-spacing': 0,                   // 强制在关键字前后使用一致的空格
+    'indent': ['error', 2],                 // 强制使用一致的缩进 2个空格
+    'no-useless-return': 0,                 // 禁止多余的 return 语句
+    'space-before-function-paren': 0,       // 强制在 function的左括号之前使用一致的空格
+    'linebreak-style': 0,                   // 强制使用一致的换行风格
+    'arrow-parens': 0,                      // 要求箭头函数的参数使用圆括号
+    'no-use-before-define': 0,              // 禁止在变量定义之前使用它们
+    'comma-dangle': 0,                      // 要求或禁止末尾逗号
+    'prefer-destructuring': 0,              // 优先使用数组和对象解构
+    'no-console': 0,                        // 禁用 console
+    'global-require': 0,                    // 要求 require() 出现在顶层模块作用域中
+    'object-curly-newline': 0,              // 强制大括号内换行符的一致性
+    'no-underscore-dangle': 0,              // 禁止标识符中有悬空下划线
+    'no-shadow': 2,                         // 禁止变量声明与外层作用域的变量同名
+    'no-param-reassign': 0,                 // 禁止对 function 的参数进行重新赋值
+    'no-restricted-syntax': 0,              // 禁用特定的语法
+    'prefer-template': 0,                   // 要求使用模板字面量而非字符串连接
+    'max-len': ['error', 150],              // 强制一行的最大长度
+    'no-unused-expressions': 0,             // 禁止出现未使用过的表达式
+    'no-plusplus': 0,                       // 禁用一元操作符 ++ 和 --
+    'quote-props': 0,                       // 要求对象字面量属性名称用引号括起来
+    'arrow-body-style': 0,                  // 要求箭头函数体使用大括号
+    'radix': 0,                             // 强制在parseInt()使用基数参数
+    'func-names': 0,                        // 要求或禁止使用命名的 function 表达式
+    'object-shorthand': 0,                  // 要求或禁止对象字面量中方法和属性使用简写语法
+    'no-lonely-if': 0,                      // 禁止 if 作为唯一的语句出现在 else 语句中
+    'lines-between-class-members': 0,       // 要求或禁止类成员之间出现空行
+    'no-alert': 0,                          // 禁用 alert、confirm 和 prompt
+    'no-return-assign': 0,                  // 禁止在 return 语句中使用赋值语句
+    'class-methods-use-this': 0,            // 强制类方法使用 this
+    'import/no-dynamic-require': 0,
+    'import/order': 0,
+    'import/no-unresolved': 0,
+    'import/newline-after-import': 0,
+    'import/no-extraneous-dependencies': 0,
+    'react/prop-types': 1,                  // 禁止有没验证的props
+    'react/no-deprecated': 0
   }
 }
