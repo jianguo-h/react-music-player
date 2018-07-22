@@ -93,12 +93,12 @@ export const curPlaySong = (state = defaultCurPlaySong, action) => {
         ...state,
         ...action.songInfo
       }
-    case 'setPaused': 
+    case 'setPaused':
       return {
         ...state,
         action.
       }
-    default: 
+    default:
       return state;
   }
 } */

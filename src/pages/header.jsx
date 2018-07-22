@@ -88,7 +88,7 @@ class Header extends Component {
     if(!keyword) {
       window.alert("请输入搜索内容");
       return;
-    };
+    }
     this.props.history.push('/search/' + keyword);
     this.setState({
       keyword: ''
@@ -118,8 +118,7 @@ class Header extends Component {
           <div className = "search" onClick = { this.search.bind(this, keyword) }></div>
         </div>
         {
-          path !== 'search' ?
-          (
+          path !== 'search' ? (
             <div className = "header-tab">
               <ul>
                 {
@@ -129,8 +128,7 @@ class Header extends Component {
                 }
               </ul>
             </div>
-          ) : 
-          (
+          ) : (
             <div className = "header-search-result">
               <div className = "goback" onClick = { this.goback.bind(this) }></div>
               <div className = "searchCount">共有<em>{ this.props.searchListCount }</em>条结果</div>

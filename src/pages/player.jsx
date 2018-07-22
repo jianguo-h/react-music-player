@@ -119,6 +119,6 @@ class Player extends Component {
       </div>
     ) : null;
   }
-};
+}
 
 export default Player;
