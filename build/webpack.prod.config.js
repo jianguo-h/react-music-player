@@ -24,9 +24,6 @@ const webpackProdConfig = webpackMerge(webpackBaseConfig, {
     ]
   },
   plugins: [
-    /*new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(config.prod.env)
-    }),*/
     // 提取less和css
     new MiniCssExtractPlugin({
       filename: 'static/css/[name].[hash].css'
@@ -52,14 +49,7 @@ const webpackProdConfig = webpackMerge(webpackBaseConfig, {
         },
       },
       parallel: true
-    }),
-    // 拷贝静态文件
-    /*new CopyWebpackPlugin([
-      {
-        from: path.join(__dirname, '../static'),
-        to: 'static'
-      }
-    ])*/
+    })
   ]
 });
 
