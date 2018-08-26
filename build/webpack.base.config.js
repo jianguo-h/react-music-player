@@ -3,8 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    app: './src/main.js',
-    vendors: ['react', 'react-dom', 'react-router-dom', 'redux', 'react-redux', 'axios', 'antd-mobile', 'lodash']
+    app: './src/main.js'
   },
   output: {
     filename: 'static/js/[name].[hash].js',
@@ -13,15 +12,6 @@ module.exports = {
   },
   module: {
     rules: [
-      /* {
-        enforce: "pre",
-        test: /\.(js|jsx)$/,
-        exclude: [
-          path.resolve(__dirname, "../node_modules"),
-          path.resolve(__dirname, "../dist")
-        ],
-        use: ["eslint-loader"]
-      }, */
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -51,32 +41,15 @@ module.exports = {
       template: './index.html',
       // chunksSortMode: 'dependency',
       inject: true
-    }),
-    // 提取公共的js
-    /*new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest'],
-      allChunks: true,
-      minChunks: Infinity
-    })*/
+    })
   ],
   optimization: {
     splitChunks: {
       cacheGroups: {
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true
-        },
-        commons: {
-          name: "commons",
-          chunks: "initial",
-          minChunks: 2
-        },
-        vendors: {
+        vendor: {
           test: /[\\/]node_modules[\\/]/,
-          chunks: 'initial',
-          name: 'vendors',
-          priority: -10
+          chunks: 'all',
+          name: 'vendor'
         }
       }
     },
