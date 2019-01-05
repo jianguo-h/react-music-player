@@ -6,8 +6,8 @@ module.exports = {
     app: './src/main.js'
   },
   output: {
-    filename: 'static/js/[name].[hash].js',
-    chunkFilename: 'static/js/[name].[chunkhash].js',
+    filename: 'static/js/[name].[hash:8].js',
+    chunkFilename: 'static/js/[name].[chunkhash:8].js',
     path: path.resolve(__dirname, '../dist')
   },
   module: {
@@ -24,7 +24,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 1024 * 3,
-              name: 'static/images/[name].[hash].[ext]'
+              name: 'static/images/[name].[hash:7].[ext]'
             }
           }
         ]
@@ -39,17 +39,22 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './index.html',
-      // chunksSortMode: 'dependency',
       inject: true
     })
   ],
   optimization: {
     splitChunks: {
       cacheGroups: {
-        vendor: {
+        vendors: {
           test: /[\\/]node_modules[\\/]/,
           chunks: 'all',
-          name: 'vendor'
+          name: 'vendors'
+        },
+        commons: {
+          chunks: 'all',
+          name: 'commons',
+          priority: -11,
+          minChunks: 2
         }
       }
     },

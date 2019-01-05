@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "set NODE_ENV=development&&node build/dev-server.js",
     "build": "set NODE_ENV=production&&node build/build.js",
+    "build-dll": "node build/build.dll.js",
     "start": "node koa/index.js"
   },
   "repository": {
@@ -35,6 +36,7 @@
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.2.0",
+    "add-asset-html-webpack-plugin": "^3.1.2",
     "antd-mobile": "^2.2.8",
     "autoprefixer": "^9.4.4",
     "axios": "^0.18.0",

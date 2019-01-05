@@ -28,12 +28,7 @@ const webpackDevConfig = webpackMerge(webpackBaseConfig, {
     ]
   },
   plugins: [
-    /*new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(config.dev.env)
-    }),*/
-    // new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoEmitOnErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ]
 });
 
