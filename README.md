@@ -1,6 +1,6 @@
 # 前言
 
-最近在入坑react，撸完文档后发现没啥项目可练手，所以只好拿之前用vue做的[音乐播放器](https://github.com/snow-imprint/vue-music-player)来改版了。由于是react的初学者，在很多方面都还是个小菜鸟，组件设计上可能也有很多不规范的地方，如果你已经是个react的大神了，觉得项目有任何不规范的代码或是设计，记得联系我哦！当然如果你和我一样也是个初学者，希望这个项目能帮到你一点，记得点颗星O(∩_∩)O。移动端的一个小项目，**chrome浏览器下请切换至手机模式查看**
+最近在入坑react，撸完文档后发现没啥项目可练手，所以只好拿之前用vue做的[音乐播放器](https://github.com/jianguo-h/vue-music-player)来改版了。由于是react的初学者，在很多方面都还是个小菜鸟，组件设计上可能也有很多不规范的地方，如果你已经是个react的大神了，觉得项目有任何不规范的代码或是设计，记得联系我哦！当然如果你和我一样也是个初学者，希望这个项目能帮到你一点，记得点颗星O(∩_∩)O。移动端的一个小项目，**chrome浏览器下请切换至手机模式查看**
 >**注意**：该项目使用了koa2，所以node的版本需在7.6以上，windows的小伙伴需要升级node可去官网下载最新的安装包后直接覆盖安装，由于本人没有用过mac，所以说用mac的小伙伴百度下如何升级node吧
 
 # 项目简介
@@ -21,7 +21,7 @@ react + react-router-dom + redux + react-redux + axios + antd-mobile + es6 + les
 ## Build Setup
 
 ``` bash
-# git clone https://github.com/snow-imprint/react-music-player.git
+# git clone https://github.com/jianguo-h/react-music-player.git
 
 # install dependencies
 npm i（cnpm i）
@@ -44,11 +44,11 @@ npm run build（或者直接双击run-build.bat文件）
 ## 部分效果图
 
 ### 首页和播放页
-<img src = "https://github.com/snow-imprint/vue-music-player/blob/master/screenshot/index.gif" /><img src = "https://github.com/snow-imprint/vue-music-player/blob/master/screenshot/whole.gif" />
+<img src = "https://github.com/jianguo-h/vue-music-player/blob/master/screenshot/index.gif" /><img src = "https://github.com/jianguo-h/vue-music-player/blob/master/screenshot/whole.gif" />
 
 
 ### 播放详情和搜索功能
-<img src = "https://github.com/snow-imprint/vue-music-player/blob/master/screenshot/play-detail.gif" /><img src = "https://github.com/snow-imprint/vue-music-player/blob/master/screenshot/search.gif" />
+<img src = "https://github.com/jianguo-h/vue-music-player/blob/master/screenshot/play-detail.gif" /><img src = "https://github.com/jianguo-h/vue-music-player/blob/master/screenshot/search.gif" />
 
 ## 目录
 
