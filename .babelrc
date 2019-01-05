@@ -1,24 +1,22 @@
 {
 	"presets": [
-		["env", {
-			"development": {
-				"presets": ["react-hmre"]
-			}
+		["@babel/env", {
+			"modules": false
 		}],
-		"stage-0", 
-		"react"
+		"@babel/preset-react"
 	],
 	"plugins": [
-		"transform-runtime",
-		"transform-react-jsx",
 		"react-hot-loader/babel",
-		"transform-decorators-legacy",
-		[
-			"import",
-			{
-				"libraryName": "antd-mobile",
-				"style": true
-			}
-		]
+		"@babel/plugin-transform-runtime",
+		["@babel/plugin-proposal-decorators", {
+			"legacy": true
+		}],
+		["@babel/plugin-proposal-class-properties", {
+			"loose": true
+		}],
+		["import", {
+			"libraryName": "antd-mobile",
+			"style": true
+		}]
 	]
 }
