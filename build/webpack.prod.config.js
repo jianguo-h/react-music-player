@@ -1,8 +1,11 @@
+const path = require('path');
+const webpack = require('webpack');
 const config = require('../config');
 const webpackMerge = require('webpack-merge');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpackBaseConfig = require('./webpack.base.config');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const webpackProdConfig = webpackMerge(webpackBaseConfig, {
@@ -24,14 +27,25 @@ const webpackProdConfig = webpackMerge(webpackBaseConfig, {
     ]
   },
   plugins: [
+    // dllPlugin
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: require('../dll/libs-manifest.json')
+    }),
+    // 将dllplugin生成的js自动注入到html中
+    new AddAssetHtmlPlugin({
+      publicPath: '/static/js/',
+      filepath: path.resolve(__dirname, '../dll/*.js'),
+      outputPath: 'static/js'
+    }),
     // 提取less和css
     new MiniCssExtractPlugin({
-      filename: 'static/css/[name].[hash].css'
+      filename: 'static/css/[name].[hash].css',
+      chunkFilename: 'static/css/[name].[chunkhash:8].css'
     }),
     // 压缩css
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/g,
-      cssProcessor: require('cssnano'),
       cssProcessorOptions: {
         discardComments: {
           removeAll: true
@@ -42,13 +56,17 @@ const webpackProdConfig = webpackMerge(webpackBaseConfig, {
     // 压缩混淆js
     new UglifyJsPlugin({
       uglifyOptions: {
-        warnings: false,
+        warnings: false,          // 删除警告
         compress: {
-          drop_console: true,   // 去除日志
-          drop_debugger: true   // 去除debugger
+          drop_console: true,     // 去除日志
+          drop_debugger: true     // 去除debugger
         },
+        output: {
+          comments: false         // 去除注释
+        }
       },
-      parallel: true
+      cache: true,                // 使用缓存
+      parallel: true              // 开启多线程压缩
     })
   ]
 });
