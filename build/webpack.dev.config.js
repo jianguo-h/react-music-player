@@ -4,7 +4,7 @@ const webpackMerge = require('webpack-merge');
 const webpackBaseConfig = require('./webpack.base.config');
 
 // config hot module
-const hots = ['react-hot-loader/patch', 'eventsource-polyfill', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'];
+const hots = ['react-hot-loader/patch', /* 'eventsource-polyfill',  */'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'];
 Object.keys(webpackBaseConfig.entry).forEach(entryName => {
   webpackBaseConfig.entry[entryName] = hots.concat(webpackBaseConfig.entry[entryName]);
 });
