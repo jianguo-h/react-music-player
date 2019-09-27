@@ -1,5 +1,5 @@
 const Koa = require('koa');
-const opn = require('opn');
+const open = require('open');
 const webpack = require('webpack');
 const config = require('../config');
 const proxy = require('../koa/proxy');
@@ -50,7 +50,7 @@ new Promise((resolve, reject) => {
 devMiddlewareInstance.waitUntilValid(() => {
   console.log('dev server start at ' + url);
   if(process.env.NODE_ENV === config.dev.env) {
-    opn(url);
+    open(url);
   }
   _resolve();
 });
