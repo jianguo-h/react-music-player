@@ -53,7 +53,7 @@ export function setCanPlayed(canPlayed) {
 }
 
 export function setPaused(paused) {
-  if(paused !== undefined) {
+  if (paused !== undefined) {
     return {
       type: 'setPaused',
       paused
@@ -117,23 +117,22 @@ export function setCurPlaySong(curPlaySong) {
   return {
     type: 'setCurPlaySong',
     curPlaySong
-  }
+  };
 }
 
 export function togglePlayStatus() {
   return (dispatch, getState) => {
     const state = getState();
-    if(!state.audioSrc) {
+    if (!state.audioSrc) {
       dispatch(setPaused(false));
       return;
     }
     dispatch(setPaused());
 
     const { audio, paused } = getState();
-    if(paused) {
+    if (paused) {
       audio && audio.pause();
-    }
-    else {
+    } else {
       audio && audio.play();
     }
   };
@@ -146,19 +145,22 @@ export function playSong(curPlayIndex) {
     dispatch(setIsPlayed(false));
     dispatch(setAudioSrc(''));
     dispatch(setCurPlayLrcArr([]));
-    dispatch(setCurPlayImgSrc(require('../../static/images/singer-default.jpg')));
+    dispatch(
+      setCurPlayImgSrc(require('../../static/images/singer-default.jpg'))
+    );
     dispatch(togglePlayStatus());
     dispatch(setLock(false));
-    dispatch(setLrcConfig({
-      activeLrcIndex: 0
-    }));
+    dispatch(
+      setLrcConfig({
+        activeLrcIndex: 0
+      })
+    );
 
     const state = getState();
     const songList = _cloneDeep(state.songList);
-    if(curPlayIndex < 0) {
+    if (curPlayIndex < 0) {
       curPlayIndex = songList.length - 1;
-    }
-    else if(curPlayIndex >= songList.length) {
+    } else if (curPlayIndex >= songList.length) {
       curPlayIndex = 0;
     }
     const curPlaySong = _cloneDeep(songList[curPlayIndex]);
@@ -169,10 +171,10 @@ export function playSong(curPlayIndex) {
       const songName = curPlaySong.FileName;
       const infoRes = await api.getSongInfo(songName);
       console.log('>>> [res] 获取歌曲的一些信息', infoRes);
-      if(infoRes.status === 200 && infoRes.statusText === 'OK') {
+      if (infoRes.status === 200 && infoRes.statusText === 'OK') {
         let rightSong = '';
-        for(const song of infoRes.data.data.lists) {
-          if(song.FileName === songName) {
+        for (const song of infoRes.data.data.lists) {
+          if (song.FileName === songName) {
             rightSong = _cloneDeep(song);
             break;
           }
@@ -181,10 +183,10 @@ export function playSong(curPlayIndex) {
         try {
           const playRes = await api.play(hash);
           console.log('>>> [res] 根据hash值获取歌曲的播放信息', playRes);
-          if(playRes.status === 200 && playRes.statusText === 'OK') {
+          if (playRes.status === 200 && playRes.statusText === 'OK') {
             const data = _cloneDeep(playRes.data.data);
             Toast.hide();
-            if(!data.play_url) {
+            if (!data.play_url) {
               Toast.filf('暂无播放来源');
               return;
             }
@@ -195,29 +197,25 @@ export function playSong(curPlayIndex) {
             dispatch(setAudioSrc(audioSrc));
             dispatch(setCurPlayLrcArr(lyrics));
             dispatch(setCurPlayImgSrc(curPlayImgSrc));
-          }
-          else {
+          } else {
             Toast.hide();
             Toast.fail('播放歌曲失败');
             return;
           }
-        }
-        catch(err) {
+        } catch (err) {
           Toast.hide();
           console.log('>>> [err] 获取歌曲的信息', err);
           Toast.fail('网络出现错误或服务暂时不可用');
         }
-      }
-      else {
+      } else {
         Toast.hide();
         Toast.fail('播放歌曲失败');
         return;
       }
-    }
-    catch(err) {
+    } catch (err) {
       Toast.hide();
       Toast.fail('网络出现错误或服务暂时不可用');
       throw new Error(err);
     }
-  }
+  };
 }

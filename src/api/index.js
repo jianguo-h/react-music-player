@@ -8,8 +8,7 @@ export default {
       const params = { keyword };
       console.log('>>> [api.params] 根据关键字搜索', params);
       return await axios.post('/searchtip', params);
-    }
-    catch(err) {
+    } catch (err) {
       throw new Error(err);
     }
   },
@@ -18,8 +17,7 @@ export default {
     try {
       console.log('>>> [api.params] 获取静态json数据中的歌曲列表', path);
       return await axios.post('/api/' + path);
-    }
-    catch(err) {
+    } catch (err) {
       throw new Error(err);
     }
   },
@@ -31,7 +29,7 @@ export default {
           page,
           pagesize: 20,
           keyword: songName,
-          platform: "WebFilter",
+          platform: 'WebFilter',
           userid: -1,
           iscorrection: 1,
           privilege_filter: 0,
@@ -40,8 +38,7 @@ export default {
       };
       console.log('>>> [api.params] 获取歌曲的一些信息', params);
       return await axios.get('/songsearch', params);
-    }
-    catch(err) {
+    } catch (err) {
       throw new Error(err);
     }
   },
@@ -50,15 +47,14 @@ export default {
     try {
       const params = {
         params: {
-          r: "play/getdata",
+          r: 'play/getdata',
           hash
         }
-      }
+      };
       console.log('>>> [api.params] 根据hash值获取歌曲的信息', params);
       return await axios.get('/play', params);
-    }
-    catch(err) {
+    } catch (err) {
       throw new Error(err);
     }
   }
-}
+};

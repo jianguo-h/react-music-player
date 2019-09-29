@@ -10,39 +10,44 @@ import TimeWrap from '../components/time-wrap';
 import DetailList from '../components/detail-list';
 import LrcColor from '../components/lrc-color';
 import {
-  setModeType, setLrcSwitch,
-  setLrcConfig, setLock,
-  playSong, togglePlayStatus,
-  setLoop } from '../store/actions'
+  setModeType,
+  setLrcSwitch,
+  setLrcConfig,
+  setLock,
+  playSong,
+  togglePlayStatus,
+  setLoop
+} from '../store/actions';
 import '../less/play-detail.less';
 
-const lrcColorList = [                 // 歌词颜色列表数组
+const lrcColorList = [
+  // 歌词颜色列表数组
   {
-    defaultColor: "#b2f5b5",
-    activeColor: "#d1c90e",
-    currentImgSrc: "/images/current-type1.png"
+    defaultColor: '#b2f5b5',
+    activeColor: '#d1c90e',
+    currentImgSrc: '/images/current-type1.png'
   },
   {
-    defaultColor: "#c1f3dc",
-    activeColor: "#33a3f5",
-    currentImgSrc: "/images/current-type2.png"
+    defaultColor: '#c1f3dc',
+    activeColor: '#33a3f5',
+    currentImgSrc: '/images/current-type2.png'
   },
   {
-    defaultColor: "#a0f533",
-    activeColor: "#f32d2d",
-    currentImgSrc: "/images/current-type3.png"
+    defaultColor: '#a0f533',
+    activeColor: '#f32d2d',
+    currentImgSrc: '/images/current-type3.png'
   },
   {
-    defaultColor: "#eff366",
-    activeColor: "#21d10e",
-    currentImgSrc: "/images/current-type4.png"
+    defaultColor: '#eff366',
+    activeColor: '#21d10e',
+    currentImgSrc: '/images/current-type4.png'
   },
   {
-    defaultColor: "#efe8b2",
-    activeColor: "#d200d2",
-    currentImgSrc: "/images/current-type5.png"
+    defaultColor: '#efe8b2',
+    activeColor: '#d200d2',
+    currentImgSrc: '/images/current-type5.png'
   }
-]
+];
 @connect(
   state => ({
     lrcConfig: state.lrcConfig,
@@ -59,15 +64,18 @@ const lrcColorList = [                 // 歌词颜色列表数组
     lrcSwitch: state.lrcSwitch
   }),
   dispatch => ({
-    ...bindActionCreators({
-      togglePlayStatus,
-      setModeType,
-      setLrcSwitch,
-      setLrcConfig,
-      setLock,
-      playSong,
-      setLoop
-    }, dispatch)
+    ...bindActionCreators(
+      {
+        togglePlayStatus,
+        setModeType,
+        setLrcSwitch,
+        setLrcConfig,
+        setLock,
+        playSong,
+        setLoop
+      },
+      dispatch
+    )
   })
 )
 class PlayDetail extends Component {
@@ -75,43 +83,42 @@ class PlayDetail extends Component {
     showDetail: PropTypes.bool,
     setShowDetail: PropTypes.func.isRequired,
     setCurrentTime: PropTypes.func.isRequired
-  }
+  };
   static defaultProps = {
     showDetail: false
-  }
+  };
   constructor() {
     super();
-    this.progressTimer = null;        // 控制进度条的定时器
-    this.rollTimer = null;            // 控制歌词滚动的定时器
-    this.endTime = 0;                 // 歌曲结束时间(秒为单位)
-    this.progressSpeed = 0;           // 进度条前进的速度
-    this.modeSwitch = false;          // 防止连续点击
-    this.mode = 1;                    // 初始化播放模式的数字
+    this.progressTimer = null; // 控制进度条的定时器
+    this.rollTimer = null; // 控制歌词滚动的定时器
+    this.endTime = 0; // 歌曲结束时间(秒为单位)
+    this.progressSpeed = 0; // 进度条前进的速度
+    this.modeSwitch = false; // 防止连续点击
+    this.mode = 1; // 初始化播放模式的数字
     this.state = {
-      isShowList: false,              // 是否显示歌曲列表
-      curPlayTime: 0,                 // 当前播放时间(秒为单位)
-      progress: 0,                    // 当前歌曲播放进度
-      translateY: 0,                  // 歌词滚动的距离
-      modeTip: '顺序播放',            // 播放模式提示
-      showModeTip: false,             // 是否显示提示
-      currentImgSrc: "",              // 当前颜色的背景图
-      isShowColorList: false          // 是否显示颜色列表
-    }
+      isShowList: false, // 是否显示歌曲列表
+      curPlayTime: 0, // 当前播放时间(秒为单位)
+      progress: 0, // 当前歌曲播放进度
+      translateY: 0, // 歌词滚动的距离
+      modeTip: '顺序播放', // 播放模式提示
+      showModeTip: false, // 是否显示提示
+      currentImgSrc: '', // 当前颜色的背景图
+      isShowColorList: false // 是否显示颜色列表
+    };
   }
   componentWillMount() {
     this.init();
   }
   componentWillReceiveProps(nextProps) {
-    if(this.props.isPlayed !== nextProps.isPlayed) {
-      if(nextProps.isPlayed) {
+    if (this.props.isPlayed !== nextProps.isPlayed) {
+      if (nextProps.isPlayed) {
         this.initPlay(nextProps);
       }
     }
-    if(this.props.paused !== nextProps.paused) {
-      if(nextProps.paused) {
+    if (this.props.paused !== nextProps.paused) {
+      if (nextProps.paused) {
         this.clearTimer();
-      }
-      else {
+      } else {
         this.progressTimer = setTimeout(() => {
           this.progressGo();
         }, 1000);
@@ -125,26 +132,23 @@ class PlayDetail extends Component {
   init() {
     let mode = 1;
     let { currentColorObj, modeType, lrcSwitch } = window.localStorage;
-    if(currentColorObj) {
+    if (currentColorObj) {
       currentColorObj = JSON.parse(currentColorObj);
-    }
-    else {
+    } else {
       currentColorObj = _cloneDeep(lrcColorList[0]);
     }
-    if(!modeType) {
-      modeType = "order";
+    if (!modeType) {
+      modeType = 'order';
     }
-    if(modeType === "loop") {
+    if (modeType === 'loop') {
       mode = 2;
-    }
-    else if(modeType === "random") {
+    } else if (modeType === 'random') {
       mode = 3;
     }
-    if(lrcSwitch === 'false') {
+    if (lrcSwitch === 'false') {
       lrcSwitch = false;
-    }
-    else {
-      lrcSwitch = true
+    } else {
+      lrcSwitch = true;
     }
     this.props.setModeType(modeType);
     this.props.setLrcSwitch(lrcSwitch);
@@ -167,7 +171,7 @@ class PlayDetail extends Component {
       progress: 0,
       curPlayTime: 0
     });
-    if(this.progressTimer) {
+    if (this.progressTimer) {
       this.clearTimer();
     }
     this.progressGo();
@@ -179,12 +183,11 @@ class PlayDetail extends Component {
       curPlayTime: prevState.curPlayTime + 1,
       progress: prevState.progress + this.progressSpeed
     }));
-    if(this.state.progress < 100) {
+    if (this.state.progress < 100) {
       this.progressTimer = setTimeout(() => {
         this.progressGo();
       }, 1000);
-    }
-    else {
+    } else {
       this.setState({
         progress: 100,
         curPlayTime: this.endTime
@@ -197,28 +200,26 @@ class PlayDetail extends Component {
     const curPlayLrcArr = _cloneDeep(nextProps.curPlayLrcArr);
     const lrcLen = curPlayLrcArr.length;
     const currentTime = Number(nextProps.audio.currentTime.toFixed(2));
-    for(let [index, curPlayLrc] of curPlayLrcArr.entries()) {
-      if(Number(curPlayLrc.startTime) >= currentTime) {
-        if(index === 0) {
+    for (let [index, curPlayLrc] of curPlayLrcArr.entries()) {
+      if (Number(curPlayLrc.startTime) >= currentTime) {
+        if (index === 0) {
           index = 1;
-        }
-        else if(index === lrcLen - 1) {
+        } else if (index === lrcLen - 1) {
           index = lrcLen - 1;
         }
         this.translateLrc(index - 1);
         break;
       }
       // 为了处理点击进度条时直接点击在最后面时的情况
-      else if(currentTime >= Number(curPlayLrcArr[lrcLen - 1].startTime)) {
+      else if (currentTime >= Number(curPlayLrcArr[lrcLen - 1].startTime)) {
         this.translateLrc(lrcLen - 1);
       }
     }
-    if(currentTime < this.endTime) {
+    if (currentTime < this.endTime) {
       this.rollTimer = setTimeout(() => {
         this.lrcRoll(nextProps);
       }, 100);
-    }
-    else {
+    } else {
       return;
     }
   }
@@ -227,19 +228,18 @@ class PlayDetail extends Component {
     this.props.setLrcConfig({
       activeLrcIndex: newCurLrcIndex
     });
-    if(!this.props.showDetail) return;
+    if (!this.props.showDetail) return;
 
     const prevTranslateY = this.state.translateY;
     const lrcBoxHeight = this.lrcBox.offsetHeight;
     const childHeight = this.lrcBox.firstChild.offsetHeight;
     const curShowNum = Math.floor(lrcBoxHeight / childHeight);
     const nextTranslateY = childHeight * (newCurLrcIndex - curShowNum + 1);
-    if(newCurLrcIndex >= curShowNum - 1) {
+    if (newCurLrcIndex >= curShowNum - 1) {
       this.setState({
         translateY: childHeight * (newCurLrcIndex - curShowNum + 1)
       });
-    }
-    else {
+    } else {
       this.setState({
         translateY: 0
       });
@@ -254,19 +254,21 @@ class PlayDetail extends Component {
     const parentOffsetLeft = this.progressBar.parentNode.offsetLeft;
     const offsetX = evt.pageX - parentOffsetLeft;
     const targetWidth = this.progressBar.offsetWidth;
-    const newProgress = Number((offsetX / targetWidth * 100).toFixed(2));
-    const newCurPlayTime = parseInt((this.endTime * newProgress / 100).toFixed(2));
+    const newProgress = Number(((offsetX / targetWidth) * 100).toFixed(2));
+    const newCurPlayTime = parseInt(
+      ((this.endTime * newProgress) / 100).toFixed(2)
+    );
     this.setState({
       progress: newProgress,
       curPlayTime: newCurPlayTime
     });
-    this.props.setCurrentTime(newCurPlayTime)
+    this.props.setCurrentTime(newCurPlayTime);
     this.props.setLock(true);
   }
   // 切换播放模式
   switchMode() {
     const { showModeTip } = this.state;
-    if(this.modeSwitch) return;
+    if (this.modeSwitch) return;
 
     let modeType = 'order';
     let modeTip = '顺序播放';
@@ -276,18 +278,16 @@ class PlayDetail extends Component {
     this.setState({
       showModeTip: true
     });
-    if(this.mode % 3 === 1) {
-      modeTip = "顺序播放";
-      modeType = "order";
-    }
-    else if(this.mode % 3 === 2) {
-      modeTip = "循环播放";
-      modeType = "loop";
+    if (this.mode % 3 === 1) {
+      modeTip = '顺序播放';
+      modeType = 'order';
+    } else if (this.mode % 3 === 2) {
+      modeTip = '循环播放';
+      modeType = 'loop';
       loop = true;
-    }
-    else {
-      modeTip = "随机播放";
-      modeType = "random";
+    } else {
+      modeTip = '随机播放';
+      modeType = 'random';
     }
     this.setState({
       modeTip
@@ -305,11 +305,12 @@ class PlayDetail extends Component {
   // 歌曲结束时根据播放模式来处理
   dealMode() {
     this.props.setLock(false);
-    if(this.props.modeType === "random") {
-      const randomIndex = Math.floor(Math.random() * this.props.songList.length);
-      this.props.playSong(randomIndex)
-    }
-    else if(this.props.modeType === "loop") {
+    if (this.props.modeType === 'random') {
+      const randomIndex = Math.floor(
+        Math.random() * this.props.songList.length
+      );
+      this.props.playSong(randomIndex);
+    } else if (this.props.modeType === 'loop') {
       this.initPlay(this.props);
     }
   }
@@ -360,14 +361,26 @@ class PlayDetail extends Component {
   }
   render() {
     const {
-      curPlaySong, curPlayImgSrc,
-      curPlayLrcArr, modeType,
-      showDetail, paused,
-      lrcConfig, songList, lrcSwitch } = this.props;
+      curPlaySong,
+      curPlayImgSrc,
+      curPlayLrcArr,
+      modeType,
+      showDetail,
+      paused,
+      lrcConfig,
+      songList,
+      lrcSwitch
+    } = this.props;
     const {
-      modeTip, isShowList, translateY,
-      curPlayTime, progress, showModeTip,
-      currentImgSrc, isShowColorList } = this.state;
+      modeTip,
+      isShowList,
+      translateY,
+      curPlayTime,
+      progress,
+      showModeTip,
+      currentImgSrc,
+      isShowColorList
+    } = this.state;
 
     // 传递给 PlayOperate 组件的props
     const playOperateProps = {
@@ -376,71 +389,90 @@ class PlayDetail extends Component {
       curPlaySong,
       togglePlayStatus: this.props.togglePlayStatus,
       playSong: this.props.playSong
-    }
+    };
     // 传递给 LrcScrollP 组件的props
     const lrcScrollProps = {
       curPlayLrcArr,
       translateY,
       ...lrcConfig,
-      lrcBoxRef: el => this.lrcBox = el
-    }
+      lrcBoxRef: el => (this.lrcBox = el)
+    };
     // 传递给 TimeWrap 组件的props
     const TimeWrapProps = {
       curPlayTime,
       progress,
       endTime: this.endTime,
       updateProgress: this.updateProgress.bind(this),
-      progressBarRef: el => this.progressBar = el
-    }
+      progressBarRef: el => (this.progressBar = el)
+    };
     // 传递给 DetailList 组件的props
     const DetailListProps = {
       playSong: this.playSong.bind(this),
       songList,
       curPlaySong
-    }
+    };
     // 传递给 LrcColor 组件的props
     const LrcColorProps = {
       changeLrcColor: this.changeLrcColor.bind(this),
       lrcColorList
-    }
+    };
     return (
-      <div id = 'playDetail' className = { showDetail ? 'slideIn' : '' } style = {{ backgroundImage: 'url(' + curPlayImgSrc + ')' }}>
-        <div className = "playDetail-mark"></div>
-        <div className = "playDetail-top">
-          <div className = "goback" onClick = { this.props.setShowDetail.bind(this, false) }></div>
-          <div className = "playDetail-title">{ curPlaySong.FileName }</div>
+      <div
+        id="playDetail"
+        className={showDetail ? 'slideIn' : ''}
+        style={{ backgroundImage: 'url(' + curPlayImgSrc + ')' }}
+      >
+        <div className="playDetail-mark"></div>
+        <div className="playDetail-top">
+          <div
+            className="goback"
+            onClick={this.props.setShowDetail.bind(this, false)}
+          ></div>
+          <div className="playDetail-title">{curPlaySong.FileName}</div>
         </div>
-        <div className = "playDetail-center">
-          { /* 歌词滚动组件 */ }
-          <LrcScroll { ...lrcScrollProps }></LrcScroll>
+        <div className="playDetail-center">
+          {/* 歌词滚动组件 */}
+          <LrcScroll {...lrcScrollProps}></LrcScroll>
         </div>
-        <div className = "playDetail-bottom">
-          <div className = "lrc-switch">
-            { /* 歌词开关组件 */ }
-            <Switch color = '#2ca2f9' checked = { lrcSwitch } onClick = { this.toggleLrcSwitch.bind(this, lrcSwitch) }></Switch>
+        <div className="playDetail-bottom">
+          <div className="lrc-switch">
+            {/* 歌词开关组件 */}
+            <Switch
+              color="#2ca2f9"
+              checked={lrcSwitch}
+              onClick={this.toggleLrcSwitch.bind(this, lrcSwitch)}
+            ></Switch>
           </div>
-          <div className = "lrcColor-box">
+          <div className="lrcColor-box">
             <div
-              className = "cur-lrcColor"
-              style = {{ backgroundImage: 'url(' + require('../static' + currentImgSrc) + ')' }}
-              onClick = { this.toggleShowColorList.bind(this) }
-            >
-            </div>
-            { /* 歌词颜色列表组件 */}
-            { isShowColorList ? <LrcColor { ...LrcColorProps } /> : null }
+              className="cur-lrcColor"
+              style={{
+                backgroundImage:
+                  'url(' + require('../static' + currentImgSrc) + ')'
+              }}
+              onClick={this.toggleShowColorList.bind(this)}
+            ></div>
+            {/* 歌词颜色列表组件 */}
+            {isShowColorList ? <LrcColor {...LrcColorProps} /> : null}
           </div>
-          { /* 时间进度条组件 */ }
-          <TimeWrap { ...TimeWrapProps }></TimeWrap>
-          <div className = "play-operateBox">
-            <div className = { 'listen-mode order-play ' + modeType + '-play' } onClick = { this.switchMode.bind(this) }>
-              { showModeTip ? <div className = "mode-tip">{ modeTip }</div> : null }
+          {/* 时间进度条组件 */}
+          <TimeWrap {...TimeWrapProps}></TimeWrap>
+          <div className="play-operateBox">
+            <div
+              className={'listen-mode order-play ' + modeType + '-play'}
+              onClick={this.switchMode.bind(this)}
+            >
+              {showModeTip ? <div className="mode-tip">{modeTip}</div> : null}
             </div>
-            { /* 歌曲前进后退功能组件 */ }
-            <PlayOperate { ...playOperateProps }></PlayOperate>
-            <div className = "detail-list">
-              <div className = { isShowList ? 'icon-list active-list' : 'icon-list' } onClick = { this.toggleShowList.bind(this) }></div>
-              { /* 详情页歌曲列表组件 */ }
-              { isShowList ? <DetailList { ...DetailListProps } /> : null }
+            {/* 歌曲前进后退功能组件 */}
+            <PlayOperate {...playOperateProps}></PlayOperate>
+            <div className="detail-list">
+              <div
+                className={isShowList ? 'icon-list active-list' : 'icon-list'}
+                onClick={this.toggleShowList.bind(this)}
+              ></div>
+              {/* 详情页歌曲列表组件 */}
+              {isShowList ? <DetailList {...DetailListProps} /> : null}
             </div>
           </div>
         </div>

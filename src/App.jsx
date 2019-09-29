@@ -8,9 +8,9 @@ import { hot } from 'react-hot-loader/root';
 class App extends Component {
   render() {
     return (
-      <div id = 'root'>
+      <div id="root">
         <ReactHeader></ReactHeader>
-        { routes }
+        {routes}
         <Player></Player>
         <SuspendLyric></SuspendLyric>
       </div>

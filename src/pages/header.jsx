@@ -6,16 +6,16 @@ import '../less/header.less';
 
 const tabs = [
   {
-    path: "/new",
-    name: "新歌"
+    path: '/new',
+    name: '新歌'
   },
   {
-    path: "/recommend",
-    name: "推荐"
+    path: '/recommend',
+    name: '推荐'
   },
   {
-    path: "/local",
-    name: "本地"
+    path: '/local',
+    name: '本地'
   }
 ];
 @connect(state => ({
@@ -26,11 +26,11 @@ class Header extends Component {
     super();
     this.timer = null;
     this.state = {
-      keyword: '',                // 搜索的关键字
-      resultCount: 0,             // 得到的结果数量
-      resultList: [],             // 搜索得到的结果列表
-      searchTip: '正在搜索...'     // 搜索时的提示信息
-    }
+      keyword: '', // 搜索的关键字
+      resultCount: 0, // 得到的结果数量
+      resultList: [], // 搜索得到的结果列表
+      searchTip: '正在搜索...' // 搜索时的提示信息
+    };
   }
   componentWillUnmount() {
     clearTimeout(this.timer);
@@ -49,44 +49,46 @@ class Header extends Component {
   // 根据关键字搜索(模糊查询)
   query() {
     const keyword = this.state.keyword;
-    if(keyword.trim() === '') return;
+    if (keyword.trim() === '') return;
 
     this.setState({
       resultCount: 0,
       searchTip: '正在搜索...'
     });
-    window.api.search(keyword).then(res => {
-      console.log('>>> [res] 根据关键字搜索', res);
-      if(res.status === 200 && res.statusText === 'OK') {
-        const { RecordDatas, RecordCount } = res.data.data[0];
-        this.setState({
-          resultList: RecordDatas,
-          resultCount: RecordCount
-        });
-        if(RecordDatas.length <= 0) {
+    window.api
+      .search(keyword)
+      .then(res => {
+        console.log('>>> [res] 根据关键字搜索', res);
+        if (res.status === 200 && res.statusText === 'OK') {
+          const { RecordDatas, RecordCount } = res.data.data[0];
           this.setState({
-            resultCount: 0,
-            searchTip: '暂无结果...'
+            resultList: RecordDatas,
+            resultCount: RecordCount
+          });
+          if (RecordDatas.length <= 0) {
+            this.setState({
+              resultCount: 0,
+              searchTip: '暂无结果...'
+            });
+          }
+        } else {
+          this.setState({
+            searchTip: '搜索出错, 请稍后重试'
           });
         }
-      }
-      else {
+      })
+      .catch(err => {
+        console.log('>>> [err] 根据关键字搜索', err);
         this.setState({
-          searchTip: '搜索出错, 请稍后重试'
+          resultCount: 0,
+          searchTip: '网络出现错误或服务不可用'
         });
-      }
-    }).catch(err => {
-      console.log('>>> [err] 根据关键字搜索', err);
-      this.setState({
-        resultCount: 0,
-        searchTip: '网络出现错误或服务不可用'
       });
-    })
   }
   // 点击搜索事件, keyword为关键字
   search(keyword) {
-    if(!keyword) {
-      window.alert("请输入搜索内容");
+    if (!keyword) {
+      window.alert('请输入搜索内容');
       return;
     }
     this.props.history.push('/search/' + keyword);
@@ -106,35 +108,47 @@ class Header extends Component {
       resultList: this.state.resultList,
       searchTip: this.state.searchTip,
       search: this.search.bind(this)
-    }
+    };
     return (
-      <header id = 'header'>
-        <div className = "header-search">
-          <div className = "logo"></div>
-          <div className = "search-form">
-            <input type = 'text' placeholder = "歌手/歌名" value = { keyword } onChange = { this.input.bind(this) } />
-            { keyword ? <DropList { ...dropListProps } /> : null }
+      <header id="header">
+        <div className="header-search">
+          <div className="logo"></div>
+          <div className="search-form">
+            <input
+              type="text"
+              placeholder="歌手/歌名"
+              value={keyword}
+              onChange={this.input.bind(this)}
+            />
+            {keyword ? <DropList {...dropListProps} /> : null}
           </div>
-          <div className = "search" onClick = { this.search.bind(this, keyword) }></div>
+          <div
+            className="search"
+            onClick={this.search.bind(this, keyword)}
+          ></div>
         </div>
-        {
-          path !== 'search' ? (
-            <div className = "header-tab">
-              <ul>
-                {
-                  tabs.map((tab, index)  => {
-                    return <li key = { index }><NavLink to = { tab.path } activeClassName = 'active'>{ tab.name }</NavLink></li>;
-                  })
-                }
-              </ul>
+        {path !== 'search' ? (
+          <div className="header-tab">
+            <ul>
+              {tabs.map((tab, index) => {
+                return (
+                  <li key={index}>
+                    <NavLink to={tab.path} activeClassName="active">
+                      {tab.name}
+                    </NavLink>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : (
+          <div className="header-search-result">
+            <div className="goback" onClick={this.goback.bind(this)}></div>
+            <div className="searchCount">
+              共有<em>{this.props.searchListCount}</em>条结果
             </div>
-          ) : (
-            <div className = "header-search-result">
-              <div className = "goback" onClick = { this.goback.bind(this) }></div>
-              <div className = "searchCount">共有<em>{ this.props.searchListCount }</em>条结果</div>
-            </div>
-          )
-        }
+          </div>
+        )}
       </header>
     );
   }

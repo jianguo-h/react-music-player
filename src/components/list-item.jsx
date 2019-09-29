@@ -7,17 +7,17 @@ class ListItem extends Component {
     index: PropTypes.number,
     active: PropTypes.bool,
     play: PropTypes.func.isRequired
-  }
+  };
   static defaultProps = {
     song: {},
     index: -1,
     active: false
-  }
+  };
   render() {
     const { song, play, index, active } = this.props;
     return (
-      <li className = { active ? 'active' : '' } onClick = { play.bind(this, index) }>
-        <p className = "filename">{ song.FileName }</p>
+      <li className={active ? 'active' : ''} onClick={play.bind(this, index)}>
+        <p className="filename">{song.FileName}</p>
       </li>
     );
   }
