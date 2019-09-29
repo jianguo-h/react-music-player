@@ -10,6 +10,7 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "paths": {
       "@src/*": ["src/*"]
     }

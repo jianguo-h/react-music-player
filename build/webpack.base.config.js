@@ -13,7 +13,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: ['babel-loader', 'ts-loader']
+      },
+      {
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: ['babel-loader']
       },
@@ -32,7 +37,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
   },
   plugins: [
     // 向模板 index.html 中自动注入css和js
