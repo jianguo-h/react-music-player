@@ -1,5 +1,11 @@
 module.exports = {
-  extends: ['airbnb-base', 'plugin:react/recommended'],
+  extends: [
+    // 'airbnb-base',
+    'plugin:react/recommended',
+    'prettier',
+    'plugin:prettier/recommended',
+    'prettier/react'
+  ],
   // root: true,
   parser: 'babel-eslint',
   parserOptions: {
@@ -15,8 +21,14 @@ module.exports = {
   plugins: [
     'react'
   ],
+  settings: {
+    react: {
+      pragma: 'React',
+      version: 'detect'
+    }
+  },
   'rules': {
-    'semi': 0,                              // 要求或禁止使用分号代替 ASI
+    /* 'semi': 0,                              // 要求或禁止使用分号代替 ASI
     'quotes': 0,                            // 强制使用一致的反勾号、双引号或单引号
     'no-new': 0,                            // 禁止使用 new 以避免产生副作用
     'no-var': 2,                            // 要求使用 let 或 const 而不是 var
@@ -63,6 +75,14 @@ module.exports = {
     'import/newline-after-import': 0,
     'import/no-extraneous-dependencies': 0,
     'react/prop-types': 1,                  // 禁止有没验证的props
-    'react/no-deprecated': 0
-  }
+    'react/no-deprecated': 0 */
+  },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'react/prop-types': 'off'
+      }
+    }
+  ]
 }
