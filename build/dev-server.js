@@ -14,7 +14,7 @@ const url = 'http://localhost:' + devPort;
 const compiler = webpack(webpackDevConfig);
 
 // 当环境变量不存在时设置为开发环境
-if(!process.env.NODE_ENV) {
+if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = config.dev.env;
 }
 
@@ -49,7 +49,7 @@ new Promise((resolve, reject) => {
 
 devMiddlewareInstance.waitUntilValid(() => {
   console.log('dev server start at ' + url);
-  if(process.env.NODE_ENV === config.dev.env) {
+  if (process.env.NODE_ENV === config.dev.env) {
     open(url);
   }
   _resolve();
