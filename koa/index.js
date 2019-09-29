@@ -27,7 +27,7 @@ app.use(async ctx => {
     ctx.response.type = 'html';
     ctx.response.body = fs.createReadStream(path.resolve(__dirname, '../dist/index.html'));
   }*/
-  if(ctx.path === '/') {
+  if (ctx.path === '/') {
     await send(ctx, ctx.path, {
       root: path.resolve(__dirname, '../dist')
     });
