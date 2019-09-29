@@ -4,7 +4,7 @@ import store from './store';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './App';
-import adapt from './js/adapt';
+import adapt from './ts/adapt';
 import { Toast } from 'antd-mobile';
 import { HashRouter as Router } from 'react-router-dom';
 import './less/app.less';

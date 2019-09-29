@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactHeader from './pages/header';
 import Player from './pages/player';
 import SuspendLyric from './pages/suspend-lyric';
