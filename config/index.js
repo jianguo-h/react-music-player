@@ -1,38 +1,38 @@
 module.exports = {
   dev: {
     port: 8080,
-    env: "development",
-    publicPath: "/",
+    env: 'development',
+    publicPath: '/'
   },
   prod: {
     port: 8088,
-    env: "production",
-    publicPath: "/"
+    env: 'production',
+    publicPath: '/'
   },
   proxyTable: {
     // 搜索接口
-    "/songsearch": {
-      target: "http://songsearch.kugou.com/song_search_v2",
+    '/songsearch': {
+      target: 'http://songsearch.kugou.com/song_search_v2',
       changeOrigin: true,
       pathRewrite: {
-        "^/songsearch": ""
+        '^/songsearch': ''
       }
     },
     // 获取歌曲接口
-    "/play": {
-      target: "http://www.kugou.com/yy/index.php",
+    '/play': {
+      target: 'http://www.kugou.com/yy/index.php',
       changeOrigin: true,
       pathRewrite: {
-        "^/play": ""
+        '^/play': ''
       }
     },
     // 搜索框关键词搜索接口
-    "/searchtip": {
-      target: "http://searchtip.kugou.com/getSearchTip",
+    '/searchtip': {
+      target: 'http://searchtip.kugou.com/getSearchTip',
       changeOrigin: true,
       pathRewrite: {
-        "^/searchtip": ""
+        '^/searchtip': ''
       }
     }
   }
-}
+};

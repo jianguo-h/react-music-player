@@ -1,5 +1,5 @@
 const path = require('path');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -32,7 +32,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json"]
+    extensions: ['.js', '.jsx', '.json']
   },
   plugins: [
     // 向模板 index.html 中自动注入css和js
@@ -60,4 +60,4 @@ module.exports = {
     },
     runtimeChunk: 'single'
   }
-}
+};

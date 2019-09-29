@@ -18,12 +18,17 @@ const webpackProdConfig = webpackMerge(webpackBaseConfig, {
     rules: [
       {
         test: /\.less$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'less-loader'
+        ]
       },
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
-      },
+      }
     ]
   },
   plugins: [
@@ -56,17 +61,17 @@ const webpackProdConfig = webpackMerge(webpackBaseConfig, {
     // 压缩混淆js
     new UglifyJsPlugin({
       uglifyOptions: {
-        warnings: false,          // 删除警告
+        warnings: false, // 删除警告
         compress: {
-          drop_console: true,     // 去除日志
-          drop_debugger: true     // 去除debugger
+          drop_console: true, // 去除日志
+          drop_debugger: true // 去除debugger
         },
         output: {
-          comments: false         // 去除注释
+          comments: false // 去除注释
         }
       },
-      cache: true,                // 使用缓存
-      parallel: true              // 开启多线程压缩
+      cache: true, // 使用缓存
+      parallel: true // 开启多线程压缩
     })
   ]
 });
