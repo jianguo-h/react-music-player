@@ -12,33 +12,37 @@ import '../less/suspend-lyric.less';
     lrcSwitch: state.lrcSwitch
   }),
   dispatch => ({
-    ...bindActionCreators({
-      setLrcSwitch
-    }, dispatch)
+    ...bindActionCreators(
+      {
+        setLrcSwitch
+      },
+      dispatch
+    )
   })
 )
 class SuspendLyric extends Component {
   constructor() {
     super();
-    this.boundary = {      // 各个边界的值
+    this.boundary = {
+      // 各个边界的值
       left: 0,
       right: 0,
       top: 0,
       bottom: 0
     };
-    this.isDrag = false;   // 判断是否处于拖拽中
-    this.startX = 0;       // 鼠标按下起始位置的x坐标
-    this.startY = 0;       // 鼠标按下起始位置的y坐标
-    this.offsetX = 0;      // 元素在x轴上的偏移量
-    this.offsetY = 0;      // 元素在y轴上的偏移量
+    this.isDrag = false; // 判断是否处于拖拽中
+    this.startX = 0; // 鼠标按下起始位置的x坐标
+    this.startY = 0; // 鼠标按下起始位置的y坐标
+    this.offsetX = 0; // 元素在x轴上的偏移量
+    this.offsetY = 0; // 元素在y轴上的偏移量
 
     this.state = {
-      firstLrc: {},       // 第一行的歌词
-      nextLrc: {}         // 第二行的歌词
-    }
+      firstLrc: {}, // 第一行的歌词
+      nextLrc: {} // 第二行的歌词
+    };
   }
   componentWillReceiveProps(nextProps) {
-    if(nextProps.curPlayLrcArr.length > 0) {
+    if (nextProps.curPlayLrcArr.length > 0) {
       this.getBoundary();
       this.setSuspendLrc(nextProps);
     }
@@ -49,10 +53,10 @@ class SuspendLyric extends Component {
     const top = 0;
     const bottom = document.body.offsetHeight - this.suspendLyric.offsetHeight;
     this.boundary = Object.assign({}, this.boundary, {
-      left,       // 左边界
-      right,      // 右边界
-      top,        // 上边界
-      bottom      // 下边界
+      left, // 左边界
+      right, // 右边界
+      top, // 上边界
+      bottom // 下边界
     });
   }
   // 设置上下两行歌词
@@ -61,42 +65,36 @@ class SuspendLyric extends Component {
     let nextLrc = {};
     const { curPlayLrcArr, lrcConfig } = props;
     const activeLrcIndex = lrcConfig.activeLrcIndex;
-    if(activeLrcIndex === 0) {
+    if (activeLrcIndex === 0) {
       firstLrc = curPlayLrcArr[0];
-    }
-    else if((activeLrcIndex + 1) % 2 === 0) {
-      if(!curPlayLrcArr[activeLrcIndex + 1]) {
+    } else if ((activeLrcIndex + 1) % 2 === 0) {
+      if (!curPlayLrcArr[activeLrcIndex + 1]) {
         firstLrc = {
           ...curPlayLrcArr[activeLrcIndex],
           index: activeLrcIndex + 1,
           curLrc: ''
         };
-      }
-      else {
+      } else {
         firstLrc = curPlayLrcArr[activeLrcIndex + 1];
       }
-    }
-    else {
+    } else {
       firstLrc = curPlayLrcArr[activeLrcIndex];
     }
 
-    if(activeLrcIndex === 0 || activeLrcIndex === 1) {
+    if (activeLrcIndex === 0 || activeLrcIndex === 1) {
       nextLrc = curPlayLrcArr[1];
-    }
-    else if((activeLrcIndex + 1) % 2 === 1) {
-      if(!curPlayLrcArr[activeLrcIndex + 1]) {
+    } else if ((activeLrcIndex + 1) % 2 === 1) {
+      if (!curPlayLrcArr[activeLrcIndex + 1]) {
         nextLrc = {
           ...curPlayLrcArr[activeLrcIndex],
           index: activeLrcIndex + 1,
           curLrc: ''
         };
-      }
-      else {
+      } else {
         nextLrc = curPlayLrcArr[activeLrcIndex + 1];
       }
-    }
-    else {
-      nextLrc = curPlayLrcArr[activeLrcIndex]
+    } else {
+      nextLrc = curPlayLrcArr[activeLrcIndex];
     }
 
     this.setState({
@@ -120,16 +118,14 @@ class SuspendLyric extends Component {
     let endLeft = endX - this.startX + this.offsetX;
     let endTop = endY - this.startY + this.offsetY;
 
-    if(endLeft <= this.boundary.left) {
+    if (endLeft <= this.boundary.left) {
       endLeft = this.boundary.left;
-    }
-    else if(endLeft >= this.boundary.right) {
+    } else if (endLeft >= this.boundary.right) {
       endLeft = this.boundary.right;
     }
-    if(endTop <= this.boundary.top) {
+    if (endTop <= this.boundary.top) {
       endTop = this.boundary.top;
-    }
-    else if(endTop >= this.boundary.bottom) {
+    } else if (endTop >= this.boundary.bottom) {
       endTop = this.boundary.bottom;
     }
 
@@ -149,23 +145,35 @@ class SuspendLyric extends Component {
 
     const { firstLrc, nextLrc } = this.state;
     const firstLrcStyle = {
-      color: firstLrc.index === lrcConfig.activeLrcIndex ? lrcConfig.activeColor : lrcConfig.defaultColor
+      color:
+        firstLrc.index === lrcConfig.activeLrcIndex
+          ? lrcConfig.activeColor
+          : lrcConfig.defaultColor
     };
     const nextLrcStyle = {
-      color: nextLrc.index === lrcConfig.activeLrcIndex ? lrcConfig.activeColor : lrcConfig.defaultColor
+      color:
+        nextLrc.index === lrcConfig.activeLrcIndex
+          ? lrcConfig.activeColor
+          : lrcConfig.defaultColor
     };
     return (
       <div
-        className = { canPlayed && lrcSwitch ? 'fadeIn' : '' }
-        id = 'suspend-lyric'
-        ref = { el => this.suspendLyric = el }
-        onTouchStart = { evt => { this.touchstart(evt) }}
-        onTouchMove = { evt => { this.touchmove(evt) }}
-        onTouchEnd = { evt => { this.touchend(evt) }}
+        className={canPlayed && lrcSwitch ? 'fadeIn' : ''}
+        id="suspend-lyric"
+        ref={el => (this.suspendLyric = el)}
+        onTouchStart={evt => {
+          this.touchstart(evt);
+        }}
+        onTouchMove={evt => {
+          this.touchmove(evt);
+        }}
+        onTouchEnd={evt => {
+          this.touchend(evt);
+        }}
       >
-        <span className = 'close' onClick = { this.close.bind(this) }></span>
-        <p style = { firstLrcStyle }>{ firstLrc.curLrc }</p>
-        <p style = { nextLrcStyle }>{ nextLrc.curLrc }</p>
+        <span className="close" onClick={this.close.bind(this)}></span>
+        <p style={firstLrcStyle}>{firstLrc.curLrc}</p>
+        <p style={nextLrcStyle}>{nextLrc.curLrc}</p>
       </div>
     );
   }

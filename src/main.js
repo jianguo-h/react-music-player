@@ -10,7 +10,7 @@ import { HashRouter as Router } from 'react-router-dom';
 import './less/app.less';
 
 // hot module
-if(module.hot) {
+if (module.hot) {
   module.hot.accept();
 }
 
@@ -21,7 +21,7 @@ window.Toast = Toast;
 window.errMsg = '请求出错';
 
 render(
-  <Provider store = { store }>
+  <Provider store={store}>
     <Router>
       <App />
     </Router>

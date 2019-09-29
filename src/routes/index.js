@@ -7,7 +7,7 @@ const router = [
   {
     path: '/',
     exact: true,
-    render: props => <Redirect to = '/new' />
+    render: props => <Redirect to="/new" />
   },
   {
     path: '/new',
@@ -28,7 +28,7 @@ const router = [
 ];
 
 const routes = router.map((route, index) => {
-  return <Route key = { index } { ...route } />;
-})
+  return <Route key={index} {...route} />;
+});
 
 export default routes;

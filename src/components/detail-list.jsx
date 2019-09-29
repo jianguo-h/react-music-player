@@ -6,7 +6,7 @@ class DetailList extends Component {
     playSong: PropTypes.func.isRequired,
     songList: PropTypes.array,
     curPlaySong: PropTypes.object
-  }
+  };
   static defaultProps = {
     songList: [],
     curPlaySong: {
@@ -15,19 +15,23 @@ class DetailList extends Component {
       SongName: '',
       SingerName: ''
     }
-  }
+  };
   render() {
     const { songList, curPlaySong, playSong } = this.props;
     return (
-      <div className = "play-list">
+      <div className="play-list">
         <ul>
-          { songList.map((song, index) => {
+          {songList.map((song, index) => {
             return (
-              <li key = { index } className = { curPlaySong.index === index ? 'active' : '' } onClick = { playSong.bind(this, index) }>
-                { index + 1 }. { song.FileName }
+              <li
+                key={index}
+                className={curPlaySong.index === index ? 'active' : ''}
+                onClick={playSong.bind(this, index)}
+              >
+                {index + 1}. {song.FileName}
               </li>
             );
-          }) }
+          })}
         </ul>
       </div>
     );
