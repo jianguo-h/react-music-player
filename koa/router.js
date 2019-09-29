@@ -5,7 +5,7 @@ const router = new Router();
 // config koa router
 module.exports = app => {
   const paths = ['new', 'recommend', 'local'];
-  for(const path of paths) {
+  for (const path of paths) {
     router.post('/api/' + path, async (ctx, next) => {
       ctx.response.status = 200;
       ctx.response.body = {
@@ -15,4 +15,4 @@ module.exports = app => {
     });
   }
   app.use(router.routes()).use(router.allowedMethods());
-}
+};
