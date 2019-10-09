@@ -2,7 +2,6 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   extends: [
-    // 'airbnb-base',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'prettier',
@@ -10,8 +9,6 @@ module.exports = {
     'plugin:prettier/recommended',
     'prettier/react'
   ],
-  // root: true,
-  // parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 2019,
