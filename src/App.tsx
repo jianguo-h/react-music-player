@@ -10,13 +10,13 @@ function App() {
   return (
     <div id="root">
       <ReactHeader />
-      <Switch>
+      <>
         <Route path='/new' component={List} />
         <Route path='/recommend' component={List} />
         <Route path='/local' component={List} />
         <Route path='/search/:keyword' component={List} />
         <Redirect to='/new' />
-      </Switch>
+      </>
       <Player />
       <SuspendLyric />
     </div>
