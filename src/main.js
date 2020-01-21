@@ -1,4 +1,3 @@
-import api from './api';
 import React from 'react';
 import store from './store';
 import { render } from 'react-dom';
@@ -16,7 +15,6 @@ if (module.hot) {
 
 // some config
 adapt();
-window.api = api;
 window.Toast = Toast;
 window.errMsg = '请求出错';
 

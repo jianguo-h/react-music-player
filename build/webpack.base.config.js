@@ -37,7 +37,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    alias: {
+      '@src': path.resolve(__dirname, '../src')
+    }
   },
   plugins: [
     // 向模板 index.html 中自动注入css和js
