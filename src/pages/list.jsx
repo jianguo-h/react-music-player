@@ -9,6 +9,7 @@ import {
   setSearchListCount,
   playSong
 } from '../store/actions';
+import api from '@src/api';
 import '../less/list.less';
 
 @connect(
@@ -66,7 +67,7 @@ class List extends Component {
   // 渲染静态数据(song.json中的)列表数据
   getStaticList() {
     window.Toast.loading('加载中...', 0);
-    window.api
+    api
       .getList(this.path)
       .then(res => {
         console.log('>>> [res] 渲染列表数据', res);
@@ -91,7 +92,7 @@ class List extends Component {
     const keyword = this.props.match.params.keyword;
     window.Toast.loading('加载中...', 0);
 
-    window.api
+    api
       .getSongInfo(keyword, page)
       .then(res => {
         window.Toast.hide();

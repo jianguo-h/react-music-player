@@ -1,5 +1,5 @@
 // action creators function
-import api from '../../api';
+import api from '@src/api';
 import { Toast } from 'antd-mobile';
 import _cloneDeep from 'lodash/cloneDeep';
 

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import DropList from '../components/drop-list';
+import api from '@src/api';
 import '../less/header.less';
 
 const tabs = [
@@ -55,7 +56,7 @@ class Header extends Component {
       resultCount: 0,
       searchTip: '正在搜索...'
     });
-    window.api
+    api
       .search(keyword)
       .then(res => {
         console.log('>>> [res] 根据关键字搜索', res);
