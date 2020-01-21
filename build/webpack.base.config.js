@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main.tsx'
   },
   output: {
     filename: 'static/js/[name].[hash:8].js',
