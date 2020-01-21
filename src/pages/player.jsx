@@ -9,6 +9,7 @@ import {
   playSong,
   togglePlayStatus
 } from '../store/actions';
+import { Toast } from 'antd-mobile';
 import '../less/player.less';
 
 @connect(
@@ -61,7 +62,7 @@ class Player extends Component {
       this.props.setAudio(audio);
       this.props.setIsPlayed(true);
     } else {
-      window.Toast.fail('歌曲暂时无法播放, 请稍后重试');
+      Toast.fail('歌曲暂时无法播放, 请稍后重试');
     }
   }
   ended() {
