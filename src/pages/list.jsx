@@ -10,6 +10,7 @@ import {
   playSong
 } from '../store/actions';
 import api from '@src/api';
+import { Toast } from 'antd-mobile';
 import '../less/list.less';
 
 @connect(
@@ -66,22 +67,22 @@ class List extends Component {
   }
   // 渲染静态数据(song.json中的)列表数据
   getStaticList() {
-    window.Toast.loading('加载中...', 0);
+    Toast.loading('加载中...', 0);
     api
       .getList(this.path)
       .then(res => {
         console.log('>>> [res] 渲染列表数据', res);
         const songList = _cloneDeep(res.data.data);
         setTimeout(() => {
-          window.Toast.hide();
+          Toast.hide();
           this.setState(prevState => ({
             songList: [...prevState.songList, ...songList]
           }));
         }, 800);
       })
       .catch(err => {
-        window.Toast.hide();
-        window.Toast.fail(window.errMsg);
+        Toast.hide();
+        Toast.fail('请求出错');
         console.log('>>> [err] 渲染列表数据', err);
       });
   }
@@ -90,12 +91,12 @@ class List extends Component {
     this.isLoading = true;
     const page = this.page;
     const keyword = this.props.match.params.keyword;
-    window.Toast.loading('加载中...', 0);
+    Toast.loading('加载中...', 0);
 
     api
       .getSongInfo(keyword, page)
       .then(res => {
-        window.Toast.hide();
+        Toast.hide();
         console.log('>>> [res] 搜索后得到的歌曲列表', res);
         const data = _cloneDeep(res.data.data);
         if (res.status === 200 && res.statusText === 'OK') {
@@ -116,9 +117,9 @@ class List extends Component {
         }
       })
       .catch(err => {
-        window.Toast.hide();
+        Toast.hide();
         console.log('>>> [err] 搜索后得到的歌曲列表', err);
-        window.Toast.fail('网络出现错误或服务暂时不可用');
+        Toast.fail('网络出现错误或服务暂时不可用');
       });
   }
   // 播放歌曲
@@ -150,7 +151,7 @@ class List extends Component {
       } else {
         this.allLoaded = true;
         document.onscroll = null; // 注销事件
-        window.Toast.info('已加载全部数据！');
+        Toast.info('已加载全部数据！');
       }
     }
   }
