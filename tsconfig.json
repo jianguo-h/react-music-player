@@ -11,6 +11,9 @@
     "baseUrl": "./",
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
     "paths": {
       "@src/*": ["src/*"]
     }
