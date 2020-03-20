@@ -81,6 +81,25 @@ const lrcColorList = [
 class PlayDetail extends Component {
   static propTypes = {
     showDetail: PropTypes.bool,
+    lrcConfig: PropTypes.object,
+    view: PropTypes.string,
+    audio: PropTypes.element,
+    curPlaySong: PropTypes.object,
+    songList: PropTypes.array,
+    isPlayed: PropTypes.bool,
+    paused: PropTypes.bool,
+    curPlayImgSrc: PropTypes.string,
+    curPlayLrcArr: PropTypes.array,
+    lock: PropTypes.bool,
+    modeType: PropTypes.string,
+    lrcSwitch: PropTypes.bool,
+    togglePlayStatus: PropTypes.func.isRequired,
+    setModeType: PropTypes.func.isRequired,
+    setLrcSwitch: PropTypes.func.isRequired,
+    setLrcConfig: PropTypes.func.isRequired,
+    setLock: PropTypes.func.isRequired,
+    playSong: PropTypes.func.isRequired,
+    setLoop: PropTypes.func.isRequired,
     setShowDetail: PropTypes.func.isRequired,
     setCurrentTime: PropTypes.func.isRequired
   };
@@ -106,10 +125,10 @@ class PlayDetail extends Component {
       isShowColorList: false // 是否显示颜色列表
     };
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.init();
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.isPlayed !== nextProps.isPlayed) {
       if (nextProps.isPlayed) {
         this.initPlay(nextProps);
@@ -200,7 +219,7 @@ class PlayDetail extends Component {
     const curPlayLrcArr = _cloneDeep(nextProps.curPlayLrcArr);
     const lrcLen = curPlayLrcArr.length;
     const currentTime = Number(nextProps.audio.currentTime.toFixed(2));
-    for (let [index, curPlayLrc] of curPlayLrcArr.entries()) {
+    for (let [index, curPlayLrc] of curPlayLrcArr.entries()) {  // eslint-disable-line
       if (Number(curPlayLrc.startTime) >= currentTime) {
         if (index === 0) {
           index = 1;
@@ -209,9 +228,8 @@ class PlayDetail extends Component {
         }
         this.translateLrc(index - 1);
         break;
-      }
-      // 为了处理点击进度条时直接点击在最后面时的情况
-      else if (currentTime >= Number(curPlayLrcArr[lrcLen - 1].startTime)) {
+      } else if (currentTime >= Number(curPlayLrcArr[lrcLen - 1].startTime)) {
+        // 为了处理点击进度条时直接点击在最后面时的情况
         this.translateLrc(lrcLen - 1);
       }
     }
