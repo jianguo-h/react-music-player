@@ -1,24 +1,19 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { playSong } from '@src/store/actions';
+import { IRootState } from '@src/store';
+import { IPlaySongInfo } from '@src/store/types';
 
-interface IProps {
-  playSong: (index: number) => void;
-  songList: any[];
-  curPlaySong: {
-    [property: string]: any;
+const DetailList: React.FC = () => {
+  const dispatch = useDispatch();
+  const songList = useSelector<IRootState, any[]>(state => state.songList);
+  const curPlaySong = useSelector<IRootState, IPlaySongInfo>(
+    state => state.curPlaySong
+  );
+
+  const onPlay = (index: number) => () => {
+    dispatch(playSong(index));
   };
-}
-
-function DetailList(props: IProps) {
-  const {
-    playSong,
-    songList = [],
-    curPlaySong = {
-      index: -1,
-      FileName: '',
-      SongName: '',
-      SingerName: ''
-    }
-  } = props;
 
   return (
     <div className='play-list'>
@@ -28,7 +23,7 @@ function DetailList(props: IProps) {
             <li
               key={index}
               className={curPlaySong.index === index ? 'active' : ''}
-              onClick={() => playSong(index)}
+              onClick={onPlay(index)}
             >
               {index + 1}. {song.FileName}
             </li>
@@ -37,6 +32,6 @@ function DetailList(props: IProps) {
       </ul>
     </div>
   );
-}
+};
 
 export default DetailList;

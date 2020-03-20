@@ -7,7 +7,7 @@ interface IProps {
   play: (index: number) => void;
 }
 
-function ListItem(props: IProps) {
+const ListItem: React.FC<IProps> = props => {
   const { song, play, index, active } = props;
 
   return (
@@ -15,6 +15,6 @@ function ListItem(props: IProps) {
       <p className='filename'>{song.FileName}</p>
     </li>
   );
-}
+};
 
 export default ListItem;

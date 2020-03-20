@@ -1,13 +1,13 @@
 import React from 'react';
 
 interface IProps {
-  resultCount: number;
-  searchTip: string;
-  resultList: any[];
-  search: (keyword: string) => void;
+  resultCount?: number;
+  searchTip?: string;
+  resultList?: any[];
+  search: (keyword: string) => () => void;
 }
 
-function DropList(props: IProps) {
+const DropList: React.FC<IProps> = props => {
   const {
     resultCount = 0,
     searchTip = '正在搜索...',
@@ -21,7 +21,7 @@ function DropList(props: IProps) {
         <ul>
           {resultList.map((item, index) => {
             return (
-              <li key={index} onClick={() => search(item.HintInfo)}>
+              <li key={index} onClick={search(item.HintInfo)}>
                 {item.HintInfo}
               </li>
             );
@@ -32,6 +32,6 @@ function DropList(props: IProps) {
       )}
     </div>
   );
-}
+};
 
 export default DropList;
