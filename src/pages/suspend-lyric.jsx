@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { setLrcSwitch } from '../store/actions';
+import PropTypes from 'prop-types';
 import '../less/suspend-lyric.less';
 
 @connect(
@@ -21,6 +22,14 @@ import '../less/suspend-lyric.less';
   })
 )
 class SuspendLyric extends Component {
+  static propTypes = {
+    canPlayed: PropTypes.bool,
+    curPlayLrcArr: PropTypes.array,
+    lrcConfig: PropTypes.object,
+    lrcSwitch: PropTypes.bool,
+    setLrcSwitch: PropTypes.func
+  };
+
   constructor() {
     super();
     this.boundary = {
@@ -41,7 +50,7 @@ class SuspendLyric extends Component {
       nextLrc: {} // 第二行的歌词
     };
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.curPlayLrcArr.length > 0) {
       this.getBoundary();
       this.setSuspendLrc(nextProps);
