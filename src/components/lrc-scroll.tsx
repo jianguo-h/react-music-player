@@ -1,23 +1,22 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { IRootState } from '@src/store';
+import { ILrcConfig } from '@src/store/types';
 
 interface IProps {
-  curPlayLrcArr?: any[];
   translateY?: number;
-  defaultColor?: string;
-  activeColor?: string;
-  activeLrcIndex?: number;
   lrcBoxRef: any;
 }
 
-function LrcScroll(props: IProps) {
-  const {
-    curPlayLrcArr = [],
-    translateY = 0,
-    activeLrcIndex = 0,
-    defaultColor = '#b2f5b5',
-    activeColor = '#d1c90e',
-    lrcBoxRef
-  } = props;
+const LrcScroll: React.FC<IProps> = props => {
+  const { translateY = 0, lrcBoxRef } = props;
+
+  const lrcConfig = useSelector<IRootState, ILrcConfig>(
+    state => state.lrcConfig
+  );
+  const curPlayLrcArr = useSelector<IRootState, any[]>(
+    state => state.curPlayLrcArr
+  );
 
   return (
     <div
@@ -25,14 +24,17 @@ function LrcScroll(props: IProps) {
       ref={lrcBoxRef}
       style={{
         transform: 'translateY(-' + translateY + 'px)',
-        color: defaultColor
+        color: lrcConfig.defaultColor
       }}
     >
       {curPlayLrcArr.map((lrcObj, index) => {
         return (
           <p
             key={index}
-            style={{ color: activeLrcIndex === index ? activeColor : '' }}
+            style={{
+              color:
+                lrcConfig.activeLrcIndex === index ? lrcConfig.activeColor : ''
+            }}
             data-starttime={lrcObj.startTime}
           >
             {lrcObj.curLrc}
@@ -41,6 +43,6 @@ function LrcScroll(props: IProps) {
       })}
     </div>
   );
-}
+};
 
 export default LrcScroll;

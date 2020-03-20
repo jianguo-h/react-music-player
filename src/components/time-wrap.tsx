@@ -2,9 +2,9 @@ import React from 'react';
 
 interface IProps {
   updateProgress: (evt: React.MouseEvent<HTMLDivElement>) => void;
-  curPlayTime: number | string;
-  progress: number | string;
-  endTime: number | string;
+  curPlayTime?: number | string;
+  progress?: number | string;
+  endTime?: number | string;
   progressBarRef: any;
 }
 
@@ -20,7 +20,7 @@ function formatTime(time: number): string {
   return minutes + ':' + seconds;
 }
 
-function TimeWrap(props: IProps) {
+const TimeWrap: React.FC<IProps> = props => {
   const {
     curPlayTime = 0,
     progress = 0,
@@ -47,6 +47,6 @@ function TimeWrap(props: IProps) {
       <div className='end-time'>{formatTime(Number(endTime))}</div>
     </div>
   );
-}
+};
 
 export default TimeWrap;

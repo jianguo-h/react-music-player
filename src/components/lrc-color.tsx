@@ -5,7 +5,7 @@ interface IProps {
   lrcColorList: any[];
 }
 
-function LrcColor(props: IProps) {
+const LrcColor: React.FC<IProps> = props => {
   const { lrcColorList, changeLrcColor } = props;
   return (
     <div className='color-list'>
@@ -23,6 +23,6 @@ function LrcColor(props: IProps) {
       })}
     </div>
   );
-}
+};
 
 export default LrcColor;
