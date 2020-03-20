@@ -8,7 +8,7 @@ interface IProps {
 function LrcColor(props: IProps) {
   const { lrcColorList, changeLrcColor } = props;
   return (
-    <div className="color-list">
+    <div className='color-list'>
       {lrcColorList.map((currentObj, index) => {
         return (
           <li

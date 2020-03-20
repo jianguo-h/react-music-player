@@ -158,8 +158,8 @@ class List extends Component {
   render() {
     const { view, isPlayed, curPlaySong } = this.props;
     return (
-      <div id="content">
-        <div className="list">
+      <div id='content'>
+        <div className='list'>
           <ul>
             {this.state.songList.map((song, index) => {
               const listItemProps = {

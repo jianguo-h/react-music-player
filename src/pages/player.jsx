@@ -106,30 +106,30 @@ class Player extends Component {
       ? footerSingerClass + ' paused'
       : footerSingerClass;
     return canPlayed ? (
-      <div id="player" className="fade">
+      <div id='player' className='fade'>
         <div
-          className="footer-play"
+          className='footer-play'
           style={{ visibility: !this.state.showDetail ? 'visible' : 'hidden' }}
         >
           <div
-            className="footer-left"
+            className='footer-left'
             onClick={this.setShowDetail.bind(this, true)}
           >
             <div className={footerSingerClass}>
-              <img src={curPlayImgSrc} alt="歌手图片" />
+              <img src={curPlayImgSrc} alt='歌手图片' />
             </div>
-            <div className="footer-playerInfo">
-              <p className="song-name">{curPlaySong.SongName}</p>
-              <p className="singer-name">{curPlaySong.SingerName}</p>
+            <div className='footer-playerInfo'>
+              <p className='song-name'>{curPlaySong.SongName}</p>
+              <p className='singer-name'>{curPlaySong.SingerName}</p>
             </div>
           </div>
-          <div className="footer-right">
+          <div className='footer-right'>
             <PlayOperate {...playOperateProps}></PlayOperate>
           </div>
         </div>
         {/* 播放详情组件 */}
         <PlayDetail {...playDetailProps}></PlayDetail>
-        <div className="audio">
+        <div className='audio'>
           <audio
             src={audioSrc}
             loop={loop}

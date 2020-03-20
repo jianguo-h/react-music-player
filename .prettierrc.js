@@ -6,5 +6,6 @@ module.exports = {
   // 使用单引号
   singleQuote: true,
   // 缩进
-  tabWidth: 2
+  tabWidth: 2,
+  jsxSingleQuote: true
 };

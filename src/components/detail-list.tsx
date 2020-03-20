@@ -21,7 +21,7 @@ function DetailList(props: IProps) {
   } = props;
 
   return (
-    <div className="play-list">
+    <div className='play-list'>
       <ul>
         {songList.map((song, index) => {
           return (

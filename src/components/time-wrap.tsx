@@ -30,21 +30,21 @@ function TimeWrap(props: IProps) {
   } = props;
 
   return (
-    <div className="time-wrap">
-      <div className="start-time">{formatTime(Number(curPlayTime))}</div>
-      <div className="progress-wrap">
+    <div className='time-wrap'>
+      <div className='start-time'>{formatTime(Number(curPlayTime))}</div>
+      <div className='progress-wrap'>
         <div
-          className="progress-bar"
+          className='progress-bar'
           onClick={updateProgress}
           ref={progressBarRef}
         ></div>
-        <div className="progress" style={{ width: progress + '%' }}></div>
+        <div className='progress' style={{ width: progress + '%' }}></div>
         <div
-          className="progress-dot"
+          className='progress-dot'
           style={{ marginLeft: progress + '%' }}
         ></div>
       </div>
-      <div className="end-time">{formatTime(Number(endTime))}</div>
+      <div className='end-time'>{formatTime(Number(endTime))}</div>
     </div>
   );
 }

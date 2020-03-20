@@ -16,7 +16,7 @@ function DropList(props: IProps) {
   } = props;
 
   return (
-    <div className="search-list">
+    <div className='search-list'>
       {resultCount > 0 ? (
         <ul>
           {resultList.map((item, index) => {

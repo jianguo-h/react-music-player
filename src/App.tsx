@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import ReactHeader from './pages/header';
 import Player from './pages/player';
 import List from './pages/list';
@@ -8,7 +8,7 @@ import { hot } from 'react-hot-loader/root';
 
 function App() {
   return (
-    <div id="root">
+    <div id='root'>
       <ReactHeader />
       <>
         <Route path='/new' component={List} />
