@@ -21,7 +21,7 @@ function LrcScroll(props: IProps) {
 
   return (
     <div
-      className="lrc-box"
+      className='lrc-box'
       ref={lrcBoxRef}
       style={{
         transform: 'translateY(-' + translateY + 'px)',

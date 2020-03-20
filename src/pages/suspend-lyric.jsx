@@ -159,7 +159,7 @@ class SuspendLyric extends Component {
     return (
       <div
         className={canPlayed && lrcSwitch ? 'fadeIn' : ''}
-        id="suspend-lyric"
+        id='suspend-lyric'
         ref={el => (this.suspendLyric = el)}
         onTouchStart={evt => {
           this.touchstart(evt);
@@ -171,7 +171,7 @@ class SuspendLyric extends Component {
           this.touchend(evt);
         }}
       >
-        <span className="close" onClick={this.close.bind(this)}></span>
+        <span className='close' onClick={this.close.bind(this)}></span>
         <p style={firstLrcStyle}>{firstLrc.curLrc}</p>
         <p style={nextLrcStyle}>{nextLrc.curLrc}</p>
       </div>

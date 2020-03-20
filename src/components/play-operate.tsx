@@ -32,9 +32,9 @@ function PlayOperate(props: IProps) {
 
   return (
     <div className={opearteClass}>
-      <span className="prev" onClick={changePlay('prev')}></span>
+      <span className='prev' onClick={changePlay('prev')}></span>
       <span className={playClass} onClick={() => togglePlayStatus()}></span>
-      <span className="next" onClick={changePlay('next')}></span>
+      <span className='next' onClick={changePlay('next')}></span>
     </div>
   );
 }

@@ -12,7 +12,7 @@ function ListItem(props: IProps) {
 
   return (
     <li className={active ? 'active' : ''} onClick={() => play(index)}>
-      <p className="filename">{song.FileName}</p>
+      <p className='filename'>{song.FileName}</p>
     </li>
   );
 }

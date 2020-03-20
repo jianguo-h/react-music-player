@@ -9,8 +9,10 @@ import '../less/header.less';
 const Header: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
-  
-  const searchListCount = useSelector<any, number>(state => state.searchListCount);
+
+  const searchListCount = useSelector<any, number>(
+    state => state.searchListCount
+  );
 
   const [keyword, setKeyword] = useState<string>('');
   const [resultCount, setResultCount] = useState<number>(0);
@@ -29,7 +31,7 @@ const Header: React.FC = () => {
     if (queryText.trim() === '') return;
 
     setResultCount(0);
-    setSearchTip('正在搜索...')
+    setSearchTip('正在搜索...');
 
     api
       .search(queryText)
@@ -78,35 +80,44 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header id="header">
-      <div className="header-search">
-        <div className="logo"></div>
-        <div className="search-form">
+    <header id='header'>
+      <div className='header-search'>
+        <div className='logo'></div>
+        <div className='search-form'>
           <input
-            type="text"
-            placeholder="歌手/歌名"
+            type='text'
+            placeholder='歌手/歌名'
             value={keyword}
             onChange={onInput}
           />
           {keyword ? <DropList {...dropListProps} /> : null}
         </div>
-        <div
-          className="search"
-          onClick={search(keyword)}
-        ></div>
+        <div className='search' onClick={search(keyword)}></div>
       </div>
       {path !== 'search' ? (
-        <div className="header-tab">
+        <div className='header-tab'>
           <ul>
-            <li><NavLink activeClassName="active" to='/new'>新歌</NavLink></li>
-            <li><NavLink activeClassName="active" to='/recommend'>推荐</NavLink></li>
-            <li><NavLink activeClassName="active" to='/local'>本地</NavLink></li>
+            <li>
+              <NavLink activeClassName='active' to='/new'>
+                新歌
+              </NavLink>
+            </li>
+            <li>
+              <NavLink activeClassName='active' to='/recommend'>
+                推荐
+              </NavLink>
+            </li>
+            <li>
+              <NavLink activeClassName='active' to='/local'>
+                本地
+              </NavLink>
+            </li>
           </ul>
         </div>
       ) : (
-        <div className="header-search-result">
-          <div className="goback" onClick={goback}></div>
-          <div className="searchCount">
+        <div className='header-search-result'>
+          <div className='goback' onClick={goback}></div>
+          <div className='searchCount'>
             共有<em>{searchListCount}</em>条结果
           </div>
         </div>

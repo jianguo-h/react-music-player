@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import React, { Component } from 'react';
 import _cloneDeep from 'lodash/cloneDeep';
 import PropTypes from 'prop-types';
-import { List, Switch } from 'antd-mobile';
+import { Switch } from 'antd-mobile';
 import PlayOperate from '../components/play-operate';
 import LrcScroll from '../components/lrc-scroll';
 import TimeWrap from '../components/time-wrap';
@@ -230,11 +230,11 @@ class PlayDetail extends Component {
     });
     if (!this.props.showDetail) return;
 
-    const prevTranslateY = this.state.translateY;
+    // const prevTranslateY = this.state.translateY;
     const lrcBoxHeight = this.lrcBox.offsetHeight;
     const childHeight = this.lrcBox.firstChild.offsetHeight;
     const curShowNum = Math.floor(lrcBoxHeight / childHeight);
-    const nextTranslateY = childHeight * (newCurLrcIndex - curShowNum + 1);
+    // const nextTranslateY = childHeight * (newCurLrcIndex - curShowNum + 1);
     if (newCurLrcIndex >= curShowNum - 1) {
       this.setState({
         translateY: childHeight * (newCurLrcIndex - curShowNum + 1)
@@ -267,7 +267,7 @@ class PlayDetail extends Component {
   }
   // 切换播放模式
   switchMode() {
-    const { showModeTip } = this.state;
+    // const { showModeTip } = this.state;
     if (this.modeSwitch) return;
 
     let modeType = 'order';
@@ -418,34 +418,34 @@ class PlayDetail extends Component {
     };
     return (
       <div
-        id="playDetail"
+        id='playDetail'
         className={showDetail ? 'slideIn' : ''}
         style={{ backgroundImage: 'url(' + curPlayImgSrc + ')' }}
       >
-        <div className="playDetail-mark"></div>
-        <div className="playDetail-top">
+        <div className='playDetail-mark'></div>
+        <div className='playDetail-top'>
           <div
-            className="goback"
+            className='goback'
             onClick={this.props.setShowDetail.bind(this, false)}
           ></div>
-          <div className="playDetail-title">{curPlaySong.FileName}</div>
+          <div className='playDetail-title'>{curPlaySong.FileName}</div>
         </div>
-        <div className="playDetail-center">
+        <div className='playDetail-center'>
           {/* 歌词滚动组件 */}
           <LrcScroll {...lrcScrollProps}></LrcScroll>
         </div>
-        <div className="playDetail-bottom">
-          <div className="lrc-switch">
+        <div className='playDetail-bottom'>
+          <div className='lrc-switch'>
             {/* 歌词开关组件 */}
             <Switch
-              color="#2ca2f9"
+              color='#2ca2f9'
               checked={lrcSwitch}
               onClick={this.toggleLrcSwitch.bind(this, lrcSwitch)}
             ></Switch>
           </div>
-          <div className="lrcColor-box">
+          <div className='lrcColor-box'>
             <div
-              className="cur-lrcColor"
+              className='cur-lrcColor'
               style={{
                 backgroundImage:
                   'url(' + require('../static' + currentImgSrc) + ')'
@@ -457,16 +457,16 @@ class PlayDetail extends Component {
           </div>
           {/* 时间进度条组件 */}
           <TimeWrap {...TimeWrapProps}></TimeWrap>
-          <div className="play-operateBox">
+          <div className='play-operateBox'>
             <div
               className={'listen-mode order-play ' + modeType + '-play'}
               onClick={this.switchMode.bind(this)}
             >
-              {showModeTip ? <div className="mode-tip">{modeTip}</div> : null}
+              {showModeTip ? <div className='mode-tip'>{modeTip}</div> : null}
             </div>
             {/* 歌曲前进后退功能组件 */}
             <PlayOperate {...playOperateProps}></PlayOperate>
-            <div className="detail-list">
+            <div className='detail-list'>
               <div
                 className={isShowList ? 'icon-list active-list' : 'icon-list'}
                 onClick={this.toggleShowList.bind(this)}
