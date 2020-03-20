@@ -90,40 +90,6 @@ export const paused = (state: boolean = false, action: IAction): boolean => {
   return state;
 };
 
-/* const defaultCurPlaySong = {
-  el: null,
-  src: '',
-  index: -1,
-  FileName: '',
-  SongName: '',
-  SingerName: '',
-  SingerImg: '/singer-default.jpg',
-  paused: false,
-  modeType: 'order',
-  lrcArr: [],
-  lrcIndex: 0,
-  lrcColor: {
-    defaultColor: "#b2f5b5",
-    activeColor: "#d1c90e"
-  },
-  loop: false,
-}
-export const curPlaySong = (state = defaultCurPlaySong, action) => {
-  switch (action.type) {
-    case 'setSongInfo':
-      return {
-        ...state,
-        ...action.songInfo
-      }
-    case 'setPaused':
-      return {
-        ...state,
-        action.
-      }
-    default:
-      return state;
-  }
-} */
 const defaultCurPlaySong: IPlaySongInfo = {
   index: -1, // 当前播放歌曲的索引
   FileName: '', // 当前播放歌曲的全名
