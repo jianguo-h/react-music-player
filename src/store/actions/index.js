@@ -1,5 +1,5 @@
 // action creators function
-import api from '@src/api';
+import { getSongInfo as apiGetSongInfo, play as apiPlay } from '@src/api';
 import { Toast } from 'antd-mobile';
 import _cloneDeep from 'lodash/cloneDeep';
 
@@ -169,7 +169,7 @@ export function playSong(curPlayIndex) {
 
     try {
       const songName = curPlaySong.FileName;
-      const infoRes = await api.getSongInfo(songName);
+      const infoRes = await apiGetSongInfo(songName);
       console.log('>>> [res] 获取歌曲的一些信息', infoRes);
       if (infoRes.status === 200 && infoRes.statusText === 'OK') {
         let rightSong = '';
@@ -181,7 +181,7 @@ export function playSong(curPlayIndex) {
         }
         const hash = rightSong.FileHash;
         try {
-          const playRes = await api.play(hash);
+          const playRes = await apiPlay(hash);
           console.log('>>> [res] 根据hash值获取歌曲的播放信息', playRes);
           if (playRes.status === 200 && playRes.statusText === 'OK') {
             const data = _cloneDeep(playRes.data.data);
