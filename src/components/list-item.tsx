@@ -4,14 +4,14 @@ interface IProps {
   song: any;
   index: number;
   active: boolean;
-  play: (index: number) => void;
+  onPlay: (index: number) => void;
 }
 
 const ListItem: React.FC<IProps> = props => {
-  const { song, play, index, active } = props;
+  const { song, onPlay, index, active } = props;
 
   return (
-    <li className={active ? 'active' : ''} onClick={() => play(index)}>
+    <li className={active ? 'active' : ''} onClick={() => onPlay(index)}>
       <p className='filename'>{song.FileName}</p>
     </li>
   );
