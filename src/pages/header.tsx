@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import DropList from '../components/drop-list';
-import api from '@src/api';
+import { search as apiSearch } from '@src/api';
 import debounce from 'lodash/debounce';
 import '../less/header.less';
 
@@ -33,8 +33,7 @@ const Header: React.FC = () => {
     setResultCount(0);
     setSearchTip('正在搜索...');
 
-    api
-      .search(queryText)
+    apiSearch(queryText)
       .then(res => {
         console.log('>>> [res] 根据关键字搜索', res);
         if (res.status === 200 && res.statusText === 'OK') {

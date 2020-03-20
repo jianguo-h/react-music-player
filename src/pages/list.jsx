@@ -9,7 +9,7 @@ import {
   setSearchListCount,
   playSong
 } from '../store/actions';
-import api from '@src/api';
+import { getList as apiGetList, getSongInfo as apiGetSongInfo } from '@src/api';
 import { Toast } from 'antd-mobile';
 import '../less/list.less';
 
@@ -68,8 +68,7 @@ class List extends Component {
   // 渲染静态数据(song.json中的)列表数据
   getStaticList() {
     Toast.loading('加载中...', 0);
-    api
-      .getList(this.path)
+    apiGetList(this.path)
       .then(res => {
         console.log('>>> [res] 渲染列表数据', res);
         const songList = _cloneDeep(res.data.data);
@@ -93,8 +92,7 @@ class List extends Component {
     const keyword = this.props.match.params.keyword;
     Toast.loading('加载中...', 0);
 
-    api
-      .getSongInfo(keyword, page)
+    apiGetSongInfo(keyword, page)
       .then(res => {
         Toast.hide();
         console.log('>>> [res] 搜索后得到的歌曲列表', res);
