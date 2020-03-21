@@ -1,6 +1,7 @@
 @import (reference) './mixins/index.less';
 
-#playDetail, .playDetail-mark {
+#playDetail,
+.playDetail-mark {
   position: fixed;
   top: 0;
   left: 0;
@@ -17,11 +18,11 @@
   background-position: center;
   transform-origin: 0 100%;
   transform: translateX(100%) rotateZ(90deg);
-  transition: all .5s;
+  transition: all 0.5s;
   &.slideIn {
     transform: translateX(0) rotateZ(0deg);
   }
-  
+
   .playDetail-top {
     position: relative;
     padding: 0.4167rem 0;
@@ -34,7 +35,7 @@
       position: absolute;
       transform: translate3d(0, -50%, 0);
       .bgImgContain;
-      .bgImg("icon-goback");
+      .bgImg('icon-goback');
     }
     .playDetail-title {
       color: #fff;
@@ -50,7 +51,7 @@
     flex: 1;
     .lrc-box {
       height: 100%;
-      transition: all .5s;
+      transition: all 0.5s;
       p {
         padding: 0.1389rem 0;
         text-align: center;
@@ -72,7 +73,8 @@
       position: absolute;
       right: 0.8333rem;
       top: -0.8333rem;
-      .cur-lrcColor, .color-list li {
+      .cur-lrcColor,
+      .color-list li {
         width: 0.8333rem;
         height: 0.8333rem;
         background-size: contain;
@@ -105,7 +107,7 @@
         position: relative;
         margin: 0 0.2778rem;
         background-color: #6c6b70;
-        .progress-bar {	
+        .progress-bar {
           width: 100%;
           height: 100%;
           position: relative;
@@ -148,13 +150,13 @@
         }
       }
       .order-play {
-        .bgImg("order-play");
+        .bgImg('order-play');
       }
       .loop-play {
-        .bgImg("loop-play");
+        .bgImg('loop-play');
       }
       .random-play {
-        .bgImg("random-play");
+        .bgImg('random-play');
       }
       .detail-list {
         margin-right: 0.8333rem;
@@ -162,10 +164,10 @@
           width: 0.8333rem;
           height: 0.8333rem;
           .bgImgContain;
-          .bgImg("icon-list");
+          .bgImg('icon-list');
         }
         .active-list {
-          .bgImg("active-list");
+          .bgImg('active-list');
         }
         .play-list {
           color: #fff;
@@ -174,9 +176,9 @@
           bottom: 1.9444rem;
           width: 6.6667rem;
           border-radius: 4px;
-          max-height: 10.0rem;
+          max-height: 10rem;
           overflow-y: scroll;
-          background-color: rgba(0, 0, 0, .9);
+          background-color: rgba(0, 0, 0, 0.9);
           li {
             padding: 0.1944rem 0.2778rem;
             overflow: hidden;
@@ -192,5 +194,5 @@
   }
 }
 .playDetail-mark {
-  background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, 0.6);
 }

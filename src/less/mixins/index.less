@@ -1,12 +1,12 @@
 .fontSize(@fontSize) {
   font-size: round(@fontSize / 2) * 1px;
-  [data-dpr = "2"] & {
+  [data-dpr='2'] & {
     font-size: @fontSize * 1px;
   }
-  [data-dpr = "3"] & {
+  [data-dpr='3'] & {
     font-size: round(@fontSize / 2 * 3) * 1px;
   }
-  [data-dpr = "4"] & {
+  [data-dpr='4'] & {
     font-size: round(@fontSize * 2) * 1px;
   }
 }
@@ -15,9 +15,9 @@
   background-repeat: no-repeat;
   background-position: center center;
 }
-.bgImg(@url, @suffix: ".png") {
-  background-image: url("../../static/images/@{url}_@2x@{suffix}");
-  [data-dpr = "3"] & {
-    background-image: url("../../static/images/@{url}_@3x@{suffix}");
-  }  
+.bgImg(@url, @suffix: '.png') {
+  background-image: url('../../static/images/@{url}_@2x@{suffix}');
+  [data-dpr='3'] & {
+    background-image: url('../../static/images/@{url}_@3x@{suffix}');
+  }
 }
