@@ -1,6 +1,7 @@
 @import (reference) './mixins/index.less';
 @none: none;
 @normal: normal;
+
 /* reset */
 html {
   outline: @none;
@@ -13,16 +14,19 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   color: #333;
   .fontSize(24);
 }
+
 html,
 body {
   position: relative;
   height: 100%;
 }
+
 html,
 body,
 div,
@@ -65,6 +69,7 @@ b {
   font-weight: @normal;
   border: none;
 }
+
 html,
 body,
 div,
@@ -88,6 +93,7 @@ select,
 textarea {
   box-sizing: border-box;
 }
+
 input,
 button,
 textarea,
@@ -98,16 +104,20 @@ select {
   background: @none;
   -webkit-appearance: @none; // 去除ios中按钮的默认样式
 }
+
 textarea {
   resize: @none;
   padding: 0 0.1111rem;
 }
+
 input[type='checkbox'] {
   -webkit-appearance: checkbox;
 }
+
 input[type='radio'] {
   -webkit-appearance: radio;
 }
+
 input[type='text'],
 input[type='password'],
 input[type='tel'],
@@ -116,11 +126,13 @@ input[type='number'] {
   padding: 0 0.125rem;
   .fontSize(28);
 }
+
 ol,
 ul,
 li {
   list-style: @none;
 }
+
 a,
 a:visited,
 a:link,

@@ -10,11 +10,13 @@
     font-size: round(@fontSize * 2) * 1px;
   }
 }
+
 .bgImgContain {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
 }
+
 .bgImg(@url, @suffix: '.png') {
   background-image: url('../../static/images/@{url}_@2x@{suffix}');
   [data-dpr='3'] & {
