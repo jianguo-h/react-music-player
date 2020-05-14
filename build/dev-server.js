@@ -9,19 +9,14 @@ const webpackDevConfig = require('./webpack.dev.config');
 const { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
 
 const app = new Koa();
-const devPort = config.dev.port;
+const devPort = process.env.PORT || 8080;
 const url = 'http://localhost:' + devPort;
 const compiler = webpack(webpackDevConfig);
 
-// 当环境变量不存在时设置为开发环境
-if (!process.env.NODE_ENV) {
-  process.env.NODE_ENV = config.dev.env;
-}
-
 const devMiddlewareInstance = devMiddleware(compiler, {
   stats: {
-    colors: true
-  }
+    colors: true,
+  },
 });
 
 const hotMiddlewareInstance = hotMiddleware(compiler);
@@ -30,8 +25,8 @@ const hotMiddlewareInstance = hotMiddleware(compiler);
 const extraProxys = {
   '/api': {
     target: 'http://localhost:' + config.prod.port,
-    changeOrigin: true
-  }
+    changeOrigin: true,
+  },
 };
 proxy(app, extraProxys);
 
@@ -42,17 +37,9 @@ configStatic(app, '../src/static');
 app.use(devMiddlewareInstance);
 app.use(hotMiddlewareInstance);
 
-let _resolve;
-new Promise((resolve, reject) => {
-  _resolve = resolve;
-});
-
-devMiddlewareInstance.waitUntilValid(() => {
+devMiddlewareInstance.waitUntilValid(async () => {
   console.log('dev server start at ' + url);
-  if (process.env.NODE_ENV === config.dev.env) {
-    open(url);
-  }
-  _resolve();
+  await open(url);
 });
 
 // 端口检测

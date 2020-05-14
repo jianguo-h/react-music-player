@@ -4,10 +4,10 @@
   "description": "a React.js project",
   "main": "src/main.js",
   "scripts": {
-    "dev": "set NODE_ENV=development&&node build/dev-server.js",
-    "build": "set NODE_ENV=production&&node build/build.js",
-    "build-dll": "node build/build.dll.js",
-    "start": "node koa/index.js"
+    "dev": "env-cmd node build/dev-server.js",
+    "build": "env-cmd -f .env.production node build/build.js",
+    "build-dll": "env-cmd -f .env.production node build/build.dll.js",
+    "start": "env-cmd -f .env.production node koa/index.js"
   },
   "repository": {
     "type": "git",

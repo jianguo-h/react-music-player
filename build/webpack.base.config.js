@@ -3,24 +3,25 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/main.tsx'
+    app: './src/main.tsx',
   },
   output: {
     filename: 'static/js/[name].[hash:8].js',
     chunkFilename: 'static/js/[name].[chunkhash:8].js',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/',
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'ts-loader']
+        use: ['babel-loader', 'ts-loader'],
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: ['babel-loader'],
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
@@ -29,26 +30,26 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 1024 * 3,
-              name: 'static/images/[name].[hash:7].[ext]'
-            }
-          }
-        ]
-      }
-    ]
+              name: 'static/images/[name].[hash:7].[ext]',
+            },
+          },
+        ],
+      },
+    ],
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     alias: {
-      '@src': path.resolve(__dirname, '../src')
-    }
+      '@src': path.resolve(__dirname, '../src'),
+    },
   },
   plugins: [
     // 向模板 index.html 中自动注入css和js
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './index.html',
-      inject: true
-    })
+      inject: true,
+    }),
   ],
   optimization: {
     splitChunks: {
@@ -56,16 +57,16 @@ module.exports = {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           chunks: 'all',
-          name: 'vendors'
+          name: 'vendors',
         },
         commons: {
           chunks: 'all',
           name: 'commons',
           priority: -11,
-          minChunks: 2
-        }
-      }
+          minChunks: 2,
+        },
+      },
     },
-    runtimeChunk: 'single'
-  }
+    runtimeChunk: 'single',
+  },
 };
