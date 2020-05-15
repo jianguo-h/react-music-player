@@ -9,13 +9,10 @@ let proxyTable: {
   [path: string]: Options;
 } = config.proxyTable;
 const isDev = process.env.NODE_ENV === 'development';
+const defaultUrl = 'http://localhost:' + config.prod.port;
 
 // config koa proxy
-export default function (
-  app: Application,
-  extraProxys: object | null = null,
-  url: string = ''
-) {
+export default function (app: Application, extraProxys: object | null = null) {
   if (extraProxys && extraProxys.constructor === Object) {
     proxyTable = {
       ...proxyTable,
@@ -33,7 +30,7 @@ export default function (
       connect(
         createProxyMiddleware(ctx, {
           changeOrigin: true,
-          target: isDev ? url : options.target,
+          target: isDev ? defaultUrl : options.target,
           pathRewrite: isDev ? undefined : options.pathRewrite,
         })
       )

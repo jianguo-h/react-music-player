@@ -8,13 +8,12 @@ import detectionPort from './detection-port';
 
 const app = new Koa();
 const serverPort = process.env.SERVER_PORT ?? 8088;
-const url = 'http://localhost:' + serverPort;
 
 // config koa router
 router(app);
 
 // config koa proxy
-proxy(app, null, url);
+proxy(app);
 
 // config static file
 configStatic(app, '../dist');
