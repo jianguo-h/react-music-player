@@ -14,11 +14,11 @@ module.exports = {
         'test', // 增加/修改测试用例
         'revert', // 回退到某个版本
         'chore', // 修改工具相关（包括但不限于文档、代码生成等, 比如修改了README，webpack配置文件等等）
-        'deps' // 升级依赖
-      ]
+        'deps', // 升级依赖
+      ],
     ],
     'type-case': [0],
     'scope-case': [0],
-    'subject-case': [0, 'never']
-  }
+    'subject-case': [0, 'never'],
+  },
 };
