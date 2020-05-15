@@ -1,15 +1,16 @@
 const config = require('../config');
 const connect = require('koa-connect');
-const httpProxyMiddleware = require('http-proxy-middleware');
+// const httpProxyMiddleware = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 let proxyTable = config.proxyTable;
 const isDev = process.env.NODE_ENV === config.dev.env;
 
 // config koa proxy
-module.exports = function(app, extraProxys = null) {
+module.exports = function (app, extraProxys = null) {
   if (extraProxys && extraProxys.constructor === Object) {
     proxyTable = {
       ...proxyTable,
-      ...extraProxys
+      ...extraProxys,
     };
   }
 
@@ -21,12 +22,12 @@ module.exports = function(app, extraProxys = null) {
 
     app.use(
       connect(
-        httpProxyMiddleware(ctx, {
+        createProxyMiddleware(ctx, {
           changeOrigin: true,
           target: isDev
             ? 'http://localhost:' + config.prod.port
             : options.target,
-          pathRewrite: isDev ? null : options.pathRewrite
+          pathRewrite: isDev ? null : options.pathRewrite,
         })
       )
     );
