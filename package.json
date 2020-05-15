@@ -2,9 +2,9 @@
   "name": "react-music-player",
   "version": "1.0.0",
   "description": "a React.js project",
-  "main": "src/main.js",
+  "main": "src/main.tsx",
   "scripts": {
-    "dev": "env-cmd node build/dev-server.js",
+    "dev": "env-cmd ts-node build/dev-server.ts",
     "build": "env-cmd -f .env.production node build/build.js",
     "build-dll": "env-cmd -f .env.production node build/build.dll.js",
     "start": "env-cmd -f .env.production node koa/index.js"
@@ -34,7 +34,6 @@
     "koa-router": "^8.0.8",
     "koa-send": "^5.0.0",
     "koa-static": "^5.0.0",
-    "koa-webpack-middleware": "^1.0.7",
     "lint-staged": "^10.2.2"
   },
   "devDependencies": {
@@ -54,7 +53,9 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/uglifyjs-webpack-plugin": "^1.1.0",
     "@types/webpack": "^4.41.13",
+    "@types/webpack-dev-middleware": "^3.7.0",
     "@types/webpack-env": "^1.15.2",
+    "@types/webpack-hot-middleware": "^2.25.2",
     "@types/webpack-merge": "^4.1.5",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
@@ -75,6 +76,7 @@
     "eslint-plugin-react-hooks": "^4.0.2",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
+    "koa-webpack-middleware": "^1.0.7",
     "less": "^3.11.1",
     "less-loader": "^6.1.0",
     "lodash": "^4.17.15",
