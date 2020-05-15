@@ -48,7 +48,7 @@ const webpackBaseConfig: Configuration = {
     // 向模板 index.html 中自动注入css和js
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './index.html',
+      template: './src/index.html',
       inject: true,
     }),
   ],
