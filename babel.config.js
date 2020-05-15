@@ -5,31 +5,31 @@ module.exports = {
       {
         modules: false,
         useBuiltIns: 'usage',
-        corejs: 3
-      }
+        corejs: 3,
+      },
     ],
-    '@babel/preset-react'
+    '@babel/preset-react',
   ],
   plugins: [
     'react-hot-loader/babel',
     [
       '@babel/plugin-proposal-decorators',
       {
-        legacy: true
-      }
+        legacy: true,
+      },
     ],
     [
       '@babel/plugin-proposal-class-properties',
       {
-        loose: true
-      }
+        loose: true,
+      },
     ],
     [
       'import',
       {
         libraryName: 'antd-mobile',
-        style: true
-      }
-    ]
-  ]
+        style: true,
+      },
+    ],
+  ],
 };
