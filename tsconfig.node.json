@@ -10,11 +10,13 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "resolveJsonModule": true
   },
   "include": [
     "build/**/*",
-    "@types"
+    "@types",
+    "server/**/*"
   ],
   "exclude": ["node_modules"]
 }

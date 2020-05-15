@@ -1,8 +1,10 @@
 // 判断要启动的端口号是否被占用, 占用的话先关闭占用的进程再开启node服务
-const { exec } = require('child_process');
-const cmd = process.platform === 'win32' ? 'netstat -ano' : 'ps aux';
+import { exec } from 'child_process';
+import Application from 'koa';
 
-module.exports = function (app, port) {
+const cmd: string = process.platform === 'win32' ? 'netstat -ano' : 'ps aux';
+
+export default function (app: Application, port: number | string) {
   // 开启服务
   const startServer = () => {
     if (port) {
@@ -44,10 +46,10 @@ module.exports = function (app, port) {
           console.log('>>> 释放指定端口失败', error);
           return;
         }
-        startServer(port);
+        startServer();
       });
     } else {
-      startServer(port);
+      startServer();
     }
   });
-};
+}

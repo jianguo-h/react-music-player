@@ -4,9 +4,9 @@ import Koa from 'koa';
 import open from 'open';
 import webpack from 'webpack';
 import config from '../config';
-import proxy from '../koa/proxy';
-import configStatic from '../koa/static';
-import detectionPort from '../koa/detection-port';
+import proxy from '../server/proxy';
+import configStatic from '../server/static';
+import detectionPort from '../server/detection-port';
 import webpackDevConfig from './webpack.dev.config';
 import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware';
 
