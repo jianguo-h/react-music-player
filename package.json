@@ -7,7 +7,7 @@
     "dev": "env-cmd ts-node build/dev-server.ts",
     "build": "env-cmd -f .env.production ts-node build/build.ts",
     "build-dll": "env-cmd -f .env.production ts-node build/build.dll.ts",
-    "start": "env-cmd -f .env.production node koa/index.ts"
+    "server": "env-cmd -f .env.production node server/index.ts"
   },
   "repository": {
     "type": "git",
