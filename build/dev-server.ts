@@ -9,6 +9,7 @@ import configStatic from '../server/static';
 import detectionPort from '../server/detection-port';
 import webpackDevConfig from './webpack.dev.config';
 import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware';
+import { Options } from 'http-proxy-middleware';
 
 const app = new Koa();
 const devPort = process.env.PORT ?? 8080;
@@ -25,7 +26,9 @@ const devMiddlewareInstance = devMiddleware(compiler, {
 const hotMiddlewareInstance = hotMiddleware(compiler);
 
 // config koa proxy
-const extraProxys = {
+const extraProxys: {
+  [path: string]: Options;
+} = {
   '/api': {
     target: 'http://localhost:' + config.prod.port,
     changeOrigin: true,
