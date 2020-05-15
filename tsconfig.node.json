@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es5",
+    "strict": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node"
+  },
+  "include": [
+    "build/**/*",
+    "@types"
+  ],
+  "exclude": ["node_modules"]
+}
