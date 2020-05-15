@@ -1,8 +1,8 @@
-const path = require('path');
-const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+import path from 'path';
+import webpack, { Configuration } from 'webpack';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
-module.exports = {
+const webpackDllConfig: Configuration = {
   mode: 'production',
   entry: {
     libs: [
@@ -42,3 +42,5 @@ module.exports = {
     }),
   ],
 };
+
+export default webpackDllConfig;

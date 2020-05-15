@@ -5,9 +5,9 @@
   "main": "src/main.tsx",
   "scripts": {
     "dev": "env-cmd ts-node build/dev-server.ts",
-    "build": "env-cmd -f .env.production node build/build.js",
-    "build-dll": "env-cmd -f .env.production node build/build.dll.js",
-    "start": "env-cmd -f .env.production node koa/index.js"
+    "build": "env-cmd -f .env.production ts-node build/build.ts",
+    "build-dll": "env-cmd -f .env.production ts-node build/build.dll.ts",
+    "start": "env-cmd -f .env.production node koa/index.ts"
   },
   "repository": {
     "type": "git",
@@ -51,6 +51,7 @@
     "@types/react-redux": "^7.1.8",
     "@types/react-router": "^5.1.7",
     "@types/react-router-dom": "^5.1.5",
+    "@types/rimraf": "^3.0.0",
     "@types/uglifyjs-webpack-plugin": "^1.1.0",
     "@types/webpack": "^4.41.13",
     "@types/webpack-dev-middleware": "^3.7.0",

@@ -11,7 +11,7 @@ import webpackDevConfig from './webpack.dev.config';
 import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware';
 
 const app = new Koa();
-const devPort = process.env.PORT || 8080;
+const devPort = process.env.PORT ?? 8080;
 const url = 'http://localhost:' + devPort;
 const compiler = webpack(webpackDevConfig);
 
