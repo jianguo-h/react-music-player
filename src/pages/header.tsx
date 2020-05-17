@@ -19,13 +19,6 @@ const Header: React.FC = () => {
   const [resultList, setResultList] = useState<any[]>([]);
   const [searchTip, setSearchTip] = useState<string>('');
 
-  // 监听输入框的input事件
-  const onInput = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
-    evt.persist();
-    setKeyword(evt.target.value);
-    query(evt.target.value);
-  }, []);
-
   // 根据关键字搜索(模糊查询)
   const query = debounce((queryText: string) => {
     if (queryText.trim() === '') return;
@@ -55,6 +48,13 @@ const Header: React.FC = () => {
       });
   }, 600);
 
+  // 监听输入框的input事件
+  const onInput = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
+    evt.persist();
+    setKeyword(evt.target.value);
+    query(evt.target.value);
+  }, []);
+
   // 点击搜索事件, keyword为关键字
   const search = (searchText: string) => () => {
     if (!searchText) {
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
     resultCount,
     resultList,
     searchTip,
-    search
+    search,
   };
 
   return (

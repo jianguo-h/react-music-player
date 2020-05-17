@@ -26,7 +26,7 @@ const TimeWrap: React.FC<IProps> = props => {
     progress = 0,
     endTime = 0,
     updateProgress,
-    progressBarRef
+    progressBarRef,
   } = props;
 
   return (

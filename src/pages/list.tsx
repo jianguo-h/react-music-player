@@ -6,7 +6,7 @@ import {
   setView,
   setSongList,
   setSearchListCount,
-  playSong
+  playSong,
 } from '../store/actions';
 import { getList as apiGetList, getSongInfo as apiGetSongInfo } from '@src/api';
 import { Toast } from 'antd-mobile';
@@ -23,7 +23,7 @@ const List: React.FC = () => {
     page: 1,
     totalPage: 0,
     loading: false,
-    allLoaded: false
+    allLoaded: false,
   });
 
   const view = useSelector<IRootState, string>(state => state.view);
@@ -71,7 +71,7 @@ const List: React.FC = () => {
             return {
               SingerName: song.SingerName,
               SongName: song.SongName,
-              FileName: song.FileName
+              FileName: song.FileName,
             };
           });
           searchObj.current.isLoading = false;
@@ -150,7 +150,7 @@ const List: React.FC = () => {
               onPlay,
               song,
               index,
-              active: view === path && index === curPlaySong.index && isPlayed
+              active: view === path && index === curPlaySong.index && isPlayed,
             };
             return <ListItem {...listItemProps} key={index} />;
           })}

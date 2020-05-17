@@ -17,7 +17,7 @@ import {
   SET_LOOP,
   SET_MODE_TYPE,
   SET_LRC_CONFIG,
-  SET_LRC_SWITCH
+  SET_LRC_SWITCH,
 } from '../actions';
 
 // 当前播放歌曲所属的路由
@@ -94,7 +94,7 @@ const defaultCurPlaySong: IPlaySongInfo = {
   index: -1, // 当前播放歌曲的索引
   FileName: '', // 当前播放歌曲的全名
   SongName: '', // 当前播放歌曲的歌曲名
-  SingerName: '' // 当前播放歌曲的歌手名
+  SingerName: '', // 当前播放歌曲的歌手名
 };
 export const curPlaySong = (
   state: IPlaySongInfo = defaultCurPlaySong,
@@ -103,7 +103,7 @@ export const curPlaySong = (
   if (action.type === SET_CUR_PLAY_SONG) {
     return {
       ...state,
-      ...action.payload.curPlaySong
+      ...action.payload.curPlaySong,
     };
   }
   return state;
@@ -127,22 +127,16 @@ export const curPlayLrcArr = (state: any[] = [], action: IAction): any[] => {
     if (lyrics.length === 0) {
       return state;
     }
-    const lrc = lyrics
-      .replace(/\n/g, '')
-      .split('[')
-      .slice(1);
+    const lrc = lyrics.replace(/\n/g, '').split('[').slice(1);
     const curPlayLrcArr = [];
     for (const [index, item] of lrc.entries()) {
-      const times = item
-        .split(']')[0]
-        .replace('.', ':')
-        .split(':');
+      const times = item.split(']')[0].replace('.', ':').split(':');
       const time =
         Number(times[0]) * 60 + Number(times[1]) + Number(times[2]) / 1000;
       const obj = {
         index,
         startTime: time.toFixed(2),
-        curLrc: item.split(']')[1]
+        curLrc: item.split(']')[1],
       };
       curPlayLrcArr.push(obj);
     }
@@ -179,7 +173,7 @@ export const modeType = (state: string = 'order', action: IAction): string => {
 const defaultLrcConfig: ILrcConfig = {
   activeColor: '#d1c90e', // 高亮行的歌词颜色
   defaultColor: '#b2f5b5', // 其他行的歌词颜色
-  activeLrcIndex: 0 // 高亮行歌词的索引
+  activeLrcIndex: 0, // 高亮行歌词的索引
 };
 export const lrcConfig = (
   state: ILrcConfig = defaultLrcConfig,
@@ -188,7 +182,7 @@ export const lrcConfig = (
   if (action.type === SET_LRC_CONFIG) {
     return {
       ...state,
-      ...action.payload.lrcConfig
+      ...action.payload.lrcConfig,
     };
   }
   return state;

@@ -15,7 +15,7 @@ const LrcColor: React.FC<IProps> = props => {
             key={index}
             style={{
               backgroundImage:
-                'url(' + require('../static' + currentObj.currentImgSrc) + ')'
+                'url(' + require('../static' + currentObj.currentImgSrc) + ')',
             }}
             onClick={() => changeLrcColor(index)}
           ></li>

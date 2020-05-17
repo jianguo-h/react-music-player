@@ -57,7 +57,7 @@ const Player: React.FC = () => {
   const playDetailProps = {
     showDetail,
     setShowDetail,
-    setCurrentTime
+    setCurrentTime,
   };
 
   let footerSingerClass = 'footer-singer';

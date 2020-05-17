@@ -10,15 +10,15 @@ import '../less/suspend-lyric.less';
     canPlayed: state.canPlayed,
     curPlayLrcArr: state.curPlayLrcArr,
     lrcConfig: state.lrcConfig,
-    lrcSwitch: state.lrcSwitch
+    lrcSwitch: state.lrcSwitch,
   }),
   dispatch => ({
     ...bindActionCreators(
       {
-        setLrcSwitch
+        setLrcSwitch,
       },
       dispatch
-    )
+    ),
   })
 )
 class SuspendLyric extends Component {
@@ -27,7 +27,7 @@ class SuspendLyric extends Component {
     curPlayLrcArr: PropTypes.array,
     lrcConfig: PropTypes.object,
     lrcSwitch: PropTypes.bool,
-    setLrcSwitch: PropTypes.func
+    setLrcSwitch: PropTypes.func,
   };
 
   constructor() {
@@ -37,7 +37,7 @@ class SuspendLyric extends Component {
       left: 0,
       right: 0,
       top: 0,
-      bottom: 0
+      bottom: 0,
     };
     this.isDrag = false; // 判断是否处于拖拽中
     this.startX = 0; // 鼠标按下起始位置的x坐标
@@ -47,7 +47,7 @@ class SuspendLyric extends Component {
 
     this.state = {
       firstLrc: {}, // 第一行的歌词
-      nextLrc: {} // 第二行的歌词
+      nextLrc: {}, // 第二行的歌词
     };
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -65,7 +65,7 @@ class SuspendLyric extends Component {
       left, // 左边界
       right, // 右边界
       top, // 上边界
-      bottom // 下边界
+      bottom, // 下边界
     });
   }
   // 设置上下两行歌词
@@ -81,7 +81,7 @@ class SuspendLyric extends Component {
         firstLrc = {
           ...curPlayLrcArr[activeLrcIndex],
           index: activeLrcIndex + 1,
-          curLrc: ''
+          curLrc: '',
         };
       } else {
         firstLrc = curPlayLrcArr[activeLrcIndex + 1];
@@ -97,7 +97,7 @@ class SuspendLyric extends Component {
         nextLrc = {
           ...curPlayLrcArr[activeLrcIndex],
           index: activeLrcIndex + 1,
-          curLrc: ''
+          curLrc: '',
         };
       } else {
         nextLrc = curPlayLrcArr[activeLrcIndex + 1];
@@ -108,7 +108,7 @@ class SuspendLyric extends Component {
 
     this.setState({
       firstLrc,
-      nextLrc
+      nextLrc,
     });
   }
   touchstart(evt) {
@@ -157,13 +157,13 @@ class SuspendLyric extends Component {
       color:
         firstLrc.index === lrcConfig.activeLrcIndex
           ? lrcConfig.activeColor
-          : lrcConfig.defaultColor
+          : lrcConfig.defaultColor,
     };
     const nextLrcStyle = {
       color:
         nextLrc.index === lrcConfig.activeLrcIndex
           ? lrcConfig.activeColor
-          : lrcConfig.defaultColor
+          : lrcConfig.defaultColor,
     };
     return (
       <div
