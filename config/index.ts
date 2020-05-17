@@ -1,4 +1,5 @@
 import { Options } from 'http-proxy-middleware';
+import path from 'path';
 
 export const serverPort = 8088;
 
@@ -30,3 +31,5 @@ export const proxyTable: {
     },
   },
 };
+
+export const libsPath = path.resolve(__dirname, '../src/libs');
