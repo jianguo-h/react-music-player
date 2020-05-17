@@ -3,7 +3,7 @@
 import Koa from 'koa';
 import open from 'open';
 import webpack from 'webpack';
-import config from '../config';
+import { serverPort } from '../config';
 import proxy from '../server/proxy';
 import configStatic from '../server/static';
 import detectionPort from '../server/detection-port';
@@ -30,7 +30,7 @@ const extraProxys: {
   [path: string]: Options;
 } = {
   '/api': {
-    target: 'http://localhost:' + config.prod.port,
+    target: 'http://localhost:' + serverPort,
     changeOrigin: true,
   },
 };

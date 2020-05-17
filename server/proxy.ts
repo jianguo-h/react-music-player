@@ -1,15 +1,15 @@
 /// <reference types='../@types/koa-connect' />
 
-import config from '../config';
+import { serverPort, proxyTable as configProxyTable } from '../config';
 import connect from 'koa-connect';
 import { createProxyMiddleware, Options } from 'http-proxy-middleware';
 import Application from 'koa';
 
 let proxyTable: {
   [path: string]: Options;
-} = config.proxyTable;
+} = configProxyTable;
 const isDev = process.env.NODE_ENV === 'development';
-const defaultUrl = 'http://localhost:' + config.prod.port;
+const defaultUrl = 'http://localhost:' + serverPort;
 
 // config koa proxy
 export default function (app: Application, extraProxys: object | null = null) {
