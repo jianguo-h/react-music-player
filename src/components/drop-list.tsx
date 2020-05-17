@@ -12,7 +12,7 @@ const DropList: React.FC<IProps> = props => {
     resultCount = 0,
     searchTip = '正在搜索...',
     resultList = [],
-    search
+    search,
   } = props;
 
   return (

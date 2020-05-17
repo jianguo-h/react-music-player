@@ -24,7 +24,7 @@ const LrcScroll: React.FC<IProps> = props => {
       ref={lrcBoxRef}
       style={{
         transform: 'translateY(-' + translateY + 'px)',
-        color: lrcConfig.defaultColor
+        color: lrcConfig.defaultColor,
       }}
     >
       {curPlayLrcArr.map((lrcObj, index) => {
@@ -33,7 +33,7 @@ const LrcScroll: React.FC<IProps> = props => {
             key={index}
             style={{
               color:
-                lrcConfig.activeLrcIndex === index ? lrcConfig.activeColor : ''
+                lrcConfig.activeLrcIndex === index ? lrcConfig.activeColor : '',
             }}
             data-starttime={lrcObj.startTime}
           >

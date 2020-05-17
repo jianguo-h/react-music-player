@@ -7,7 +7,7 @@ import {
   ILrcConfig,
   IPlaySongInfo,
   GetStateFn,
-  AudioEle
+  AudioEle,
 } from '../types';
 import { Dispatch } from 'redux';
 
@@ -16,8 +16,8 @@ export function setView(view: string): IAction {
   return {
     type: SET_VIEW,
     payload: {
-      view
-    }
+      view,
+    },
   };
 }
 
@@ -26,8 +26,8 @@ export function setSongList(songList: any[]): IAction {
   return {
     type: 'SET_SONG_LIST',
     payload: {
-      songList
-    }
+      songList,
+    },
   };
 }
 
@@ -36,8 +36,8 @@ export function setSearchListCount(searchListCount: number): IAction {
   return {
     type: SET_SEARCH_LIST_COUNT,
     payload: {
-      searchListCount
-    }
+      searchListCount,
+    },
   };
 }
 
@@ -46,8 +46,8 @@ export function setAudio(audio: AudioEle): IAction {
   return {
     type: SET_AUDIO,
     payload: {
-      audio
-    }
+      audio,
+    },
   };
 }
 
@@ -56,8 +56,8 @@ export function setAudioSrc(audioSrc: string | null): IAction {
   return {
     type: SET_AUDIO_SRC,
     payload: {
-      audioSrc
-    }
+      audioSrc,
+    },
   };
 }
 
@@ -66,8 +66,8 @@ export function setIsPlayed(isPlayed: boolean): IAction {
   return {
     type: SET_IS_PLAYED,
     payload: {
-      isPlayed
-    }
+      isPlayed,
+    },
   };
 }
 
@@ -76,8 +76,8 @@ export function setCanPlayed(canPlayed: boolean): IAction {
   return {
     type: SET_CAN_PLAYED,
     payload: {
-      canPlayed
-    }
+      canPlayed,
+    },
   };
 }
 
@@ -87,13 +87,13 @@ export function setPaused(paused?: boolean): IAction {
     return {
       type: SET_PAUSED,
       payload: {
-        paused
-      }
+        paused,
+      },
     };
   }
   return {
     type: SET_PAUSED,
-    payload: {}
+    payload: {},
   };
 }
 
@@ -102,8 +102,8 @@ export function setCurPlayImgSrc(curPlayImgSrc: string): IAction {
   return {
     type: SET_CUR_PLAY_IMR_SRC,
     payload: {
-      curPlayImgSrc
-    }
+      curPlayImgSrc,
+    },
   };
 }
 
@@ -112,8 +112,8 @@ export function setCurPlayLrcArr(lyrics: any[]): IAction {
   return {
     type: SET_CUR_PLAY_LRC_ARR,
     payload: {
-      lyrics
-    }
+      lyrics,
+    },
   };
 }
 
@@ -122,8 +122,8 @@ export function setLock(lock: boolean): IAction {
   return {
     type: SET_LOCK,
     payload: {
-      lock
-    }
+      lock,
+    },
   };
 }
 
@@ -132,8 +132,8 @@ export function setLoop(loop: boolean): IAction {
   return {
     type: SET_LOOP,
     payload: {
-      loop
-    }
+      loop,
+    },
   };
 }
 
@@ -142,8 +142,8 @@ export function setModeType(modeType: string): IAction {
   return {
     type: SET_MODE_TYPE,
     payload: {
-      modeType
-    }
+      modeType,
+    },
   };
 }
 
@@ -152,8 +152,8 @@ export function setLrcConfig(lrcConfig: ILrcConfig): IAction {
   return {
     type: SET_LRC_CONFIG,
     payload: {
-      lrcConfig
-    }
+      lrcConfig,
+    },
   };
 }
 
@@ -162,8 +162,8 @@ export function setLrcSwitch(lrcSwitch: boolean): IAction {
   return {
     type: SET_LRC_SWITCH,
     payload: {
-      lrcSwitch
-    }
+      lrcSwitch,
+    },
   };
 }
 
@@ -172,8 +172,8 @@ export function setCurPlaySong(curPlaySong: IPlaySongInfo): IAction {
   return {
     type: SET_CUR_PLAY_SONG,
     payload: {
-      curPlaySong
-    }
+      curPlaySong,
+    },
   };
 }
 
@@ -209,7 +209,7 @@ export function playSong(curPlayIndex: number) {
     dispatch(setLock(false));
     dispatch(
       setLrcConfig({
-        activeLrcIndex: 0
+        activeLrcIndex: 0,
       })
     );
 

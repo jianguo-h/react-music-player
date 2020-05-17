@@ -16,7 +16,7 @@ export async function search(keyword: string) {
     {
       method: 'post',
       url: '/searchtip',
-      data: { keyword }
+      data: { keyword },
     },
     '搜索'
   );
@@ -27,7 +27,7 @@ export async function getList(path: string) {
   return await callApi(
     {
       method: 'post',
-      url: '/api/' + path
+      url: '/api/' + path,
     },
     '获取静态json数据中的歌曲列表'
   );
@@ -46,9 +46,9 @@ export async function getSongInfo(songName: string, page: number = 1) {
         platform: 'WebFilter',
         userid: -1,
         iscorrection: 1,
-        privilege_filter: 0,  // eslint-disable-line
-        filter: 2
-      }
+        privilege_filter: 0,
+        filter: 2,
+      },
     },
     '获取歌曲信息'
   );
@@ -62,8 +62,8 @@ export async function play(hash: string) {
       url: '/play',
       params: {
         r: 'play/getdata',
-        hash
-      }
+        hash,
+      },
     },
     '根据hash值获取歌曲的信息'
   );

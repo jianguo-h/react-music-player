@@ -7,5 +7,5 @@ module.exports = {
   singleQuote: true,
   // 缩进
   tabWidth: 2,
-  jsxSingleQuote: true
+  jsxSingleQuote: true,
 };
