@@ -3,7 +3,7 @@
 import Koa from 'koa';
 import open from 'open';
 import webpack from 'webpack';
-import { serverPort } from '../config';
+import { serverPort, devPort } from '../config';
 import proxy from '../server/proxy';
 import configStatic from '../server/static';
 import detectionPort from '../server/detection-port';
@@ -12,7 +12,6 @@ import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware';
 import { Options } from 'http-proxy-middleware';
 
 const app = new Koa();
-const devPort = process.env.PORT ?? 8080;
 const url = 'http://localhost:' + devPort;
 const compiler = webpack(webpackDevConfig);
 

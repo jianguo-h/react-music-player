@@ -1,7 +1,9 @@
 import { Options } from 'http-proxy-middleware';
 import path from 'path';
 
-export const serverPort = 8088;
+export const devPort = process.env.PORT ?? 8080;
+
+export const serverPort = process.env.SERVER_PORT ?? 8088;
 
 export const proxyTable: {
   [path: string]: Options;

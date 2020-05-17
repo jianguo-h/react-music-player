@@ -5,9 +5,9 @@ import proxy from './proxy';
 import configStatic from './static';
 import router from './router';
 import detectionPort from './detection-port';
+import { serverPort } from '../config';
 
 const app = new Koa();
-const serverPort = process.env.SERVER_PORT ?? 8088;
 
 // config koa router
 router(app);
