@@ -1,12 +1,11 @@
-import path from 'path';
 import rimraf from 'rimraf';
 import webpack from 'webpack';
 import webpackDllConfig from './webpack.dll.config';
+import { libsPath } from '../config';
 
 console.log('building for production...\n');
-const dllPath = path.resolve(__dirname, '../dll');
 
-rimraf(dllPath, err => {
+rimraf(libsPath, err => {
   if (err) throw err;
 
   webpack(webpackDllConfig, (errout, stats) => {
