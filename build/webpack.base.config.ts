@@ -7,8 +7,7 @@ const webpackBaseConfig: Configuration = {
     app: './src/main.tsx',
   },
   output: {
-    filename: 'static/js/[name].[hash:8].js',
-    chunkFilename: 'static/js/[name].[chunkhash:8].js',
+    chunkFilename: 'static/js/[name].[contenthash:8].chunk.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
   },
