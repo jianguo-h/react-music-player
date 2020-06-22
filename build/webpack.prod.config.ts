@@ -11,6 +11,9 @@ import { libsPath } from '../config';
 const webpackProdConfig: Configuration = webpackMerge(webpackBaseConfig, {
   devtool: false,
   mode: 'production',
+  output: {
+    filename: 'static/js/[name].[contenthash:8].js',
+  },
   module: {
     rules: [
       {
@@ -42,8 +45,8 @@ const webpackProdConfig: Configuration = webpackMerge(webpackBaseConfig, {
     }),
     // 提取less和css
     new MiniCssExtractPlugin({
-      filename: 'static/css/[name].[hash].css',
-      chunkFilename: 'static/css/[name].[chunkhash:8].css',
+      filename: 'static/css/[name].[contenthash: 8].css',
+      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
     }),
     // 压缩css
     new OptimizeCssAssetsPlugin({
