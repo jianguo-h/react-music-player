@@ -4,9 +4,7 @@ import webpackMerge from 'webpack-merge';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import webpackBaseConfig from './webpack.base.config';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import AddAssetHtmlPlugin from 'add-asset-html-webpack-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import { libsPath } from '../config';
 
 const webpackProdConfig: Configuration = webpackMerge(webpackBaseConfig, {
   devtool: false,
@@ -32,17 +30,6 @@ const webpackProdConfig: Configuration = webpackMerge(webpackBaseConfig, {
     ],
   },
   plugins: [
-    // dllPlugin
-    new webpack.DllReferencePlugin({
-      context: __dirname,
-      manifest: require(libsPath + '/libs-manifest.json'),
-    }),
-    // 将dllplugin生成的js自动注入到html中
-    new AddAssetHtmlPlugin({
-      publicPath: '/static/js/',
-      filepath: path.resolve(libsPath, '*.js'),
-      outputPath: 'static/js',
-    }),
     // 提取less和css
     new MiniCssExtractPlugin({
       filename: 'static/css/[name].[contenthash: 8].css',
