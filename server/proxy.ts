@@ -1,5 +1,3 @@
-/// <reference types='../@types/koa-connect' />
-
 import { serverPort, proxyTable as configProxyTable } from '../config';
 import connect from 'koa-connect';
 import { createProxyMiddleware, Options } from 'http-proxy-middleware';

@@ -11,12 +11,14 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "*": ["@types/*"]
+    }
   },
   "include": [
-    "build/**/*",
-    "@types",
-    "server/**/*"
+    "./build",
+    "./server"
   ],
   "exclude": ["node_modules"]
 }
