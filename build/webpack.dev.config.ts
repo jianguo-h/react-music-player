@@ -19,17 +19,13 @@ const webpackDevConfig: Configuration = webpackMerge(webpackBaseConfig, {
   output: {
     filename: 'static/js/[name].[hash:8].js',
   },
-  module: {
-    rules: [
-      {
-        test: /.less$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
-      },
-    ],
+  stats: {
+    errors: true,
+    errorDetails: true,
+    warnings: true,
+    colors: true,
+    timings: true,
+    all: false,
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
 });

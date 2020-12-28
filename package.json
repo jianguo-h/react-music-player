@@ -4,7 +4,7 @@
   "description": "a React.js project",
   "main": "src/main.tsx",
   "scripts": {
-    "dev": "env-cmd ts-node build/dev-server.ts",
+    "start": "env-cmd ts-node build/dev-server.ts",
     "build": "env-cmd -f .env.production ts-node build/build.ts",
     "server": "env-cmd -f .env.server ts-node server/index.ts",
     "lint": "npm run prettier && npm run lint-script && npm run lint-style",
@@ -25,10 +25,13 @@
   "dependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@types/css-minimizer-webpack-plugin": "^1.1.1",
     "@types/koa": "^2.11.3",
     "@types/koa-router": "^7.4.0",
     "@types/koa-send": "^4.1.2",
     "@types/koa-static": "^4.0.1",
+    "@types/terser-webpack-plugin": "^4.2.0",
+    "css-minimizer-webpack-plugin": "^1.1.5",
     "env-cmd": "^10.1.0",
     "http-proxy-middleware": "^1.0.3",
     "husky": "^4.2.5",
@@ -37,7 +40,8 @@
     "koa-router": "^8.0.8",
     "koa-send": "^5.0.0",
     "koa-static": "^5.0.0",
-    "lint-staged": "^10.2.2"
+    "lint-staged": "^10.2.2",
+    "terser-webpack-plugin": "^4.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -48,14 +52,12 @@
     "@types/lodash": "^4.14.150",
     "@types/mini-css-extract-plugin": "^0.9.1",
     "@types/node": "^14.0.1",
-    "@types/optimize-css-assets-webpack-plugin": "^5.0.1",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.8",
     "@types/react-router": "^5.1.7",
     "@types/react-router-dom": "^5.1.5",
     "@types/rimraf": "^3.0.0",
-    "@types/uglifyjs-webpack-plugin": "^1.1.0",
     "@types/webpack": "^4.41.13",
     "@types/webpack-dev-middleware": "^3.7.0",
     "@types/webpack-env": "^1.15.2",
@@ -85,7 +87,6 @@
     "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.9.0",
     "open": "^7.0.3",
-    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "ora": "^4.0.4",
     "postcss-loader": "^3.0.0",
     "prettier": "^2.0.5",
@@ -107,7 +108,6 @@
     "ts-node": "^8.10.1",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.2",
-    "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
     "webpack-merge": "^4.2.2"
