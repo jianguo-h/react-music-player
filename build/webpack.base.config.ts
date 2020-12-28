@@ -1,6 +1,9 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { Configuration } from 'webpack';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 const webpackBaseConfig: Configuration = {
   entry: {
@@ -14,14 +17,40 @@ const webpackBaseConfig: Configuration = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(js|ts)x?$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'ts-loader'],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              cacheCompression: false,
+            },
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
       },
       {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
+        test: /.less$/,
+        use: [
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'less-loader',
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+          'postcss-loader',
+        ],
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
@@ -46,28 +75,33 @@ const webpackBaseConfig: Configuration = {
   plugins: [
     // 向模板 index.html 中自动注入css和js
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './src/index.html',
       inject: true,
+      template: path.resolve(__dirname, '../src/index.html'),
+      filename: 'index.html',
+      minify: isProduction
+        ? {
+            removeComments: true,
+            collapseWhitespace: true,
+            removeRedundantAttributes: true,
+            useShortDoctype: true,
+            removeEmptyAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            keepClosingSlash: true,
+            minifyJS: true,
+            minifyCSS: true,
+            minifyURLs: true,
+          }
+        : undefined,
     }),
   ],
   optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
-          name: 'vendors',
-        },
-        commons: {
-          chunks: 'all',
-          name: 'commons',
-          priority: -11,
-          minChunks: 2,
-        },
-      },
+    runtimeChunk: {
+      name: (entrypoint: { name: string }) => `runtime.${entrypoint.name}`,
     },
-    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+      name: false,
+    },
   },
 };
 

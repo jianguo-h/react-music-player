@@ -42,7 +42,7 @@ app.use(hotMiddlewareInstance);
 
 devMiddlewareInstance.waitUntilValid(async () => {
   console.log('dev server start at ' + url);
-  // await open(url);
+  await open(url);
 });
 
 // 端口检测
