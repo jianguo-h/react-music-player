@@ -4,7 +4,6 @@ import ReactHeader from './pages/header';
 import Player from './pages/player';
 import List from './pages/list';
 import SuspendLyric from './pages/suspend-lyric';
-import { hot } from 'react-hot-loader/root';
 
 function App() {
   return (
@@ -23,4 +22,4 @@ function App() {
   );
 }
 
-export default hot(App);
+export default App;

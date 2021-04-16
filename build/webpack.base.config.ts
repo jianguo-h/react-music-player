@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { Configuration } from 'webpack';
@@ -17,7 +18,7 @@ const webpackBaseConfig: Configuration = {
   module: {
     rules: [
       {
-        test: /\.(js|ts)x?$/,
+        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         use: [
           {
@@ -25,6 +26,7 @@ const webpackBaseConfig: Configuration = {
             options: {
               cacheDirectory: true,
               cacheCompression: false,
+              sourceMaps: !isProduction,
             },
           },
           {
@@ -53,13 +55,18 @@ const webpackBaseConfig: Configuration = {
         ],
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        exclude: [
+          /\.(js|mjs|jsx|ts|tsx)$/,
+          /\.html$/,
+          /\.json$/,
+          /\.(css|sass|scss|less)$/,
+        ],
         use: [
           {
             loader: 'url-loader',
             options: {
-              limit: 1024 * 3,
-              name: 'static/images/[name].[hash:7].[ext]',
+              limit: 1024 * 8,
+              name: 'static/media/[name].[hash:8].[ext]',
             },
           },
         ],
