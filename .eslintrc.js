@@ -5,9 +5,9 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
+    // 'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
-    'prettier/react',
+    // 'prettier/react',
   ],
   plugins: ['react', 'react-hooks'],
   parserOptions: {
@@ -38,9 +38,25 @@ module.exports = {
         ignoreParameters: true,
       },
     ],
-    '@typescript-eslint/camelcase': [
+    '@typescript-eslint/naming-convention': [
       'error',
-      { properties: 'never', ignoreDestructuring: true },
+      {
+        selector: 'property',
+        format: ['strictCamelCase', 'snake_case'],
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow',
+      },
+      {
+        selector: 'typeLike',
+        format: ['strictCamelCase', 'UPPER_CASE'],
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow',
+      },
+      {
+        selector: 'variable',
+        modifiers: ['destructured'],
+        format: null,
+      },
     ],
   },
   overrides: [
