@@ -4,6 +4,7 @@ import webpackBaseConfig from './webpack.base.config';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const webpackProdConfig: Configuration = webpackMerge(webpackBaseConfig, {
   devtool: false,
@@ -12,6 +13,7 @@ const webpackProdConfig: Configuration = webpackMerge(webpackBaseConfig, {
     filename: 'static/js/[name].[contenthash:8].js',
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new webpack.ProgressPlugin({}),
     new MiniCssExtractPlugin({
       filename: 'static/css/[name].[contenthash: 8].css',
@@ -22,9 +24,7 @@ const webpackProdConfig: Configuration = webpackMerge(webpackBaseConfig, {
     minimize: true,
     minimizer: [
       new CssMinimizerPlugin({
-        cache: true,
         parallel: true,
-        sourceMap: false,
         minimizerOptions: {
           preset: [
             'default',
@@ -37,13 +37,12 @@ const webpackProdConfig: Configuration = webpackMerge(webpackBaseConfig, {
       }),
       new TerserPlugin({
         parallel: true,
-        sourceMap: false,
         extractComments: false,
         terserOptions: {
           keep_fnames: false,
           keep_classnames: false,
+          sourceMap: false,
           compress: {
-            warnings: false,
             drop_console: true,
             drop_debugger: true,
             comparisons: false,
