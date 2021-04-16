@@ -5,7 +5,7 @@ import Player from './pages/player';
 import List from './pages/list';
 import SuspendLyric from './pages/suspend-lyric';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div id='root'>
       <ReactHeader />
@@ -20,6 +20,6 @@ function App() {
       <SuspendLyric />
     </div>
   );
-}
+};
 
 export default App;

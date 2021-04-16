@@ -5,9 +5,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'prettier',
-    // 'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
-    // 'prettier/react',
   ],
   plugins: ['react', 'react-hooks'],
   parserOptions: {
@@ -32,6 +30,8 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'warn',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/no-empty-interface': 'error',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-inferrable-types': [
       'error',
       {
@@ -41,22 +41,34 @@ module.exports = {
     '@typescript-eslint/naming-convention': [
       'error',
       {
+        selector: 'typeLike',
+        format: ['StrictPascalCase'],
+        leadingUnderscore: 'forbid',
+        trailingUnderscore: 'forbid',
+      },
+      {
         selector: 'property',
         format: ['strictCamelCase', 'snake_case'],
         leadingUnderscore: 'allow',
         trailingUnderscore: 'allow',
       },
       {
-        selector: 'typeLike',
-        format: ['strictCamelCase', 'UPPER_CASE'],
+        selector: 'variableLike',
+        format: ['strictCamelCase', 'snake_case', 'StrictPascalCase'],
+        leadingUnderscore: 'forbid',
+        trailingUnderscore: 'forbid',
+      },
+      /* {
+        selector: 'default',
+        format: [
+          'strictCamelCase',
+          'snake_case',
+          'UPPER_CASE',
+          'StrictPascalCase',
+        ],
         leadingUnderscore: 'allow',
         trailingUnderscore: 'allow',
-      },
-      {
-        selector: 'variable',
-        modifiers: ['destructured'],
-        format: null,
-      },
+      }, */
     ],
   },
   overrides: [
