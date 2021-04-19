@@ -5,7 +5,7 @@ interface IProps {
   curPlayTime?: number | string;
   progress?: number | string;
   endTime?: number | string;
-  progressBarRef: any;
+  progressBarRef: React.LegacyRef<HTMLDivElement>;
 }
 
 function formatTime(time: number): string {

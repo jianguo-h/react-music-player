@@ -1,8 +1,9 @@
+import { ILrcColor } from '@src/types';
 import React from 'react';
 
 interface IProps {
   changeLrcColor: (index: number) => void;
-  lrcColorList: any[];
+  lrcColorList: ILrcColor[];
 }
 
 const LrcColor: React.FC<IProps> = props => {

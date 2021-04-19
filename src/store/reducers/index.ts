@@ -1,6 +1,5 @@
 // reducers
 import _cloneDeep from 'lodash/cloneDeep';
-import { IAction, IPlaySongInfo, ILrcConfig, AudioEle } from '../types';
 import {
   SET_VIEW,
   SET_SONG_LIST,
@@ -19,6 +18,14 @@ import {
   SET_LRC_CONFIG,
   SET_LRC_SWITCH,
 } from '../actions';
+import {
+  AudioEle,
+  IAction,
+  ILrcConfig,
+  IPlayLrc,
+  IPlaySongInfo,
+  ISong,
+} from '@src/types';
 
 // 当前播放歌曲所属的路由
 export const view = (state: string = '', action: IAction): string => {
@@ -29,7 +36,7 @@ export const view = (state: string = '', action: IAction): string => {
 };
 
 // 当前播放歌曲所属的歌词列表
-export const songList = (state: any[] = [], action: IAction): any[] => {
+export const songList = (state: ISong[] = [], action: IAction): ISong[] => {
   if (action.type === SET_SONG_LIST) {
     return action.payload.songList;
   }
@@ -121,14 +128,19 @@ export const curPlayImgSrc = (
 };
 
 // 歌词数组
-export const curPlayLrcArr = (state: any[] = [], action: IAction): any[] => {
+export const curPlayLrcArr = (
+  state: IPlayLrc[] = [],
+  action: IAction
+): IPlayLrc[] => {
   if (action.type === SET_CUR_PLAY_LRC_ARR) {
-    const lyrics = _cloneDeep(action.payload.lyrics);
-    if (lyrics.length === 0) {
+    if (action.payload.lyrics.length === 0) {
       return state;
     }
-    const lrc = lyrics.replace(/\n/g, '').split('[').slice(1);
-    const curPlayLrcArr = [];
+    const lrc: string[] = action.payload.lyrics
+      .replace(/\n/g, '')
+      .split('[')
+      .slice(1);
+    const curPlayLrcArr: IPlayLrc[] = [];
     for (const [index, item] of lrc.entries()) {
       const times = item.split(']')[0].replace('.', ':').split(':');
       const time =

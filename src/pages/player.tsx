@@ -5,8 +5,9 @@ import PlayOperate from '../components/play-operate';
 import { Toast } from 'antd-mobile';
 import { setAudio, setIsPlayed, playSong } from '@src/store/actions';
 import { RootState } from '@src/store';
-import { IPlaySongInfo } from '@src/store/types';
+import { IPlaySongInfo } from '@src/types';
 import '../less/player.less';
+import { AudioEle } from '@src/types';
 
 const Player: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,19 +28,21 @@ const Player: React.FC = () => {
   const lock = useSelector<RootState, boolean>(state => state.lock);
   const modeType = useSelector<RootState, string>(state => state.modeType);
 
-  const audioEl = useRef<any>(null);
+  const audioEl = useRef<AudioEle>(null);
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
   const setCurrentTime = (time: number) => {
-    audioEl.current.currentTime = time;
-    console.log(audioEl.current.currentTime);
+    if (audioEl.current) {
+      audioEl.current.currentTime = time;
+      console.log(audioEl.current.currentTime);
+    }
   };
 
   const onCanplay = () => {
     if (lock) return;
 
-    if (audioEl.current.readyState === 4) {
-      audioEl.current.play();
+    if (audioEl.current?.readyState === 4) {
+      audioEl.current?.play();
       dispatch(setAudio(audioEl.current));
       dispatch(setIsPlayed(true));
     } else {
@@ -50,7 +53,7 @@ const Player: React.FC = () => {
   const onEnded = () => {
     if (modeType !== 'order') return;
 
-    const nextPlayIndex = curPlaySong.index + 1;
+    const nextPlayIndex = curPlaySong.index ?? 0 + 1;
     dispatch(playSong(nextPlayIndex));
   };
 

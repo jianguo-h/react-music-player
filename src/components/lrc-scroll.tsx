@@ -2,10 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { ILrcConfig } from '@src/store/types';
+import { IPlayLrc } from '@src/types';
 
 interface IProps {
   translateY?: number;
-  lrcBoxRef: any;
+  lrcBoxRef: React.LegacyRef<HTMLDivElement>;
 }
 
 const LrcScroll: React.FC<IProps> = props => {
@@ -14,7 +15,7 @@ const LrcScroll: React.FC<IProps> = props => {
   const lrcConfig = useSelector<RootState, ILrcConfig>(
     state => state.lrcConfig
   );
-  const curPlayLrcArr = useSelector<RootState, any[]>(
+  const curPlayLrcArr = useSelector<RootState, IPlayLrc[]>(
     state => state.curPlayLrcArr
   );
 

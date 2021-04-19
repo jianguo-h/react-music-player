@@ -13,13 +13,14 @@ import { Toast } from 'antd-mobile';
 import '../less/list.less';
 import { useRouteMatch, useParams } from 'react-router';
 import { RootState } from '@src/store';
-import { IPlaySongInfo } from '@src/store/types';
+import { IPlaySongInfo } from '@src/types';
+import { ISong } from '@src/types';
 
 const List: React.FC = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch();
-  const params = useParams<any>();
-  const searchObj = useRef<any>({
+  const params = useParams<{ keyword?: string }>();
+  const searchObj = useRef({
     page: 1,
     totalPage: 0,
     loading: false,
@@ -32,7 +33,7 @@ const List: React.FC = () => {
   );
   const isPlayed = useSelector<RootState, boolean>(state => state.isPlayed);
 
-  const [list, setList] = useState<any[]>([]);
+  const [list, setList] = useState<ISong[]>([]);
 
   const path = match.path.split('/')[1];
 
@@ -56,6 +57,10 @@ const List: React.FC = () => {
 
   // 获取根据关键字搜索后得到的歌曲列表
   const getSearchList = () => {
+    if (!params.keyword) {
+      return;
+    }
+
     searchObj.current.loading = true;
     Toast.loading('加载中...', 0);
 
@@ -67,14 +72,14 @@ const List: React.FC = () => {
         if (res.status === 200 && res.statusText === 'OK') {
           const searchListCount = data.total;
           searchObj.current.totalPage = Math.ceil(searchListCount / 20);
-          const searchSongList = data.lists.map((song: any) => {
+          const searchSongList = data.lists.map((song: ISong) => {
             return {
               SingerName: song.SingerName,
               SongName: song.SongName,
               FileName: song.FileName,
             };
           });
-          searchObj.current.isLoading = false;
+          searchObj.current.loading = false;
           setList(prevList => [...prevList, ...searchSongList]);
           dispatch(setSearchListCount(searchListCount));
         }
@@ -95,7 +100,7 @@ const List: React.FC = () => {
 
   // 滑动加载
   const scrollLoad = () => {
-    if (searchObj.current.isLoading || searchObj.current.allLoaded) {
+    if (searchObj.current.loading || searchObj.current.allLoaded) {
       return;
     }
     const docEl = document.documentElement;
@@ -126,9 +131,11 @@ const List: React.FC = () => {
       getSearchList();
     }
 
-    let timer: any = null;
+    let timer: NodeJS.Timeout | undefined;
     document.onscroll = () => {
-      clearTimeout(timer);
+      if (timer !== undefined) {
+        clearTimeout(timer);
+      }
       timer = setTimeout(() => {
         if (path === 'search') {
           scrollLoad();

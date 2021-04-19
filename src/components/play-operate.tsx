@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { playSong, togglePlayStatus } from '@src/store/actions';
 import '../less/play-operate.less';
-import { IPlaySongInfo } from '@src/store/types';
+import { IPlaySongInfo } from '@src/types';
 
 interface IProps {
   showDetail?: boolean;
@@ -24,9 +24,10 @@ const PlayOperate: React.FC<IProps> = props => {
 
   const changePlay = (operate: 'prev' | 'next') => () => {
     let newCurPlayIndex = curPlaySong.index;
-    operate === 'next' ? newCurPlayIndex++ : newCurPlayIndex--;
-
-    dispatch(playSong(newCurPlayIndex));
+    if (newCurPlayIndex !== undefined) {
+      operate === 'next' ? newCurPlayIndex++ : newCurPlayIndex--;
+      dispatch(playSong(newCurPlayIndex));
+    }
   };
 
   return (

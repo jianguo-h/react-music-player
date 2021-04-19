@@ -1,7 +1,8 @@
+import { ISong } from '@src/types';
 import React from 'react';
 
 interface IProps {
-  song: any;
+  song: ISong;
   index: number;
   active: boolean;
   onPlay: (index: number) => void;

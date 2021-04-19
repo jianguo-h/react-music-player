@@ -2,11 +2,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { playSong } from '@src/store/actions';
 import { RootState } from '@src/store';
-import { IPlaySongInfo } from '@src/store/types';
+import { IPlaySongInfo, ISong } from '@src/types';
 
 const DetailList: React.FC = () => {
   const dispatch = useDispatch();
-  const songList = useSelector<RootState, any[]>(state => state.songList);
+  const songList = useSelector<RootState, ISong[]>(state => state.songList);
   const curPlaySong = useSelector<RootState, IPlaySongInfo>(
     state => state.curPlaySong
   );

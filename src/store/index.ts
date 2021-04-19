@@ -9,3 +9,5 @@ const store = createStore(reducer, middlewares);
 export default store;
 
 export type RootState = ReturnType<typeof reducer>;
+
+export type GetStateFn = () => RootState;

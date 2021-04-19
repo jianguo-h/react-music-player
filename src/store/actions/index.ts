@@ -2,14 +2,16 @@
 import { getSongInfo as apiGetSongInfo, play as apiPlay } from '@src/api';
 import { Toast } from 'antd-mobile';
 import _cloneDeep from 'lodash/cloneDeep';
+import { Dispatch } from 'redux';
 import {
+  AudioEle,
   IAction,
   ILrcConfig,
   IPlaySongInfo,
-  GetStateFn,
-  AudioEle,
-} from '../types';
-import { Dispatch } from 'redux';
+  ISong,
+} from '@src/types';
+import { ThunkDispatch } from 'redux-thunk';
+import { GetStateFn, RootState } from '..';
 
 export const SET_VIEW = 'SET_VIEW';
 export function setView(view: string): IAction {
@@ -22,7 +24,7 @@ export function setView(view: string): IAction {
 }
 
 export const SET_SONG_LIST = 'SET_SONG_LIST';
-export function setSongList(songList: any[]): IAction {
+export function setSongList(songList: ISong[]): IAction {
   return {
     type: 'SET_SONG_LIST',
     payload: {
@@ -108,7 +110,7 @@ export function setCurPlayImgSrc(curPlayImgSrc: string): IAction {
 }
 
 export const SET_CUR_PLAY_LRC_ARR = 'SET_CUR_PLAY_LRC_ARR';
-export function setCurPlayLrcArr(lyrics: any[]): IAction {
+export function setCurPlayLrcArr(lyrics: string): IAction {
   return {
     type: SET_CUR_PLAY_LRC_ARR,
     payload: {
@@ -178,7 +180,7 @@ export function setCurPlaySong(curPlaySong: IPlaySongInfo): IAction {
 }
 
 export function togglePlayStatus() {
-  return (dispatch: Dispatch<any>, getState: GetStateFn) => {
+  return (dispatch: Dispatch, getState: GetStateFn) => {
     const state = getState();
     if (!state.audioSrc) {
       dispatch(setPaused(false));
@@ -196,12 +198,15 @@ export function togglePlayStatus() {
 }
 
 export function playSong(curPlayIndex: number) {
-  return async (dispatch: Dispatch<any>, getState: GetStateFn) => {
+  return async (
+    dispatch: ThunkDispatch<RootState, null, IAction>,
+    getState: GetStateFn
+  ) => {
     Toast.loading('加载中...', 0);
 
     dispatch(setIsPlayed(false));
     dispatch(setAudioSrc(''));
-    dispatch(setCurPlayLrcArr([]));
+    dispatch(setCurPlayLrcArr(''));
     dispatch(
       setCurPlayImgSrc(require('../../static/images/singer-default.jpg'))
     );
@@ -214,18 +219,22 @@ export function playSong(curPlayIndex: number) {
     );
 
     const state = getState();
-    const songList = _cloneDeep(state.songList);
     if (curPlayIndex < 0) {
-      curPlayIndex = songList.length - 1;
-    } else if (curPlayIndex >= songList.length) {
+      curPlayIndex = state.songList.length - 1;
+    } else if (curPlayIndex >= state.songList.length) {
       curPlayIndex = 0;
     }
-    const curPlaySong = _cloneDeep(songList[curPlayIndex]);
+    const curPlaySong: IPlaySongInfo = {
+      ...state.songList[curPlayIndex],
+    };
     curPlaySong.index = curPlayIndex;
     dispatch(setCurPlaySong(curPlaySong));
 
     try {
       const songName = curPlaySong.FileName;
+      if (!songName) {
+        return;
+      }
       const infoRes = await apiGetSongInfo(songName);
       console.log('>>> [res] 获取歌曲的一些信息', infoRes);
       if (infoRes.status === 200 && infoRes.statusText === 'OK') {

@@ -5,12 +5,13 @@ import DropList from '../components/drop-list';
 import { search as apiSearch } from '@src/api';
 import debounce from 'lodash/debounce';
 import '../less/header.less';
+import { RootState } from '@src/store';
 
 const Header: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const searchListCount = useSelector<any, number>(
+  const searchListCount = useSelector<RootState, number>(
     state => state.searchListCount
   );
 
