@@ -55,8 +55,8 @@ module.exports = {
       {
         selector: 'variableLike',
         format: ['strictCamelCase', 'snake_case', 'StrictPascalCase'],
-        leadingUnderscore: 'forbid',
-        trailingUnderscore: 'forbid',
+        leadingUnderscore: 'allow',
+        trailingUnderscore: 'allow',
       },
       /* {
         selector: 'default',
