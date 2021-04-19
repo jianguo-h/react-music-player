@@ -1,31 +1,46 @@
-import Koa from 'koa';
+import express from 'express';
+import song from './song.json';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import { proxyTable, serverPort } from '../config';
 import path from 'path';
-import send from 'koa-send';
-import proxy from './proxy';
-import configStatic from './static';
-import router from './router';
-import detectionPort from './detection-port';
-import { serverPort } from '../config';
 
-const app = new Koa();
+const app = express();
 
-// config koa router
-router(app);
-
-// config koa proxy
-proxy(app);
-
-// config static file
-configStatic(app, '../dist');
-
-// config dist directory start
-app.use(async ctx => {
-  if (ctx.path === '/') {
-    await send(ctx, ctx.path, {
-      root: path.resolve(__dirname, '../dist'),
+// config express router
+const songData = JSON.parse(JSON.stringify(song));
+const routes = ['new', 'recommend', 'local'];
+for (const route of routes) {
+  app.get('/api/' + route, (_, res) => {
+    res.json({
+      path: route,
+      data: songData[route],
     });
+  });
+}
+
+// config exress server proxy
+const isDev = process.env.NODE_ENV === 'development';
+Object.keys(proxyTable).forEach(ctx => {
+  let options = proxyTable[ctx];
+  if (typeof options === 'string') {
+    options = { target: options };
   }
+  app.use(
+    ctx,
+    createProxyMiddleware({
+      changeOrigin: true,
+      target: isDev ? 'http://localhost:' + serverPort : options.target,
+      pathRewrite: isDev ? undefined : options.pathRewrite,
+    })
+  );
 });
 
-// 端口检测
-detectionPort(app, serverPort);
+// static path config
+const distPath = path.join(__dirname, '../dist');
+app.use('/', express.static(distPath));
+
+app.listen(serverPort, () => {
+  console.log(
+    '\n express backend server start at http://localhost:' + serverPort
+  );
+});

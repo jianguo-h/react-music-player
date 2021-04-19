@@ -26,7 +26,7 @@ export async function search(keyword: string) {
 export async function getList(path: string) {
   return await callApi(
     {
-      method: 'post',
+      method: 'get',
       url: '/api/' + path,
     },
     '获取静态json数据中的歌曲列表'
