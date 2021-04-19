@@ -1,5 +1,4 @@
 // reducers
-import _cloneDeep from 'lodash/cloneDeep';
 import {
   SET_VIEW,
   SET_SONG_LIST,
