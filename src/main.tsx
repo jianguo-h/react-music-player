@@ -7,11 +7,6 @@ import adapt from './ts/adapt';
 import { HashRouter as Router } from 'react-router-dom';
 import './less/app.less';
 
-// hot module
-if (module.hot) {
-  module.hot.accept();
-}
-
 // some config
 adapt();
 

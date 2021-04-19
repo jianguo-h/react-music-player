@@ -76,6 +76,7 @@ const webpackBaseConfig: Configuration = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     alias: {
+      'react-dom': '@hot-loader/react-dom',
       '@src': path.resolve(__dirname, '../src'),
     },
   },
