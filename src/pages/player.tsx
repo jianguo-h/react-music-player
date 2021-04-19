@@ -4,28 +4,28 @@ import React, { useState, useRef } from 'react';
 import PlayOperate from '../components/play-operate';
 import { Toast } from 'antd-mobile';
 import { setAudio, setIsPlayed, playSong } from '@src/store/actions';
-import { IRootState } from '@src/store';
+import { RootState } from '@src/store';
 import { IPlaySongInfo } from '@src/store/types';
 import '../less/player.less';
 
 const Player: React.FC = () => {
   const dispatch = useDispatch();
 
-  const audioSrc = useSelector<IRootState, string | null>(
+  const audioSrc = useSelector<RootState, string | null>(
     state => state.audioSrc
   );
-  const loop = useSelector<IRootState, boolean>(state => state.loop);
-  const canPlayed = useSelector<IRootState, boolean>(state => state.canPlayed);
-  const isPlayed = useSelector<IRootState, boolean>(state => state.isPlayed);
-  const curPlaySong = useSelector<IRootState, IPlaySongInfo>(
+  const loop = useSelector<RootState, boolean>(state => state.loop);
+  const canPlayed = useSelector<RootState, boolean>(state => state.canPlayed);
+  const isPlayed = useSelector<RootState, boolean>(state => state.isPlayed);
+  const curPlaySong = useSelector<RootState, IPlaySongInfo>(
     state => state.curPlaySong
   );
-  const curPlayImgSrc = useSelector<IRootState, string>(
+  const curPlayImgSrc = useSelector<RootState, string>(
     state => state.curPlayImgSrc
   );
-  const paused = useSelector<IRootState, boolean>(state => state.paused);
-  const lock = useSelector<IRootState, boolean>(state => state.lock);
-  const modeType = useSelector<IRootState, string>(state => state.modeType);
+  const paused = useSelector<RootState, boolean>(state => state.paused);
+  const lock = useSelector<RootState, boolean>(state => state.lock);
+  const modeType = useSelector<RootState, string>(state => state.modeType);
 
   const audioEl = useRef<any>(null);
   const [showDetail, setShowDetail] = useState<boolean>(false);

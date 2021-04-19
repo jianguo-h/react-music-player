@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from '@src/store';
+import { RootState } from '@src/store';
 import { playSong, togglePlayStatus } from '@src/store/actions';
 import '../less/play-operate.less';
 import { IPlaySongInfo } from '@src/store/types';
@@ -14,8 +14,8 @@ const PlayOperate: React.FC<IProps> = props => {
 
   const dispatch = useDispatch();
 
-  const paused = useSelector<IRootState, boolean>(state => state.paused);
-  const curPlaySong = useSelector<IRootState, IPlaySongInfo>(
+  const paused = useSelector<RootState, boolean>(state => state.paused);
+  const curPlaySong = useSelector<RootState, IPlaySongInfo>(
     state => state.curPlaySong
   );
 

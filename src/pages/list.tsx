@@ -12,7 +12,7 @@ import { getList as apiGetList, getSongInfo as apiGetSongInfo } from '@src/api';
 import { Toast } from 'antd-mobile';
 import '../less/list.less';
 import { useRouteMatch, useParams } from 'react-router';
-import { IRootState } from '@src/store';
+import { RootState } from '@src/store';
 import { IPlaySongInfo } from '@src/store/types';
 
 const List: React.FC = () => {
@@ -26,11 +26,11 @@ const List: React.FC = () => {
     allLoaded: false,
   });
 
-  const view = useSelector<IRootState, string>(state => state.view);
-  const curPlaySong = useSelector<IRootState, IPlaySongInfo>(
+  const view = useSelector<RootState, string>(state => state.view);
+  const curPlaySong = useSelector<RootState, IPlaySongInfo>(
     state => state.curPlaySong
   );
-  const isPlayed = useSelector<IRootState, boolean>(state => state.isPlayed);
+  const isPlayed = useSelector<RootState, boolean>(state => state.isPlayed);
 
   const [list, setList] = useState<any[]>([]);
 

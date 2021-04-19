@@ -8,4 +8,4 @@ const store = createStore(reducer, middlewares);
 
 export default store;
 
-export type IRootState = ReturnType<typeof reducer>;
+export type RootState = ReturnType<typeof reducer>;

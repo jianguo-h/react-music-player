@@ -1,4 +1,4 @@
-import { IRootState } from './index';
+import { RootState } from './index';
 
 export interface IPlaySongInfo {
   index: number;
@@ -20,6 +20,6 @@ export interface IAction {
   };
 }
 
-export type GetStateFn = () => IRootState;
+export type GetStateFn = () => RootState;
 
 export type AudioEle = HTMLAudioElement | null;
