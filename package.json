@@ -50,6 +50,7 @@
     "css-minimizer-webpack-plugin": "^2.0.0",
     "env-cmd": "^10.1.0",
     "file-loader": "^6.2.0",
+    "fork-ts-checker-webpack-plugin": "^6.2.1",
     "html-webpack-plugin": "^5.3.1",
     "less": "^4.1.1",
     "less-loader": "^8.1.1",
