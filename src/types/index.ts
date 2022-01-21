@@ -1,5 +1,13 @@
 import { Action } from 'redux';
 
+export enum SongType {
+  new = 'new',
+  local = 'local',
+  recommend = 'recommend',
+}
+
+export type SongTypes = SongType.new | SongType.local | SongType.recommend;
+
 export interface ISong {
   FileName?: string;
   SongName?: string;

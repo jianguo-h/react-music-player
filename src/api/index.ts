@@ -1,3 +1,4 @@
+import { SongTypes } from '@src/types';
 import axios, { AxiosRequestConfig } from 'axios';
 
 async function callApi(requestConfig: AxiosRequestConfig, title: string) {
@@ -23,7 +24,7 @@ export async function search(keyword: string) {
 }
 
 // 获取静态json数据中的歌曲列表
-export async function getList(path: string) {
+export async function getList(path: SongTypes) {
   return await callApi(
     {
       method: 'get',

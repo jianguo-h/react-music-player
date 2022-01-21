@@ -11,15 +11,19 @@ import {
 import { getList as apiGetList, getSongInfo as apiGetSongInfo } from '@src/api';
 import { Toast } from 'antd-mobile';
 import '../less/list.less';
-import { useRouteMatch, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { RootState } from '@src/store';
-import { IPlaySongInfo } from '@src/types';
+import { IPlaySongInfo, SongType, SongTypes } from '@src/types';
 import { ISong } from '@src/types';
 
 const List: React.FC = () => {
   const dispatch = useDispatch();
-  const match = useRouteMatch();
-  const params = useParams<{ keyword?: string }>();
+
+  const { keyword, type = SongType.new } =
+    useParams<{ keyword?: string; type?: SongTypes }>();
+
+  console.log('params', keyword, type);
+
   const searchObj = useRef({
     page: 1,
     totalPage: 0,
@@ -35,12 +39,10 @@ const List: React.FC = () => {
 
   const [list, setList] = useState<ISong[]>([]);
 
-  const path = match.path.split('/')[1];
-
   // 渲染静态数据(song.json中的)列表数据
   const getStaticList = () => {
     Toast.loading('加载中...', 0);
-    apiGetList(path)
+    apiGetList(type)
       .then(res => {
         console.log('>>> [res] 渲染列表数据', res);
         setTimeout(() => {
@@ -57,14 +59,14 @@ const List: React.FC = () => {
 
   // 获取根据关键字搜索后得到的歌曲列表
   const getSearchList = () => {
-    if (!params.keyword) {
+    if (!keyword) {
       return;
     }
 
     searchObj.current.loading = true;
     Toast.loading('加载中...', 0);
 
-    apiGetSongInfo(params.keyword, searchObj.current.page)
+    apiGetSongInfo(keyword, searchObj.current.page)
       .then(res => {
         Toast.hide();
         console.log('>>> [res] 搜索后得到的歌曲列表', res);
@@ -93,7 +95,7 @@ const List: React.FC = () => {
 
   // 播放歌曲
   const onPlay = (curPlayIndex: number) => {
-    dispatch(setView(path));
+    dispatch(setView(type));
     dispatch(setSongList(list));
     dispatch(playSong(curPlayIndex));
   };
@@ -125,7 +127,7 @@ const List: React.FC = () => {
   };
 
   useEffect(() => {
-    if (path !== 'search') {
+    if (!keyword) {
       getStaticList();
     } else {
       getSearchList();
@@ -137,7 +139,7 @@ const List: React.FC = () => {
         clearTimeout(timer);
       }
       timer = setTimeout(() => {
-        if (path === 'search') {
+        if (keyword) {
           scrollLoad();
         }
       }, 100);
@@ -146,7 +148,7 @@ const List: React.FC = () => {
     return () => {
       document.onscroll = null;
     };
-  }, []);
+  }, [type]);
 
   return (
     <div id='content'>
@@ -157,7 +159,7 @@ const List: React.FC = () => {
               onPlay,
               song,
               index,
-              active: view === path && index === curPlaySong.index && isPlayed,
+              active: view === type && index === curPlaySong.index && isPlayed,
             };
             return <ListItem {...listItemProps} key={index} />;
           })}

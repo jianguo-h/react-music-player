@@ -281,7 +281,7 @@ export function playSong(curPlayIndex: number) {
     } catch (err) {
       Toast.hide();
       Toast.fail('网络出现错误或服务暂时不可用');
-      throw new Error(err);
+      throw new Error(err as string);
     }
   };
 }

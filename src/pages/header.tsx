@@ -1,14 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import DropList from '../components/drop-list';
 import { search as apiSearch } from '@src/api';
 import debounce from 'lodash/debounce';
 import '../less/header.less';
 import { RootState } from '@src/store';
+import { SongType } from '@src/types';
 
 const Header: React.FC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const searchListCount = useSelector<RootState, number>(
@@ -62,13 +63,17 @@ const Header: React.FC = () => {
       window.alert('请输入搜索内容');
       return;
     }
-    history.push('/search/' + searchText);
+    navigate('/search/' + searchText);
     setKeyword('');
   };
 
   // 后退
   const goback = () => {
     history.go(-1);
+  };
+
+  const getActiveLinkClass = (params: { isActive: boolean }) => {
+    return params.isActive ? 'active' : '';
   };
 
   const path = location.pathname.split('/')[1];
@@ -98,17 +103,28 @@ const Header: React.FC = () => {
         <div className='header-tab'>
           <ul>
             <li>
-              <NavLink activeClassName='active' to='/new'>
+              <NavLink
+                className={params => {
+                  if (location.pathname === '/') {
+                    return 'active';
+                  }
+                  return getActiveLinkClass(params);
+                }}
+                to={'/' + SongType.new}
+              >
                 新歌
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName='active' to='/recommend'>
+              <NavLink
+                className={getActiveLinkClass}
+                to={'/' + SongType.recommend}
+              >
                 推荐
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName='active' to='/local'>
+              <NavLink className={getActiveLinkClass} to={'/' + SongType.local}>
                 本地
               </NavLink>
             </li>
