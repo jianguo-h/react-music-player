@@ -26,6 +26,9 @@ const webpackProdConfig: Configuration = webpackMerge(webpackBaseConfig, {
       new CssMinimizerPlugin({
         parallel: true,
         minimizerOptions: {
+          processorOptions: {
+            map: false,
+          },
           preset: [
             'default',
             {

@@ -15,6 +15,7 @@ const webpackBaseConfig: Configuration = {
     chunkFilename: 'static/js/[name].[contenthash:8].chunk.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
+    assetModuleFilename: 'static/media/[name].[hash:8].[ext]',
   },
   module: {
     rules: [
@@ -62,15 +63,7 @@ const webpackBaseConfig: Configuration = {
           /\.json$/,
           /\.(css|sass|scss|less)$/,
         ],
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 1024 * 8,
-              name: 'static/media/[name].[hash:8].[ext]',
-            },
-          },
-        ],
+        type: 'asset/resource',
       },
     ],
   },
@@ -82,7 +75,6 @@ const webpackBaseConfig: Configuration = {
     },
   },
   plugins: [
-    // 向模板 index.html 中自动注入css和js
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(__dirname, '../src/index.html'),
@@ -110,9 +102,7 @@ const webpackBaseConfig: Configuration = {
     }),
   ],
   optimization: {
-    runtimeChunk: {
-      name: (entrypoint: { name: string }) => `runtime.${entrypoint.name}`,
-    },
+    runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
       name: false,
