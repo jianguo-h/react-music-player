@@ -1,7 +1,5 @@
 module.exports = {
-  customSyntax: 'postcss-less',
   extends: ['stylelint-config-standard', 'stylelint-prettier/recommended'],
-  plugins: ['stylelint-less'],
   rules: {
     'comment-empty-line-before': 'always',
     'rule-empty-line-before': [
@@ -11,7 +9,8 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.module.less'],
+      files: ['**/*.less'],
+      customSyntax: 'postcss-less',
       rules: {
         'selector-class-pattern': null,
       },
